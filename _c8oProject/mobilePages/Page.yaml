@@ -1,6 +1,6 @@
 ↑isRoot: true
 comment: Default home page
-icon: home
+icon: shield
 preloadPriority: high
 scriptContent: 
   - xmlizable: 
@@ -17,7 +17,7 @@ scriptContent:
         	/*End_c8o_PageFunction*/
         
 segment: home
-title: Home
+title: Administration RBAC
 ↓Header [ngx.components.UIDynamicElement-1781106235855]: 
   beanData: '{"ionBean":"Header"}'
   comment: Top page header container
@@ -192,70 +192,615 @@ title: Home
   beanData: '{"ionBean":"Content"}'
   comment: Main scrollable content area for the home page
   tagName: ion-content
-  ↓WelcomeCard [ngx.components.UIDynamicElement-1781106235887]: 
+  ↓HeroCard [ngx.components.UIDynamicElement-1781106899519]: 
     beanData: '{"ionBean":"Card"}'
-    comment: Introductory card shown on first page load
+    comment: Administration overview card.
     tagName: ion-card
-    ↓CardHeader [ngx.components.UIDynamicElement-1781106235888]: 
+    ↓HeroClass [ngx.components.UIAttribute-1781106899521]: 
+      attrName: class
+      attrValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:admin-hero
+    ↓HeroHeader [ngx.components.UIDynamicElement-1781106899523]: 
       beanData: '{"ionBean":"CardHeader"}'
-      comment: Header section for the welcome card
       tagName: ion-card-header
-      ↓CardTitle [ngx.components.UIDynamicElement-1781106235889]: 
-        beanData: '{"ionBean":"CardTitle"}'
-        comment: Title area of the welcome card
-        tagName: ion-card-title
-        ↓Text [ngx.components.UIText-1781106235890]: 
-          comment: Translation key for the welcome card title
-          i18n: true
+      ↓HeroTitle [ngx.components.UIDynamicElement-1781106899525]: 
+        beanData: '{"ionBean":"Heading1"}'
+        tagName: h1
+        ↓Text [ngx.components.UIText-1781106899527]: 
           textValue: 
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-              - MobileSmartSourceType: plain:Project_created
-    ↓CardContent [ngx.components.UIDynamicElement-1781106235891]: 
+              - MobileSmartSourceType: plain:Administration utilisateurs et RBAC
+      ↓HeroSubtitle [ngx.components.UIDynamicElement-1781106899529]: 
+        beanData: '{"ionBean":"Paragraph"}'
+        tagName: p
+        ↓Text [ngx.components.UIText-1781106899531]: 
+          textValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:Console d'administration au-dessus de lib_UserManager et lib_FullSyncGrp pour piloter les comptes, groupes, roles et permissions FullSync.
+    ↓HeroActions [ngx.components.UIDynamicElement-1781106899533]: 
       beanData: '{"ionBean":"CardContent"}'
-      comment: Body section containing onboarding instructions
       tagName: ion-card-content
-      ↓ParagraphIntro [ngx.components.UIDynamicElement-1781106235892]: 
-        beanData: '{"ionBean":"Paragraph"}'
-        comment: Introductory onboarding sentence
-        tagName: p
-        ↓Text [ngx.components.UIText-1781106235893]: 
-          comment: Translation key for the introductory sentence
-          i18n: true
-          textValue: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-              - MobileSmartSourceType: plain:Start_building_your_app
-      ↓ParagraphStep1 [ngx.components.UIDynamicElement-1781106235894]: 
-        beanData: '{"ionBean":"Paragraph"}'
-        comment: First onboarding step description
-        tagName: p
-        ↓Text [ngx.components.UIText-1781106235895]: 
-          comment: Translation key for onboarding step 1
-          i18n: true
-          textValue: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-              - MobileSmartSourceType: plain:Add_your_first_page
-      ↓ParagraphStep2 [ngx.components.UIDynamicElement-1781106235896]: 
-        beanData: '{"ionBean":"Paragraph"}'
-        comment: Second onboarding step description
-        tagName: p
-        ↓Text [ngx.components.UIText-1781106235897]: 
-          comment: Translation key for onboarding step 2
-          i18n: true
-          textValue: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-              - MobileSmartSourceType: plain:Create_a_sequence_for_backend_logic
-      ↓ParagraphStep3 [ngx.components.UIDynamicElement-1781106235898]: 
-        beanData: '{"ionBean":"Paragraph"}'
-        comment: Third onboarding step description
-        tagName: p
-        ↓Text [ngx.components.UIText-1781106235899]: 
-          comment: Translation key for onboarding step 3
-          i18n: true
-          textValue: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-              - MobileSmartSourceType: plain:Run_and_preview_from_Studio
+      ↓ActionsGrid [ngx.components.UIDynamicElement-1781106899535]: 
+        beanData: '{"ionBean":"Grid"}'
+        tagName: ion-grid
+        ↓ActionsRow [ngx.components.UIDynamicElement-1781106899537]: 
+          beanData: '{"ionBean":"GridRow"}'
+          tagName: ion-row
+          ↓AddUserCol [ngx.components.UIDynamicElement-1781106899539]: 
+            beanData: '{"ionBean":"GridCol"}'
+            tagName: ion-col
+            ↓Button [ngx.components.UIDynamicElement-1781106899541]: 
+              beanData: |
+                '{
+                 "ionBean": "Button",
+                 "Disabled": "plain:true",
+                 "IonColor": "plain:primary",
+                 "IonFill": "plain:outline",
+                 "IonSize": "plain:small"
+                }'
+              tagName: ion-button
+              ↓Text [ngx.components.UIText-1781106899543]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Creer un utilisateur
+          ↓UserGroupCol [ngx.components.UIDynamicElement-1781106899545]: 
+            beanData: '{"ionBean":"GridCol"}'
+            tagName: ion-col
+            ↓Button [ngx.components.UIDynamicElement-1781106899547]: 
+              beanData: |
+                '{
+                 "ionBean": "Button",
+                 "Disabled": "plain:true",
+                 "IonColor": "plain:secondary",
+                 "IonFill": "plain:outline",
+                 "IonSize": "plain:small"
+                }'
+              tagName: ion-button
+              ↓Text [ngx.components.UIText-1781106899549]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Affecter a un groupe
+          ↓GroupRoleCol [ngx.components.UIDynamicElement-1781106899551]: 
+            beanData: '{"ionBean":"GridCol"}'
+            tagName: ion-col
+            ↓Button [ngx.components.UIDynamicElement-1781106899553]: 
+              beanData: |
+                '{
+                 "ionBean": "Button",
+                 "Disabled": "plain:true",
+                 "IonColor": "plain:tertiary",
+                 "IonFill": "plain:outline",
+                 "IonSize": "plain:small"
+                }'
+              tagName: ion-button
+              ↓Text [ngx.components.UIText-1781106899555]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Affecter un role
+          ↓RolePermissionCol [ngx.components.UIDynamicElement-1781106899557]: 
+            beanData: '{"ionBean":"GridCol"}'
+            tagName: ion-col
+            ↓Button [ngx.components.UIDynamicElement-1781106899559]: 
+              beanData: |
+                '{
+                 "ionBean": "Button",
+                 "Disabled": "plain:true",
+                 "IonColor": "plain:success",
+                 "IonFill": "plain:outline",
+                 "IonSize": "plain:small"
+                }'
+              tagName: ion-button
+              ↓Text [ngx.components.UIText-1781106899561]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Affecter une permission
+  ↓KpiGrid [ngx.components.UIDynamicElement-1781106921966]: 
+    beanData: '{"ionBean":"Grid"}'
+    tagName: ion-grid
+    ↓KpiClass [ngx.components.UIAttribute-1781106921968]: 
+      attrName: class
+      attrValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:admin-kpis
+    ↓KpiRow [ngx.components.UIDynamicElement-1781106921970]: 
+      beanData: '{"ionBean":"GridRow"}'
+      tagName: ion-row
+      ↓UsersKpiCol [ngx.components.UIDynamicElement-1781106921972]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓UsersKpi [ngx.components.UIDynamicElement-1781106921974]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓KpiClass [ngx.components.UIAttribute-1781106921976]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-kpi
+          ↓Content [ngx.components.UIDynamicElement-1781106921978]: 
+            beanData: '{"ionBean":"CardContent"}'
+            tagName: ion-card-content
+            ↓Count [ngx.components.UIDynamicElement-1781106921980]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781106921982]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[0]?.document?.user || []).length || 0)
+            ↓Label [ngx.components.UIDynamicElement-1781106921984]: 
+              beanData: '{"ionBean":"Paragraph"}'
+              tagName: p
+              ↓Text [ngx.components.UIText-1781106921986]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Utilisateurs
+      ↓GroupsKpiCol [ngx.components.UIDynamicElement-1781106921988]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓GroupsKpi [ngx.components.UIDynamicElement-1781106921990]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓KpiClass [ngx.components.UIAttribute-1781106921992]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-kpi
+          ↓Content [ngx.components.UIDynamicElement-1781106921994]: 
+            beanData: '{"ionBean":"CardContent"}'
+            tagName: ion-card-content
+            ↓Count [ngx.components.UIDynamicElement-1781106921996]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781106921998]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[1]?.document?.group || []).length || 0)
+            ↓Label [ngx.components.UIDynamicElement-1781106922000]: 
+              beanData: '{"ionBean":"Paragraph"}'
+              tagName: p
+              ↓Text [ngx.components.UIText-1781106922002]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Groupes
+      ↓RolesKpiCol [ngx.components.UIDynamicElement-1781106922004]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓RolesKpi [ngx.components.UIDynamicElement-1781106922006]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓KpiClass [ngx.components.UIAttribute-1781106922008]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-kpi
+          ↓Content [ngx.components.UIDynamicElement-1781106922010]: 
+            beanData: '{"ionBean":"CardContent"}'
+            tagName: ion-card-content
+            ↓Count [ngx.components.UIDynamicElement-1781106922012]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781106922014]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[2]?.document?.role || []).length || 0)
+            ↓Label [ngx.components.UIDynamicElement-1781106922016]: 
+              beanData: '{"ionBean":"Paragraph"}'
+              tagName: p
+              ↓Text [ngx.components.UIText-1781106922018]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Roles
+      ↓PermissionsKpiCol [ngx.components.UIDynamicElement-1781106922020]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓PermissionsKpi [ngx.components.UIDynamicElement-1781106922022]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓KpiClass [ngx.components.UIAttribute-1781106922024]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-kpi
+          ↓Content [ngx.components.UIDynamicElement-1781106922026]: 
+            beanData: '{"ionBean":"CardContent"}'
+            tagName: ion-card-content
+            ↓Count [ngx.components.UIDynamicElement-1781106922028]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781106922030]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[3]?.document?.permission || []).length || 0)
+            ↓Label [ngx.components.UIDynamicElement-1781106922032]: 
+              beanData: '{"ionBean":"Paragraph"}'
+              tagName: p
+              ↓Text [ngx.components.UIText-1781106922034]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Permissions
+  ↓AdminGrid [ngx.components.UIDynamicElement-1781106927927]: 
+    beanData: '{"ionBean":"Grid"}'
+    tagName: ion-grid
+    ↓GridClass [ngx.components.UIAttribute-1781106927929]: 
+      attrName: class
+      attrValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:admin-grid
+    ↓AdminRow [ngx.components.UIDynamicElement-1781106927931]: 
+      beanData: '{"ionBean":"GridRow"}'
+      tagName: ion-row
+      ↓UsersPanelCol [ngx.components.UIDynamicElement-1781106941454]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓UsersPanel [ngx.components.UIDynamicElement-1781106941456]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓PanelClass [ngx.components.UIAttribute-1781106941458]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-panel
+          ↓Header [ngx.components.UIDynamicElement-1781106941460]: 
+            beanData: '{"ionBean":"CardHeader"}'
+            tagName: ion-card-header
+            ↓Title [ngx.components.UIDynamicElement-1781106941462]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781106941464]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Utilisateurs
+            ↓Badge [ngx.components.UIDynamicElement-1781106941466]: 
+              beanData: '{"ionBean":"Badge","IonColor":"plain:primary"}'
+              tagName: ion-badge
+              ↓Text [ngx.components.UIText-1781106941468]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[0]?.document?.user || []).length || 0)
+              ↓BadgeClass [ngx.components.UIAttribute-1781110516108]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:admin-count-badge
+          ↓List [ngx.components.UIDynamicElement-1781106941470]: 
+            beanData: '{"ionBean":"List","Lines":"plain:none"}'
+            tagName: ion-list
+            ↓UsersForEach [ngx.components.UIControlDirective-1781106941472]: 
+              directiveIndexName: i
+              directiveItemName: user
+              directiveSource: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:(this.local?.adminDashboard?.sequence?.[0]?.document?.user || []).slice(0, 12)
+              ↓Item [ngx.components.UIDynamicElement-1781106943764]: 
+                beanData: '{"ionBean":"ListItem"}'
+                tagName: ion-item
+                ↓ProviderIcon [ngx.components.UIDynamicElement-1781112511224]: 
+                  beanData: |
+                    '{
+                     "ionBean": "Icon",
+                     "IconName": "script:({google:''logo-google'',github:''logo-github'',facebook:''logo-facebook'',apple:''logo-apple'',microsoft:''logo-microsoft'',azure:''logo-microsoft'',azuread:''logo-microsoft'',twitter:''logo-twitter'',x:''logo-twitter'',linkedin:''logo-linkedin'',gitlab:''logo-gitlab'',bitbucket:''logo-bitbucket'',amazon:''logo-amazon'',yahoo:''logo-yahoo'',slack:''logo-slack'',discord:''logo-discord'',paypal:''logo-paypal'',dropbox:''logo-dropbox'',instagram:''logo-instagram''}[(((user?.text || user || '''') + '''').split('':'')[0] || '''').toLowerCase()] || ''key-outline'')",
+                     "IconSlot": "plain:start"
+                    }'
+                  comment: Provider logo derived from the first segment of the user identifier; kept invisible for plain users so emails stay aligned
+                  tagName: ion-icon
+                  ↓Class [ngx.components.UIAttribute-1781112511226]: 
+                    attrName: class
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: plain:provider-icon
+                  ↓BlankClass [ngx.components.UIAttribute-1781112511228]: 
+                    attrName: '[class.provider-icon-blank]'
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:!((((user?.text || user || '') + '').split(':').length >= 3 && (((user?.text || user || '') + '').split(':')[2] || '').includes('@')))
+                    comment: Hides the icon while preserving its space for non provider users
+                ↓Label [ngx.components.UIDynamicElement-1781106943766]: 
+                  beanData: '{"ionBean":"Label"}'
+                  tagName: ion-label
+                  ↓Text [ngx.components.UIText-1781106943768]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: 'script:((((user?.text || user || '''') + '''').split('':'').length >= 3 && (((user?.text || user || '''') + '''').split('':'')[2] || '''').includes(''@'')) ? (((user?.text || user || '''') + '''').split('':'')[2]) : (user?.text || user || ''''))'
+                ↓Note [ngx.components.UIDynamicElement-1781106943770]: 
+                  beanData: '{"ionBean":"Note","IonSlot":"plain:end"}'
+                  tagName: ion-note
+                  ↓Text [ngx.components.UIText-1781106943772]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:'' + (user?.attr?.groups || 0) + ' groupes'
+                ↓AdminListItemClass [ngx.components.UIAttribute-1781109905960]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:admin-list-item
+      ↓GroupsPanelCol [ngx.components.UIDynamicElement-1781106954657]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓GroupsPanel [ngx.components.UIDynamicElement-1781106954659]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓PanelClass [ngx.components.UIAttribute-1781106954661]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-panel
+          ↓Header [ngx.components.UIDynamicElement-1781106954663]: 
+            beanData: '{"ionBean":"CardHeader"}'
+            tagName: ion-card-header
+            ↓Title [ngx.components.UIDynamicElement-1781106954665]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781106954667]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Groupes
+            ↓Badge [ngx.components.UIDynamicElement-1781106954669]: 
+              beanData: '{"ionBean":"Badge","IonColor":"plain:secondary"}'
+              tagName: ion-badge
+              ↓Text [ngx.components.UIText-1781106954671]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[1]?.document?.group || []).length || 0)
+              ↓BadgeClass [ngx.components.UIAttribute-1781110518400]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:admin-count-badge
+          ↓List [ngx.components.UIDynamicElement-1781106954673]: 
+            beanData: '{"ionBean":"List","Lines":"plain:none"}'
+            tagName: ion-list
+            ↓GroupsForEach [ngx.components.UIControlDirective-1781106954675]: 
+              directiveIndexName: i
+              directiveItemName: group
+              directiveSource: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:(this.local?.adminDashboard?.sequence?.[1]?.document?.group || []).slice(0, 12)
+              ↓Item [ngx.components.UIDynamicElement-1781106956967]: 
+                beanData: '{"ionBean":"ListItem"}'
+                tagName: ion-item
+                ↓Label [ngx.components.UIDynamicElement-1781106956969]: 
+                  beanData: '{"ionBean":"Label"}'
+                  tagName: ion-label
+                  ↓Text [ngx.components.UIText-1781106956971]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:group?.text || group || ''
+                ↓Note [ngx.components.UIDynamicElement-1781106956973]: 
+                  beanData: '{"ionBean":"Note","IonSlot":"plain:end"}'
+                  tagName: ion-note
+                  ↓Text [ngx.components.UIText-1781106956975]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:'' + (group?.attr?.users || 0) + ' users'
+                ↓AdminListItemClass [ngx.components.UIAttribute-1781109908266]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:admin-list-item
+      ↓RolesPanelCol [ngx.components.UIDynamicElement-1781106967358]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓RolesPanel [ngx.components.UIDynamicElement-1781106967360]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓PanelClass [ngx.components.UIAttribute-1781106967362]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-panel
+          ↓Header [ngx.components.UIDynamicElement-1781106967364]: 
+            beanData: '{"ionBean":"CardHeader"}'
+            tagName: ion-card-header
+            ↓Title [ngx.components.UIDynamicElement-1781106967366]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781106967368]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Roles
+            ↓Badge [ngx.components.UIDynamicElement-1781106967370]: 
+              beanData: '{"ionBean":"Badge","IonColor":"plain:tertiary"}'
+              tagName: ion-badge
+              ↓Text [ngx.components.UIText-1781106967372]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[2]?.document?.role || []).length || 0)
+              ↓BadgeClass [ngx.components.UIAttribute-1781110520692]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:admin-count-badge
+          ↓List [ngx.components.UIDynamicElement-1781106967374]: 
+            beanData: '{"ionBean":"List","Lines":"plain:none"}'
+            tagName: ion-list
+            ↓RolesForEach [ngx.components.UIControlDirective-1781106967376]: 
+              directiveIndexName: i
+              directiveItemName: role
+              directiveSource: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:(this.local?.adminDashboard?.sequence?.[2]?.document?.role || []).slice(0, 12)
+              ↓Item [ngx.components.UIDynamicElement-1781106969668]: 
+                beanData: '{"ionBean":"ListItem"}'
+                tagName: ion-item
+                ↓Label [ngx.components.UIDynamicElement-1781106969670]: 
+                  beanData: '{"ionBean":"Label"}'
+                  tagName: ion-label
+                  ↓Text [ngx.components.UIText-1781106969672]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:role?.text || role || ''
+                ↓Note [ngx.components.UIDynamicElement-1781106969674]: 
+                  beanData: '{"ionBean":"Note","IonSlot":"plain:end"}'
+                  tagName: ion-note
+                  ↓Text [ngx.components.UIText-1781106969676]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:'' + (role?.attr?.groups || 0) + ' groupes'
+                ↓AdminListItemClass [ngx.components.UIAttribute-1781109910572]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:admin-list-item
+      ↓PermissionsPanelCol [ngx.components.UIDynamicElement-1781106980148]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓PermissionsPanel [ngx.components.UIDynamicElement-1781106980150]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓PanelClass [ngx.components.UIAttribute-1781106980152]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-panel
+          ↓Header [ngx.components.UIDynamicElement-1781106980154]: 
+            beanData: '{"ionBean":"CardHeader"}'
+            tagName: ion-card-header
+            ↓Title [ngx.components.UIDynamicElement-1781106980156]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781106980158]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Permissions
+            ↓Badge [ngx.components.UIDynamicElement-1781106980160]: 
+              beanData: '{"ionBean":"Badge","IonColor":"plain:success"}'
+              tagName: ion-badge
+              ↓Text [ngx.components.UIText-1781106980162]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[3]?.document?.permission || []).length || 0)
+              ↓BadgeClass [ngx.components.UIAttribute-1781110522984]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:admin-count-badge
+          ↓List [ngx.components.UIDynamicElement-1781106980164]: 
+            beanData: '{"ionBean":"List","Lines":"plain:none"}'
+            tagName: ion-list
+            ↓PermissionsForEach [ngx.components.UIControlDirective-1781106980166]: 
+              directiveIndexName: i
+              directiveItemName: permission
+              directiveSource: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:(this.local?.adminDashboard?.sequence?.[3]?.document?.permission || []).slice(0, 12)
+              ↓Item [ngx.components.UIDynamicElement-1781106982458]: 
+                beanData: '{"ionBean":"ListItem"}'
+                tagName: ion-item
+                ↓Label [ngx.components.UIDynamicElement-1781106982460]: 
+                  beanData: '{"ionBean":"Label"}'
+                  tagName: ion-label
+                  ↓Text [ngx.components.UIText-1781106982462]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:permission?.text || permission || ''
+                ↓Note [ngx.components.UIDynamicElement-1781106982464]: 
+                  beanData: '{"ionBean":"Note","IonSlot":"plain:end"}'
+                  tagName: ion-note
+                  ↓Text [ngx.components.UIText-1781106982466]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:'' + (permission?.attr?.roles || 0) + ' roles'
+                ↓AdminListItemClass [ngx.components.UIAttribute-1781109912878]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:admin-list-item
+↓LoadAdminDashboard [ngx.components.UIPageEvent-1781106506974]: 
+  comment: Loads the RBAC dashboard facade when the administration page is opened.
+  ↓CallAdminDashboard [ngx.components.UIDynamicAction-1781106507740]: 
+    beanData: |
+      '{
+       "ionBean": "CallSequenceAction",
+       "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+       "noLoading": "plain:true"
+      }'
+    comment: Calls the stable administration facade.
+    ↓StoreDashboard [ngx.components.UIDynamicAction-1781106508518]: 
+      beanData: |
+        '{
+         "ionBean": "SetLocalAction",
+         "Property": "plain:adminDashboard",
+         "Value": "script:(() => { const d = out; const doc = d?.sequence?.[1]?.document; if (doc?.group) { const list = Array.isArray(doc.group) ? doc.group : [doc.group]; doc.group = list.filter(g => { const t = '''' + (g?.text || g || ''''); return !t.startsWith(''C8Oreserved'') && !t.startsWith(''_C8O_HIDDEN''); }); } return d; })()"
+        }'
+      comment: Stores the dashboard payload for template bindings; technical groups (C8Oreserved, _C8O_HIDDEN) are filtered out before display.
+↓AdminPageStyle [ngx.components.UIStyle-1781106508520]: 
+  comment: Administration page layout styles.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.admin-shell { display: grid; gap: 1rem; }
+          .admin-hero { display: grid; gap: .75rem; padding: 1rem; border: 1px solid var(--ion-border-color); border-radius: 8px; background: var(--ion-card-background); }
+          .admin-hero h1 { margin: 0; font-size: 1.55rem; font-weight: 700; letter-spacing: 0; }
+          .admin-hero p { margin: 0; color: var(--ion-color-medium); max-width: 68rem; }
+          .admin-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: .75rem; }
+          .admin-kpi { padding: .85rem; border: 1px solid var(--ion-border-color); border-radius: 8px; background: var(--ion-card-background); }
+          .admin-kpi h2 { margin: 0; font-size: 1.8rem; line-height: 1; font-weight: 700; letter-spacing: 0; }
+          .admin-kpi p { margin: .35rem 0 0; color: var(--ion-color-medium); font-size: .88rem; }
+          .admin-grid { display: block; }
+          .admin-grid ion-row { gap: .75rem; align-items: stretch; }
+          .admin-grid ion-col { min-width: 18rem; }
+          .admin-panel { position: relative; height: 100%; border: 1px solid var(--ion-border-color); border-radius: 8px; background: var(--ion-card-background); overflow: hidden; }
+          .admin-panel ion-card-header { position: relative; min-height: 3.25rem; padding: .8rem 3.8rem .7rem .9rem; border-bottom: 1px solid var(--ion-border-color); }
+          .admin-panel ion-card-header h2 { margin: 0; font-size: 1rem; font-weight: 650; letter-spacing: 0; line-height: 1.35; }
+          .admin-panel ion-card-header .admin-count-badge { position: absolute; top: .65rem; right: .85rem; z-index: 1; }
+          .admin-panel ion-list { background: transparent; padding: 0; margin: 0; }
+          .admin-actions ion-button { margin: 0; min-height: 2.4rem; width: 100%; }
+          .admin-empty { padding: .9rem; color: var(--ion-color-medium); }
+          @media (max-width: 640px) { .admin-hero h1 { font-size: 1.25rem; } .admin-grid ion-col { min-width: 100%; } }'

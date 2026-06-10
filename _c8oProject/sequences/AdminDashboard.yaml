@@ -1,0 +1,20 @@
+comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for the NGX UI.
+↓status [steps.XMLElementStep-1781106451632]: 
+  nodeName: status
+  nodeText: ok
+↓Users [steps.SequenceStep-1781106451634]: 
+  comment: All users known by FullSyncGrp
+  output: true
+  sourceSequence: lib_FullSyncGrp.Users
+↓Groups [steps.SequenceStep-1781106451636]: 
+  comment: All RBAC groups
+  output: true
+  sourceSequence: lib_FullSyncGrp.Groups
+↓Roles [steps.SequenceStep-1781106451638]: 
+  comment: All RBAC roles
+  output: true
+  sourceSequence: lib_FullSyncGrp.Roles
+↓Permissions [steps.SequenceStep-1781106451640]: 
+  comment: All RBAC permissions
+  output: true
+  sourceSequence: lib_FullSyncGrp.Permissions

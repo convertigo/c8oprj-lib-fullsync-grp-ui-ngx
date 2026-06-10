@@ -5,6 +5,13 @@
   corsOrigin: =Origin
   httpSessionTimeout: 60
   ↓void [connectors.SqlConnector]: 🗏 connectors/void.yaml
+  ↓AdminDashboard [sequences.GenericSequence]: 🗏 sequences/AdminDashboard.yaml
+  ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 
+    comment: Backend RBAC library used by the administration UI
+    projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=v8.0.0.7:autoPull=true
+  ↓lib_UserManager_reference [references.ProjectSchemaReference]: 
+    comment: User account and authentication library used by the administration UI
+    projectName: lib_UserManager=https://github.com/convertigo/c8oprj-lib-usermanager.git:branch=v8.0.0.16:autoPull=true
   ↓project1 [references.ProjectSchemaReference]: 
     projectName: mobilebuilder_tpl_8_4_0_ngx=https://github.com/convertigo/c8oprj-mobilebuilder-tpl/archive/mobilebuilder_tpl_8_4_0_ngx.zip
   ↓Application [core.MobileApplication]: 

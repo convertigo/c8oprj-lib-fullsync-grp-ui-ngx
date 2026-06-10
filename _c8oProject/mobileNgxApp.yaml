@@ -3115,3 +3115,116 @@ tplProjectName: mobilebuilder_tpl_8_4_0_ngx
           font-style: "normal";
           font-variant: "latin";
           '
+↓AdminListCompactStyle [ngx.components.UIStyle-1781110056300]: 
+  comment: Global compact list style applied through palette class attributes on admin list items.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.admin-list-item {
+            --background: transparent;
+            --min-height: 24px;
+            --padding-start: 7px;
+            --inner-padding-end: 7px;
+            --inner-padding-top: 0;
+            --inner-padding-bottom: 0;
+            min-height: 24px;
+            font-size: .82rem;
+            line-height: 1.05;
+          }
+          
+          .admin-list-item::part(native) {
+            min-height: 24px;
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+          
+          .admin-list-item ion-label {
+            margin-top: 0;
+            margin-bottom: 0;
+            line-height: 1.05;
+          }
+          
+          .admin-list-item ion-note {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: .74rem;
+            line-height: 1.05;
+          }
+          '
+↓AdminBadgeReadableStyle [ngx.components.UIStyle-1781110490374]: 
+  comment: Readable admin count badges applied through palette class attributes.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.admin-count-badge {
+            --color: #ffffff;
+            color: #ffffff;
+            min-width: 2.4rem;
+            min-height: 1.65rem;
+            padding: 0 .65rem;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .86rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: 0;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .22);
+            box-shadow: 0 0 0 2px var(--ion-card-background), 0 8px 18px rgba(15, 23, 42, .22);
+          }
+          
+          .admin-count-badge.ion-color-primary {
+            --background: #1d4ed8;
+            background: #1d4ed8;
+          }
+          
+          .admin-count-badge.ion-color-secondary {
+            --background: #075985;
+            background: #075985;
+          }
+          
+          .admin-count-badge.ion-color-tertiary {
+            --background: #6d28d9;
+            background: #6d28d9;
+          }
+          
+          .admin-count-badge.ion-color-success {
+            --background: #166534;
+            background: #166534;
+          }
+          
+          :root.force-dark .admin-count-badge {
+            box-shadow: 0 0 0 2px var(--ion-card-background), 0 8px 18px rgba(0, 0, 0, .42);
+          }
+          
+          @media (prefers-color-scheme: dark) {
+            :root:not(.force-light) .admin-count-badge {
+              box-shadow: 0 0 0 2px var(--ion-card-background), 0 8px 18px rgba(0, 0, 0, .42);
+            }
+          }
+          '
+↓AdminProviderIconStyle [ngx.components.UIStyle-1781112511354]: 
+  comment: Sizing and alignment for the provider icon shown in front of admin user list items.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.admin-list-item ion-icon.provider-icon {
+            font-size: 14px;
+            min-width: 14px;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-inline-end: 6px;
+          }
+          
+          .admin-list-item ion-icon.provider-icon.provider-icon-blank {
+            visibility: hidden;
+          }
+          '
