@@ -5,7 +5,19 @@
   corsOrigin: =Origin
   httpSessionTimeout: 60
   ↓void [connectors.SqlConnector]: 🗏 connectors/void.yaml
+  ↓AddRoleToGroup [sequences.GenericSequence]: 🗏 sequences/AddRoleToGroup.yaml
+  ↓AddUserToGroup [sequences.GenericSequence]: 🗏 sequences/AddUserToGroup.yaml
   ↓AdminDashboard [sequences.GenericSequence]: 🗏 sequences/AdminDashboard.yaml
+  ↓CreateUser [sequences.GenericSequence]: 🗏 sequences/CreateUser.yaml
+  ↓GroupDetail [sequences.GenericSequence]: 🗏 sequences/GroupDetail.yaml
+  ↓PermissionDetail [sequences.GenericSequence]: 🗏 sequences/PermissionDetail.yaml
+  ↓RemovePermInRole [sequences.GenericSequence]: 🗏 sequences/RemovePermInRole.yaml
+  ↓RemoveRoleFromGroup [sequences.GenericSequence]: 🗏 sequences/RemoveRoleFromGroup.yaml
+  ↓RemoveUserFromGroup [sequences.GenericSequence]: 🗏 sequences/RemoveUserFromGroup.yaml
+  ↓RoleDetail [sequences.GenericSequence]: 🗏 sequences/RoleDetail.yaml
+  ↓SetPermInRole [sequences.GenericSequence]: 🗏 sequences/SetPermInRole.yaml
+  ↓UserDetail [sequences.GenericSequence]: 🗏 sequences/UserDetail.yaml
+  ↓UserPermissions [sequences.GenericSequence]: 🗏 sequences/UserPermissions.yaml
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 
     comment: Backend RBAC library used by the administration UI
     projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=v8.0.0.7:autoPull=true

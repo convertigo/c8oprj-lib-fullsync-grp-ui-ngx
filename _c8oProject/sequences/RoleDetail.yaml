@@ -1,0 +1,92 @@
+comment: 'Facade: permissions and groups of one role.'
+↓InputVariables [steps.InputVariablesStep-1781166448771]: 
+  nodeName: InputVariables
+↓status [steps.XMLElementStep-1781166448773]: 
+  nodeName: status
+  nodeText: ok
+↓Permissions [steps.SequenceStep-1781166448775]: 
+  output: true
+  sourceSequence: lib_FullSyncGrp.PermissionsOfRole
+  ↓role [variables.StepVariable-1781166468910]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781166448771
+          - java.lang.String: 
+            - ↑value: ./role/text()
+↓Groups [steps.SequenceStep-1781166448777]: 
+  output: true
+  sourceSequence: lib_FullSyncGrp.GroupsOfRole
+  ↓role [variables.StepVariable-1781166468942]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781166448771
+          - java.lang.String: 
+            - ↑value: ./role/text()
+↓InitCandidates [steps.SimpleStep-1781192344699]: 
+  expression: |
+    var _assignedPermissions = [];
+    var _candidatePermissions = [];
+↓IteratorAssignedPermissions [steps.IteratorStep-1781192344722]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781166448775
+        - java.lang.String: 
+          - ↑value: ./document/permission
+  ↓CurrentAssignedPermission [steps.SimpleSourceStep-1781192356761]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192344722
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: assignedPermission
+  ↓CollectAssignedPermission [steps.SimpleStep-1781192356785]: 
+    expression: |
+      'var assignedPermissionName = '''' + assignedPermission;
+      if (assignedPermissionName) {
+      	_assignedPermissions.push(assignedPermissionName);
+      }'
+↓AllPermissions [steps.SequenceStep-1781192344743]: 
+  sourceSequence: lib_FullSyncGrp.Permissions
+↓IteratorAllPermissions [steps.IteratorStep-1781192356812]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781192344743
+        - java.lang.String: 
+          - ↑value: ./document/permission
+  ↓CurrentAllPermission [steps.SimpleSourceStep-1781192368809]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192356812
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: allPermission
+  ↓CollectCandidatePermission [steps.SimpleStep-1781192368839]: 
+    expression: |
+      'var allPermissionName = '''' + allPermission;
+      if (allPermissionName && _assignedPermissions.indexOf(allPermissionName) === -1) {
+      	_candidatePermissions.push(allPermissionName);
+      }'
+↓IteratorCandidatePermissions [steps.SimpleIteratorStep-1781192368861]: 
+  expression: _candidatePermissions
+  ↓CandidatePermission [steps.ElementStep-1781192368864]: 
+    expression: _candidatePermissions[index]
+    nodeName: candidatePermission
+↓role [variables.RequestableVariable-1781166448769]: 

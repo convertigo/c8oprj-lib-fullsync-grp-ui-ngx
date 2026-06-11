@@ -60,6 +60,10 @@ componentScriptContent:
 tplProjectName: mobilebuilder_tpl_8_4_0_ngx
 ↓Menu [ngx.components.UIDynamicMenu-1781106235900]: 🗏 mobileMenus/Menu.yaml
 ↓Page [ngx.components.PageComponent-1781106235901]: 🗏 mobilePages/Page.yaml
+↓GroupsPage [ngx.components.PageComponent-1781165169427]: 🗏 mobilePages/GroupsPage.yaml
+↓UsersPage [ngx.components.PageComponent-1781166171242]: 🗏 mobilePages/UsersPage.yaml
+↓RolesPage [ngx.components.PageComponent-1781166599610]: 🗏 mobilePages/RolesPage.yaml
+↓PermissionsPage [ngx.components.PageComponent-1781166746956]: 🗏 mobilePages/PermissionsPage.yaml
 ↓Style [ngx.components.UIStyle-1781106235902]: 
   comment: You can add some global application styles here
   styleContent: 
@@ -3228,3 +3232,34 @@ tplProjectName: mobilebuilder_tpl_8_4_0_ngx
             visibility: hidden;
           }
           '
+↓AdminEntityStyle [ngx.components.UIStyle-1781165883670]: 
+  comment: Shared presentation rules for RBAC admin entity pages.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.admin-grid { display: block; }
+          .admin-grid ion-row { gap: .75rem; align-items: stretch; }
+          .admin-grid ion-col { min-width: 18rem; }
+          .entity-grid ion-row { gap: 0; align-items: stretch; }
+          .entity-grid ion-col { min-width: 0; }
+          .admin-panel { position: relative; height: 100%; border: 1px solid var(--ion-border-color); border-radius: 8px; background: var(--ion-card-background); overflow: hidden; box-shadow: none; }
+          .admin-panel ion-card-header { position: relative; min-height: 3.25rem; padding: .8rem 3.8rem .7rem .9rem; border-bottom: 1px solid var(--ion-border-color); }
+          .admin-panel ion-card-header h2 { margin: 0; font-size: 1rem; font-weight: 650; letter-spacing: 0; line-height: 1.35; }
+          .admin-panel ion-card-header .admin-count-badge { position: absolute; top: .65rem; right: .85rem; z-index: 1; }
+          .admin-panel ion-list { background: transparent; padding: 0; margin: 0; }
+          .entity-panel-body { padding: .75rem .9rem; }
+          .entity-form { display: grid; gap: .45rem; border-bottom: 1px solid var(--ion-border-color); }
+          .entity-form h2 { margin: 0 0 .2rem; font-size: .95rem; font-weight: 650; letter-spacing: 0; line-height: 1.35; }
+          .entity-detail-body { display: block; padding: .75rem .9rem; }
+          .entity-section-label { margin: .55rem 0 .35rem; font-size: .82rem; font-weight: 650; line-height: 1.25; color: var(--ion-color-step-650, var(--ion-color-medium-shade)); }
+          .entity-empty { min-height: 8rem; display: flex; align-items: center; color: var(--ion-color-medium-shade); }
+          .entity-empty-text { margin: 0; line-height: 1.35; }
+          .entity-chip { margin: 2px 3px 3px 0; min-height: 1.75rem; font-weight: 600; }
+          .chip-remove { cursor: pointer; color: var(--ion-color-medium); margin-left: 2px; }
+          .chip-remove:hover { color: var(--ion-color-danger); }
+          .add-select { max-width: 320px; margin: .35rem 0 .3rem; border: 0.5px solid var(--ion-color-step-200, #ccc); border-radius: 8px; padding-inline-start: 10px; }
+          .create-input { min-height: 2.25rem; border: 0.5px solid var(--ion-color-step-200, #ccc); border-radius: 8px; margin-bottom: .25rem; padding-inline-start: 10px; }
+          .entity-action-button { margin-top: .25rem; }
+          @media (max-width: 640px) { .admin-grid ion-col { min-width: 100%; } .entity-grid ion-col { min-width: 100%; } .admin-panel ion-card-header { padding-right: 3.4rem; } }'

@@ -248,6 +248,9 @@ title: Administration RBAC
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:Creer un utilisateur
+              ↓Go [ngx.components.UIControlEvent-1781166821127]: 
+                ↓GoUsers [ngx.components.UIDynamicAction-1781166821893]: 
+                  beanData: '{"ionBean":"NavigatePageAction","url":"plain:users"}'
           ↓UserGroupCol [ngx.components.UIDynamicElement-1781106899545]: 
             beanData: '{"ionBean":"GridCol"}'
             tagName: ion-col
@@ -266,6 +269,9 @@ title: Administration RBAC
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:Affecter a un groupe
+              ↓Go [ngx.components.UIControlEvent-1781166824185]: 
+                ↓GoGroups [ngx.components.UIDynamicAction-1781166824951]: 
+                  beanData: '{"ionBean":"NavigatePageAction","url":"plain:groups"}'
           ↓GroupRoleCol [ngx.components.UIDynamicElement-1781106899551]: 
             beanData: '{"ionBean":"GridCol"}'
             tagName: ion-col
@@ -284,6 +290,9 @@ title: Administration RBAC
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:Affecter un role
+              ↓Go [ngx.components.UIControlEvent-1781166827243]: 
+                ↓GoRoles [ngx.components.UIDynamicAction-1781166828009]: 
+                  beanData: '{"ionBean":"NavigatePageAction","url":"plain:roles"}'
           ↓RolePermissionCol [ngx.components.UIDynamicElement-1781106899557]: 
             beanData: '{"ionBean":"GridCol"}'
             tagName: ion-col
@@ -302,6 +311,9 @@ title: Administration RBAC
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:Affecter une permission
+              ↓Go [ngx.components.UIControlEvent-1781166830301]: 
+                ↓GoPerms [ngx.components.UIDynamicAction-1781166831067]: 
+                  beanData: '{"ionBean":"NavigatePageAction","url":"plain:permissions"}'
   ↓KpiGrid [ngx.components.UIDynamicElement-1781106921966]: 
     beanData: '{"ionBean":"Grid"}'
     tagName: ion-grid
@@ -496,7 +508,7 @@ title: Administration RBAC
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:(this.local?.adminDashboard?.sequence?.[0]?.document?.user || []).slice(0, 12)
+                  - MobileSmartSourceType: script:this.local?.adminDashboard?.dashboardUser || []
               ↓Item [ngx.components.UIDynamicElement-1781106943764]: 
                 beanData: '{"ionBean":"ListItem"}'
                 tagName: ion-item
@@ -504,10 +516,10 @@ title: Administration RBAC
                   beanData: |
                     '{
                      "ionBean": "Icon",
-                     "IconName": "script:({google:''logo-google'',github:''logo-github'',facebook:''logo-facebook'',apple:''logo-apple'',microsoft:''logo-microsoft'',azure:''logo-microsoft'',azuread:''logo-microsoft'',twitter:''logo-twitter'',x:''logo-twitter'',linkedin:''logo-linkedin'',gitlab:''logo-gitlab'',bitbucket:''logo-bitbucket'',amazon:''logo-amazon'',yahoo:''logo-yahoo'',slack:''logo-slack'',discord:''logo-discord'',paypal:''logo-paypal'',dropbox:''logo-dropbox'',instagram:''logo-instagram''}[(((user?.text || user || '''') + '''').split('':'')[0] || '''').toLowerCase()] || ''key-outline'')",
+                     "IconName": "script:user?.providerIcon",
                      "IconSlot": "plain:start"
                     }'
-                  comment: Provider logo derived from the first segment of the user identifier; kept invisible for plain users so emails stay aligned
+                  comment: Provider logo prepared by AdminDashboard; invisible for plain users so emails stay aligned.
                   tagName: ion-icon
                   ↓Class [ngx.components.UIAttribute-1781112511226]: 
                     attrName: class
@@ -520,8 +532,8 @@ title: Administration RBAC
                     attrValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:!((((user?.text || user || '') + '').split(':').length >= 3 && (((user?.text || user || '') + '').split(':')[2] || '').includes('@')))
-                    comment: Hides the icon while preserving its space for non provider users
+                        - MobileSmartSourceType: script:user?.providerIconBlank
+                    comment: Hides the icon while preserving its space for non provider users.
                 ↓Label [ngx.components.UIDynamicElement-1781106943766]: 
                   beanData: '{"ionBean":"Label"}'
                   tagName: ion-label
@@ -529,7 +541,7 @@ title: Administration RBAC
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: 'script:((((user?.text || user || '''') + '''').split('':'').length >= 3 && (((user?.text || user || '''') + '''').split('':'')[2] || '''').includes(''@'')) ? (((user?.text || user || '''') + '''').split('':'')[2]) : (user?.text || user || ''''))'
+                        - MobileSmartSourceType: script:user?.displayName
                 ↓Note [ngx.components.UIDynamicElement-1781106943770]: 
                   beanData: '{"ionBean":"Note","IonSlot":"plain:end"}'
                   tagName: ion-note
@@ -537,7 +549,7 @@ title: Administration RBAC
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:'' + (user?.attr?.groups || 0) + ' groupes'
+                        - MobileSmartSourceType: script:user?.groupsLabel
                 ↓AdminListItemClass [ngx.components.UIAttribute-1781109905960]: 
                   attrName: class
                   attrValue: 
@@ -590,7 +602,7 @@ title: Administration RBAC
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:(this.local?.adminDashboard?.sequence?.[1]?.document?.group || []).slice(0, 12)
+                  - MobileSmartSourceType: script:this.local?.adminDashboard?.sequence?.[1]?.document?.group || []
               ↓Item [ngx.components.UIDynamicElement-1781106956967]: 
                 beanData: '{"ionBean":"ListItem"}'
                 tagName: ion-item
@@ -662,7 +674,7 @@ title: Administration RBAC
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:(this.local?.adminDashboard?.sequence?.[2]?.document?.role || []).slice(0, 12)
+                  - MobileSmartSourceType: script:this.local?.adminDashboard?.sequence?.[2]?.document?.role || []
               ↓Item [ngx.components.UIDynamicElement-1781106969668]: 
                 beanData: '{"ionBean":"ListItem"}'
                 tagName: ion-item
@@ -734,7 +746,7 @@ title: Administration RBAC
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:(this.local?.adminDashboard?.sequence?.[3]?.document?.permission || []).slice(0, 12)
+                  - MobileSmartSourceType: script:this.local?.adminDashboard?.sequence?.[3]?.document?.permission || []
               ↓Item [ngx.components.UIDynamicElement-1781106982458]: 
                 beanData: '{"ionBean":"ListItem"}'
                 tagName: ion-item
@@ -775,9 +787,9 @@ title: Administration RBAC
         '{
          "ionBean": "SetLocalAction",
          "Property": "plain:adminDashboard",
-         "Value": "script:(() => { const d = out; const doc = d?.sequence?.[1]?.document; if (doc?.group) { const list = Array.isArray(doc.group) ? doc.group : [doc.group]; doc.group = list.filter(g => { const t = '''' + (g?.text || g || ''''); return !t.startsWith(''C8Oreserved'') && !t.startsWith(''_C8O_HIDDEN''); }); } return d; })()"
+         "Value": "script:out"
         }'
-      comment: Stores the dashboard payload for template bindings; technical groups (C8Oreserved, _C8O_HIDDEN) are filtered out before display.
+      comment: Stores the dashboard payload prepared by the backend facade for template bindings.
 ↓AdminPageStyle [ngx.components.UIStyle-1781106508520]: 
   comment: Administration page layout styles.
   styleContent: 

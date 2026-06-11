@@ -1,0 +1,28 @@
+comment: 'Facade: remove a role from a group (pass-through to lib_FullSyncGrp.RemoveRoleFromGroup).'
+↓InputVariables [steps.InputVariablesStep-1781164842114]: 
+  nodeName: InputVariables
+↓Remove [steps.SequenceStep-1781164707430]: 
+  output: true
+  sourceSequence: lib_FullSyncGrp.RemoveRoleFromGroup
+  ↓role [variables.StepVariable-1781164874472]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781164842114
+          - java.lang.String: 
+            - ↑value: ./role/text()
+  ↓group [variables.StepVariable-1781164874493]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781164842114
+          - java.lang.String: 
+            - ↑value: ./group/text()
+↓role [variables.RequestableVariable-1781164707426]: 
+  comment: Role name to remove.
+↓group [variables.RequestableVariable-1781164707428]: 
+  comment: Target group.

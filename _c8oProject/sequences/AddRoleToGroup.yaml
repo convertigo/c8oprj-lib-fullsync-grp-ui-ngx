@@ -1,0 +1,28 @@
+comment: 'Facade: add a role to a group (pass-through to lib_FullSyncGrp.SetRoleInGroup).'
+↓InputVariables [steps.InputVariablesStep-1781164842097]: 
+  nodeName: InputVariables
+↓Set [steps.SequenceStep-1781164707410]: 
+  output: true
+  sourceSequence: lib_FullSyncGrp.SetRoleInGroup
+  ↓role [variables.StepVariable-1781164874436]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781164842097
+          - java.lang.String: 
+            - ↑value: ./role/text()
+  ↓group [variables.StepVariable-1781164874452]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781164842097
+          - java.lang.String: 
+            - ↑value: ./group/text()
+↓role [variables.RequestableVariable-1781164707406]: 
+  comment: Role name to add.
+↓group [variables.RequestableVariable-1781164707408]: 
+  comment: Target group.

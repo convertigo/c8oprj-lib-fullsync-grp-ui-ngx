@@ -18,3 +18,103 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
   comment: All RBAC permissions
   output: true
   sourceSequence: lib_FullSyncGrp.Permissions
+↓InitVisibleGroups [steps.SimpleStep-1781192200069]: 
+  expression: var _visibleGroups = [];
+↓IteratorRawGroups [steps.IteratorStep-1781192228352]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781106451636
+        - java.lang.String: 
+          - ↑value: ./document/group
+  ↓CurrentGroup [steps.SimpleSourceStep-1781192241814]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192228352
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: currentGroup
+  ↓CollectVisibleGroup [steps.SimpleStep-1781192241842]: 
+    expression: |
+      'var groupName = '''' + currentGroup;
+      if (groupName && groupName.indexOf(''C8Oreserved'') !== 0 && groupName.indexOf(''_C8O_HIDDEN'') !== 0) {
+      	_visibleGroups.push(groupName);
+      }'
+↓IteratorVisibleGroups [steps.SimpleIteratorStep-1781192241869]: 
+  expression: _visibleGroups
+  ↓VisibleGroup [steps.ElementStep-1781192241871]: 
+    expression: _visibleGroups[index]
+    nodeName: visibleGroup
+↓BuildDashboardUsers [steps.IteratorStep-1781192762088]: 
+  comment: Builds backend-prepared user view models for the dashboard list.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781106451634
+        - java.lang.String: 
+          - ↑value: ./document/user
+  ↓CurrentUserText [steps.SimpleSourceStep-1781192762094]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192762088
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: dashboardUserText
+  ↓CurrentUserGroups [steps.SimpleSourceStep-1781192762096]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192762088
+          - java.lang.String: 
+            - ↑value: ./@groups
+    variableName: dashboardUserGroups
+  ↓PrepareDashboardUser [steps.SimpleStep-1781192762098]: 
+    expression: |
+      'var _dashboardRawUser = '''' + dashboardUserText;
+      var _dashboardParts = _dashboardRawUser.split('':'');
+      var _dashboardIsProvider = _dashboardParts.length >= 3 && ('''' + (_dashboardParts[2] || '''')).indexOf(''@'') !== -1;
+      var _dashboardProvider = _dashboardIsProvider ? ('''' + (_dashboardParts[0] || '''')).toLowerCase() : '''';
+      var _dashboardProviderIcons = {
+      	google: ''logo-google'', github: ''logo-github'', facebook: ''logo-facebook'', apple: ''logo-apple'',
+      	microsoft: ''logo-microsoft'', azure: ''logo-microsoft'', azuread: ''logo-microsoft'', twitter: ''logo-twitter'',
+      	x: ''logo-twitter'', linkedin: ''logo-linkedin'', gitlab: ''logo-gitlab'', bitbucket: ''logo-bitbucket'',
+      	amazon: ''logo-amazon'', yahoo: ''logo-yahoo'', slack: ''logo-slack'', discord: ''logo-discord'',
+      	paypal: ''logo-paypal'', dropbox: ''logo-dropbox'', instagram: ''logo-instagram''
+      };
+      var _dashboardDisplayName = _dashboardIsProvider ? ('''' + (_dashboardParts[2] || '''')) : _dashboardRawUser;
+      var _dashboardProviderIcon = _dashboardProviderIcons[_dashboardProvider] || ''key-outline'';
+      var _dashboardProviderIconBlank = !_dashboardIsProvider;'
+  ↓DashboardUser [steps.ElementStep-1781192762100]: 
+    expression: ''''''
+    nodeName: dashboardUser
+    ↓Name [steps.ElementStep-1781192762102]: 
+      expression: _dashboardRawUser
+      nodeName: name
+    ↓DisplayName [steps.ElementStep-1781192762104]: 
+      expression: _dashboardDisplayName
+      nodeName: displayName
+    ↓ProviderIcon [steps.ElementStep-1781192762106]: 
+      expression: _dashboardProviderIcon
+      nodeName: providerIcon
+    ↓ProviderIconBlank [steps.ElementStep-1781192762108]: 
+      expression: _dashboardProviderIconBlank
+      nodeName: providerIconBlank
+      schemaDataType: xsd:boolean
+    ↓Groups [steps.ElementStep-1781192762110]: 
+      expression: dashboardUserGroups || '0'
+      nodeName: groups
+    ↓GroupsLabel [steps.ElementStep-1781192809605]: 
+      expression: (dashboardUserGroups || '0') + ' groupes'
+      nodeName: groupsLabel

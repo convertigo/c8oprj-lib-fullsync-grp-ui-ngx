@@ -1,0 +1,82 @@
+comment: 'Facade: groups of one user (master-detail Users page).'
+↓InputVariables [steps.InputVariablesStep-1781165701572]: 
+  nodeName: InputVariables
+↓status [steps.XMLElementStep-1781165701574]: 
+  nodeName: status
+  nodeText: ok
+↓Groups [steps.SequenceStep-1781165701576]: 
+  comment: Groups the user belongs to
+  output: true
+  sourceSequence: lib_FullSyncGrp.GroupsOf
+  ↓user [variables.StepVariable-1781165713880]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781165701572
+          - java.lang.String: 
+            - ↑value: ./user/text()
+↓InitCandidates [steps.SimpleStep-1781192382268]: 
+  expression: |
+    var _assignedGroups = [];
+    var _candidateGroups = [];
+↓IteratorAssignedGroups [steps.IteratorStep-1781192382297]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781165701576
+        - java.lang.String: 
+          - ↑value: ./document/group
+  ↓CurrentAssignedGroup [steps.SimpleSourceStep-1781192394031]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192382297
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: assignedGroup
+  ↓CollectAssignedGroup [steps.SimpleStep-1781192394066]: 
+    expression: |
+      'var assignedGroupName = '''' + assignedGroup;
+      if (assignedGroupName) {
+      	_assignedGroups.push(assignedGroupName);
+      }'
+↓AllGroups [steps.SequenceStep-1781192382320]: 
+  sourceSequence: lib_FullSyncGrp.Groups
+↓IteratorAllGroups [steps.IteratorStep-1781192394095]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781192382320
+        - java.lang.String: 
+          - ↑value: ./document/group
+  ↓CurrentAllGroup [steps.SimpleSourceStep-1781192407791]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192394095
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: allGroup
+  ↓CollectCandidateGroup [steps.SimpleStep-1781192407820]: 
+    expression: |
+      'var allGroupName = '''' + allGroup;
+      if (allGroupName && allGroupName.indexOf(''C8Oreserved'') !== 0 && allGroupName.indexOf(''_C8O_HIDDEN'') !== 0 && _assignedGroups.indexOf(allGroupName) === -1) {
+      	_candidateGroups.push(allGroupName);
+      }'
+↓IteratorCandidateGroups [steps.SimpleIteratorStep-1781192407843]: 
+  expression: _candidateGroups
+  ↓CandidateGroup [steps.ElementStep-1781192407845]: 
+    expression: _candidateGroups[index]
+    nodeName: candidateGroup
+↓user [variables.RequestableVariable-1781165701570]: 
+  comment: User to inspect.

@@ -1,0 +1,154 @@
+comment: 'Facade: returns the users and roles attached to one group (master-detail Groups page).'
+↓InputVariables [steps.InputVariablesStep-1781164809389]: 
+  nodeName: InputVariables
+↓status [steps.XMLElementStep-1781164707346]: 
+  nodeName: status
+  nodeText: ok
+↓Users [steps.SequenceStep-1781164707348]: 
+  comment: Users attached to the group
+  output: true
+  sourceSequence: lib_FullSyncGrp.UsersOf
+  ↓group [variables.StepVariable-1781164819494]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781164809389
+          - java.lang.String: 
+            - ↑value: ./group/text()
+↓Roles [steps.SequenceStep-1781164707350]: 
+  comment: Roles attached to the group
+  output: true
+  sourceSequence: lib_FullSyncGrp.RolesOfGroup
+  ↓group [variables.StepVariable-1781164819520]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781164809389
+          - java.lang.String: 
+            - ↑value: ./group/text()
+↓InitCandidates [steps.SimpleStep-1781192294437]: 
+  expression: |
+    var _assignedUsers = [];
+    var _assignedRoles = [];
+    var _candidateUsers = [];
+    var _candidateRoles = [];
+↓IteratorAssignedUsers [steps.IteratorStep-1781192294469]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781164707348
+        - java.lang.String: 
+          - ↑value: ./document/user
+  ↓CurrentAssignedUser [steps.SimpleSourceStep-1781192311193]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192294469
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: assignedUser
+  ↓CollectAssignedUser [steps.SimpleStep-1781192311225]: 
+    expression: |
+      'var assignedUserName = '''' + assignedUser;
+      if (assignedUserName) {
+      	_assignedUsers.push(assignedUserName);
+      }'
+↓IteratorAssignedRoles [steps.IteratorStep-1781192294490]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781164707350
+        - java.lang.String: 
+          - ↑value: ./document/role
+  ↓CurrentAssignedRole [steps.SimpleSourceStep-1781192311255]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192294490
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: assignedRole
+  ↓CollectAssignedRole [steps.SimpleStep-1781192311280]: 
+    expression: |
+      'var assignedRoleName = '''' + assignedRole;
+      if (assignedRoleName) {
+      	_assignedRoles.push(assignedRoleName);
+      }'
+↓AllUsers [steps.SequenceStep-1781192294509]: 
+  sourceSequence: lib_FullSyncGrp.Users
+↓AllRoles [steps.SequenceStep-1781192294535]: 
+  sourceSequence: lib_FullSyncGrp.Roles
+↓IteratorAllUsers [steps.IteratorStep-1781192311298]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781192294509
+        - java.lang.String: 
+          - ↑value: ./document/user
+  ↓CurrentAllUser [steps.SimpleSourceStep-1781192329306]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192311298
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: allUser
+  ↓CollectCandidateUser [steps.SimpleStep-1781192329337]: 
+    expression: |
+      'var allUserName = '''' + allUser;
+      if (allUserName && _assignedUsers.indexOf(allUserName) === -1) {
+      	_candidateUsers.push(allUserName);
+      }'
+↓IteratorAllRoles [steps.IteratorStep-1781192311317]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781192294535
+        - java.lang.String: 
+          - ↑value: ./document/role
+  ↓CurrentAllRole [steps.SimpleSourceStep-1781192329358]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192311317
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: allRole
+  ↓CollectCandidateRole [steps.SimpleStep-1781192329379]: 
+    expression: |
+      'var allRoleName = '''' + allRole;
+      if (allRoleName && _assignedRoles.indexOf(allRoleName) === -1) {
+      	_candidateRoles.push(allRoleName);
+      }'
+↓IteratorCandidateUsers [steps.SimpleIteratorStep-1781192329402]: 
+  expression: _candidateUsers
+  ↓CandidateUser [steps.ElementStep-1781192329404]: 
+    expression: _candidateUsers[index]
+    nodeName: candidateUser
+↓IteratorCandidateRoles [steps.SimpleIteratorStep-1781192329426]: 
+  expression: _candidateRoles
+  ↓CandidateRole [steps.ElementStep-1781192329428]: 
+    expression: _candidateRoles[index]
+    nodeName: candidateRole
+↓group [variables.RequestableVariable-1781164707344]: 
+  comment: Group name to inspect.

@@ -1,0 +1,766 @@
+comment: Master-detail management page for users.
+icon: people-circle
+segment: users
+title: Utilisateurs
+↓Header [ngx.components.UIDynamicElement-1781166173506]: 
+  beanData: '{"ionBean":"Header"}'
+  tagName: ion-header
+  ↓ToolBar [ngx.components.UIDynamicElement-1781166175798]: 
+    beanData: '{"ionBean":"ToolBar"}'
+    comment: Main toolbar displayed in the header.
+    tagName: ion-toolbar
+    ↓ButtonSet1 [ngx.components.UIDynamicElement-1781193542536]: 
+      beanData: '{"ionBean":"ButtonSet","SetPosition":"plain:start"}'
+      comment: Left toolbar button group.
+      tagName: ion-buttons
+      ↓BackButton [ngx.components.UIDynamicElement-1781193542538]: 
+        beanData: '{"ionBean":"BackButton"}'
+        comment: Navigates to the previous page when available.
+        tagName: ion-back-button
+      ↓MenuButton [ngx.components.UIDynamicElement-1781193542540]: 
+        beanData: '{"ionBean":"MenuButton"}'
+        comment: Toggles the side navigation menu.
+        tagName: ion-menu-button
+    ↓BarTitle [ngx.components.UIDynamicElement-1781193543922]: 
+      beanData: '{"ionBean":"BarTitle"}'
+      comment: Title container displayed in the toolbar.
+      tagName: ion-title
+      ↓Text [ngx.components.UIText-1781193543927]: 
+        textValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:Utilisateurs
+    ↓ButtonSet2 [ngx.components.UIDynamicElement-1781193543932]: 
+      beanData: '{"ionBean":"ButtonSet","SetPosition":"plain:end"}'
+      comment: Right toolbar button group.
+      tagName: ion-buttons
+      ↓ThemeSwitchButton [ngx.components.UIDynamicElement-1781193543934]: 
+        beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+        comment: Toggles between light and dark themes.
+        tagName: ion-button
+        ↓Class [ngx.components.UIAttribute-1781193543936]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:toolbar-theme-button
+        ↓Aria [ngx.components.UIAttribute-1781193543938]: 
+          attrName: aria-label
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: 'script:(this.global && this.global.themeDark) ? this.translate.instant(''Theme_Switch_To_Light'') : this.translate.instant(''Theme_Switch_To_Dark'')'
+        ↓Event [ngx.components.UIControlEvent-1781193543940]: 
+          ↓SetTheme [ngx.components.UIDynamicAction-1781193544746]: 
+            beanData: '{"ionBean":"SetThemeAction","dark":"script:!(this.global && this.global.themeDark)"}'
+        ↓ThemeIcon [ngx.components.UIDynamicElement-1781193544748]: 
+          beanData: '{"ionBean":"Icon","IconName":"script:this?.global?.themeDark ? ''sunny-outline'' : ''moon-outline''"}'
+          comment: Dynamic icon reflecting the active theme.
+          tagName: ion-icon
+          ↓IconName [ngx.components.UIAttribute-1781193544750]: 
+            attrName: '[name]'
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: 'script:(this.global && this.global.themeDark) ? ''sunny-outline'' : ''moon-outline'''
+      ↓LanguageSelector [ngx.components.UIDynamicElement-1781193544752]: 
+        beanData: |
+          '{
+           "ionBean": "Select",
+           "ControlName": "plain:name1770915137820",
+           "Justify": "plain:start"
+          }'
+        comment: Language selector displayed in the toolbar.
+        tagName: ion-select
+        ↓Class [ngx.components.UIAttribute-1781193544754]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:toolbar-lang-select
+        ↓Aria [ngx.components.UIAttribute-1781193544756]: 
+          attrName: aria-label
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:'Language' | translate
+        ↓Interface [ngx.components.UIAttribute-1781193544758]: 
+          attrName: '[interface]'
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:'popover'
+        ↓Value [ngx.components.UIAttribute-1781193544760]: 
+          attrName: '[value]'
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:this.global?.currentLanguage?.() ?? 'en'
+        ↓SelectedText [ngx.components.UIAttribute-1781193544762]: 
+          attrName: '[selectedText]'
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:(this.global?.getLanguageLabelKey?.() ??  'Lang_English') | translate
+        ↓ChangeEvent [ngx.components.UIControlEvent-1781193544764]: 
+          attrName: (ionChange)
+          eventName: ionChange
+          ↓SetLanguage [ngx.components.UIDynamicAction-1781193544766]: 
+            beanData: |
+              '{
+               "ionBean": "SetLanguageAction",
+               "language": "script:event.detail.value",
+               "storageKey": "plain:c8o-lang",
+               "globalProperty": "plain:currentLanguage"
+              }'
+        ↓LangEN [ngx.components.UIDynamicElement-1781193544768]: 
+          beanData: '{"ionBean":"SelectOption","Value":"plain:en"}'
+          tagName: ion-select-option
+          ↓Text [ngx.components.UIText-1781193544770]: 
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Lang_English
+        ↓LangFR [ngx.components.UIDynamicElement-1781193544772]: 
+          beanData: '{"ionBean":"SelectOption","Value":"plain:fr"}'
+          tagName: ion-select-option
+          ↓Text [ngx.components.UIText-1781193544774]: 
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Lang_French
+        ↓LangIT [ngx.components.UIDynamicElement-1781193544776]: 
+          beanData: '{"ionBean":"SelectOption","Value":"plain:it"}'
+          tagName: ion-select-option
+          ↓Text [ngx.components.UIText-1781193544778]: 
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Lang_Italian
+        ↓LangES [ngx.components.UIDynamicElement-1781193544780]: 
+          beanData: '{"ionBean":"SelectOption","Value":"plain:es"}'
+          tagName: ion-select-option
+          ↓Text [ngx.components.UIText-1781193544782]: 
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Lang_Spanish
+↓Content [ngx.components.UIDynamicElement-1781166175808]: 
+  beanData: '{"ionBean":"Content"}'
+  tagName: ion-content
+  ↓UsersGrid [ngx.components.UIDynamicElement-1781166175810]: 
+    beanData: '{"ionBean":"Grid"}'
+    tagName: ion-grid
+    ↓UsersRow [ngx.components.UIDynamicElement-1781166175812]: 
+      beanData: '{"ionBean":"GridRow"}'
+      tagName: ion-row
+      ↓MasterCol [ngx.components.UIDynamicElement-1781166175814]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓SizeMd [ngx.components.UIAttribute-1781166175816]: 
+          attrName: size-md
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:4
+        ↓MasterCard [ngx.components.UIDynamicElement-1781166175818]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓MasterHeader [ngx.components.UIDynamicElement-1781194055826]: 
+            beanData: '{"ionBean":"CardHeader"}'
+            tagName: ion-card-header
+            ↓MasterTitle [ngx.components.UIDynamicElement-1781194055828]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781194055830]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Utilisateurs
+            ↓Badge [ngx.components.UIDynamicElement-1781194055832]: 
+              beanData: '{"ionBean":"Badge","IonColor":"plain:primary"}'
+              tagName: ion-badge
+              ↓Text [ngx.components.UIText-1781194055834]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:'' + ((this.local?.usersData?.sequence?.[0]?.document?.user || []).length || 0)
+              ↓BadgeClass [ngx.components.UIAttribute-1781194055836]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:admin-count-badge
+          ↓CreateForm [ngx.components.UIDynamicElement-1781166199511]: 
+            beanData: '{"ionBean":"CardContent"}'
+            tagName: ion-card-content
+            ↓MTitle [ngx.components.UIDynamicElement-1781166199513]: 
+              beanData: '{"ionBean":"Heading2"}'
+              tagName: h2
+              ↓Text [ngx.components.UIText-1781166199515]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Nouvel utilisateur
+            ↓EmailInput [ngx.components.UIDynamicElement-1781166199517]: 
+              beanData: |
+                '{
+                 "ionBean": "Input",
+                 "ControlName": "plain:name1781166199517",
+                 "Placeholder": "plain:Email"
+                }'
+              tagName: ion-input
+              ↓Class [ngx.components.UIAttribute-1781166199519]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:create-input
+              ↓Type [ngx.components.UIAttribute-1781166199521]: 
+                attrName: type
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:email
+              ↓Typing [ngx.components.UIControlEvent-1781166199523]: 
+                attrName: (ionInput)
+                eventName: ionInput
+                ↓StoreEmail [ngx.components.UIDynamicAction-1781166200289]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:newUserEmail",
+                     "Value": "script:event.detail.value"
+                    }'
+            ↓PwdInput [ngx.components.UIDynamicElement-1781166200291]: 
+              beanData: |
+                '{
+                 "ionBean": "Input",
+                 "ControlName": "plain:name1781166200291",
+                 "Placeholder": "plain:Mot de passe"
+                }'
+              tagName: ion-input
+              ↓Class [ngx.components.UIAttribute-1781166200293]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:create-input
+              ↓Type [ngx.components.UIAttribute-1781166200295]: 
+                attrName: type
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:password
+              ↓Typing [ngx.components.UIControlEvent-1781166200297]: 
+                attrName: (ionInput)
+                eventName: ionInput
+                ↓StorePwd [ngx.components.UIDynamicAction-1781166200299]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:newUserPassword",
+                     "Value": "script:event.detail.value"
+                    }'
+            ↓CreateBtn [ngx.components.UIDynamicElement-1781166200301]: 
+              beanData: '{"ionBean":"Button","IonColor":"plain:primary"}'
+              tagName: ion-button
+              ↓Text [ngx.components.UIText-1781166200303]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Créer le compte
+              ↓Create [ngx.components.UIControlEvent-1781166200305]: 
+                ↓DoCreate [ngx.components.UIDynamicAction-1781166200307]: 
+                  beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_FullSyncGrp_ui_ngx.CreateUser"}'
+                  ↓user [ngx.components.UIControlVariable-1781166201085]: 
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.local?.newUserEmail
+                  ↓password [ngx.components.UIControlVariable-1781166201087]: 
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.local?.newUserPassword
+                  ↓ReloadList [ngx.components.UIDynamicAction-1781166201089]: 
+                    beanData: |
+                      '{
+                       "ionBean": "CallSequenceAction",
+                       "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+                       "noLoading": "plain:true"
+                      }'
+                    ↓StoreUsers [ngx.components.UIDynamicAction-1781166201091]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetLocalAction",
+                         "Property": "plain:usersData",
+                         "Value": "script:out"
+                        }'
+              ↓Class [ngx.components.UIAttribute-1781194148030]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:entity-action-button
+            ↓Class [ngx.components.UIAttribute-1781194016544]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-form entity-panel-body
+          ↓UsersList [ngx.components.UIDynamicElement-1781166219922]: 
+            beanData: '{"ionBean":"List","Lines":"plain:none"}'
+            tagName: ion-list
+            ↓UsersForEach [ngx.components.UIControlDirective-1781166219924]: 
+              directiveIndexName: ui
+              directiveItemName: u
+              directiveSource: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:this.local?.usersData?.dashboardUser || []
+              ↓UItem [ngx.components.UIDynamicElement-1781166222216]: 
+                beanData: '{"ionBean":"ListItem","Button":"plain:true"}'
+                tagName: ion-item
+                ↓ProviderIcon [ngx.components.UIDynamicElement-1781194510359]: 
+                  beanData: |
+                    '{
+                     "ionBean": "Icon",
+                     "IconName": "script:u?.providerIcon",
+                     "IconSlot": "plain:start"
+                    }'
+                  tagName: ion-icon
+                  ↓Class [ngx.components.UIAttribute-1781194510361]: 
+                    attrName: class
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: plain:provider-icon
+                  ↓BlankClass [ngx.components.UIAttribute-1781194510363]: 
+                    attrName: '[class.provider-icon-blank]'
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:u?.providerIconBlank
+                ↓Select [ngx.components.UIControlEvent-1781166222218]: 
+                  ↓SetSel [ngx.components.UIDynamicAction-1781166222984]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetLocalAction",
+                       "Property": "plain:selectedUser",
+                       "Value": "script:u?.name || u?.displayName || u"
+                      }'
+                    ↓LoadDetail [ngx.components.UIDynamicAction-1781166223762]: 
+                      beanData: |
+                        '{
+                         "ionBean": "CallSequenceAction",
+                         "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserDetail",
+                         "noLoading": "plain:true"
+                        }'
+                      ↓user [ngx.components.UIControlVariable-1781166223764]: 
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:u?.name || u?.displayName || u
+                      ↓StoreDetail [ngx.components.UIDynamicAction-1781166223766]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetLocalAction",
+                           "Property": "plain:userDetail",
+                           "Value": "script:out"
+                          }'
+                      ↓LoadPerms [ngx.components.UIDynamicAction-1781166223768]: 
+                        beanData: |
+                          '{
+                           "ionBean": "CallSequenceAction",
+                           "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserPermissions",
+                           "noLoading": "plain:true"
+                          }'
+                        ↓user [ngx.components.UIControlVariable-1781166223770]: 
+                          varValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: script:u?.name || u?.displayName || u
+                        ↓StorePerms [ngx.components.UIDynamicAction-1781166223772]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:userPerms",
+                             "Value": "script:out"
+                            }'
+                ↓ULabel [ngx.components.UIDynamicElement-1781166223774]: 
+                  beanData: '{"ionBean":"Label"}'
+                  tagName: ion-label
+                  ↓Text [ngx.components.UIText-1781166223776]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:u?.displayName || u?.name || u
+                ↓GroupsNote [ngx.components.UIDynamicElement-1781194512673]: 
+                  beanData: '{"ionBean":"Note","IonSlot":"plain:end"}'
+                  tagName: ion-note
+                  ↓Text [ngx.components.UIText-1781194512675]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:u?.groupsLabel
+                ↓Class [ngx.components.UIAttribute-1781194018854]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:admin-list-item entity-list-item
+          ↓Class [ngx.components.UIAttribute-1781193998064]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-panel entity-panel
+      ↓DetailCol [ngx.components.UIDynamicElement-1781166175820]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓SizeMd [ngx.components.UIAttribute-1781166175822]: 
+          attrName: size-md
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:8
+        ↓DetailCard [ngx.components.UIDynamicElement-1781166175824]: 
+          beanData: '{"ionBean":"Card"}'
+          tagName: ion-card
+          ↓EmptyIf [ngx.components.UIControlDirective-1781166238295]: 
+            directiveName: If
+            directiveSource: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: script:!this.local?.selectedUser
+            ↓EmptyContent [ngx.components.UIDynamicElement-1781166240587]: 
+              beanData: '{"ionBean":"CardContent"}'
+              tagName: ion-card-content
+              ↓EmptyText [ngx.components.UIDynamicElement-1781166240589]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                tagName: p
+                ↓Text [ngx.components.UIText-1781166240591]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:Sélectionnez un utilisateur pour voir ses groupes et ses permissions effectives.
+                ↓Class [ngx.components.UIAttribute-1781194048884]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-empty-text
+              ↓Class [ngx.components.UIAttribute-1781194041954]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:entity-empty entity-panel-body
+          ↓DetailIf [ngx.components.UIControlDirective-1781166307931]: 
+            directiveName: If
+            directiveSource: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: script:!!this.local?.selectedUser
+            ↓DetailHeader [ngx.components.UIDynamicElement-1781166310223]: 
+              beanData: '{"ionBean":"CardHeader"}'
+              tagName: ion-card-header
+              ↓DetailTitle [ngx.components.UIDynamicElement-1781166310225]: 
+                beanData: '{"ionBean":"Heading2"}'
+                tagName: h2
+                ↓Text [ngx.components.UIText-1781166310227]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.selectedUser
+            ↓Body [ngx.components.UIDynamicElement-1781166310229]: 
+              beanData: '{"ionBean":"CardContent"}'
+              tagName: ion-card-content
+              ↓GroupsLabel [ngx.components.UIDynamicElement-1781166310231]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                tagName: p
+                ↓Class [ngx.components.UIAttribute-1781166310233]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-section-label
+                ↓Text [ngx.components.UIText-1781166310235]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:Groupes
+              ↓GroupsForEach [ngx.components.UIControlDirective-1781166310237]: 
+                directiveIndexName: gi
+                directiveItemName: g
+                directiveSource: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:[].concat(this.local?.userDetail?.sequence?.document?.group || [])
+                ↓GroupChip [ngx.components.UIDynamicElement-1781166310239]: 
+                  beanData: '{"ionBean":"Chip"}'
+                  tagName: ion-chip
+                  ↓Text [ngx.components.UIText-1781166310241]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:g?.text || g
+                  ↓RemoveGroupIcon [ngx.components.UIDynamicElement-1781166325630]: 
+                    beanData: |
+                      '{
+                       "ionBean": "Icon",
+                       "IconName": "plain:close-circle",
+                       "IconSlot": "plain:end"
+                      }'
+                    tagName: ion-icon
+                    ↓Class [ngx.components.UIAttribute-1781166325632]: 
+                      attrName: class
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:chip-remove
+                    ↓Remove [ngx.components.UIControlEvent-1781166325634]: 
+                      ↓DoRemove [ngx.components.UIDynamicAction-1781166326400]: 
+                        beanData: |
+                          '{
+                           "ionBean": "CallSequenceAction",
+                           "requestable": "plain:lib_FullSyncGrp_ui_ngx.RemoveUserFromGroup",
+                           "noLoading": "plain:true"
+                          }'
+                        ↓user [ngx.components.UIControlVariable-1781166327178]: 
+                          varValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: script:this.local?.selectedUser
+                        ↓group [ngx.components.UIControlVariable-1781166327180]: 
+                          varValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: script:g?.text || g
+                        ↓ReloadDetail [ngx.components.UIDynamicAction-1781166327182]: 
+                          beanData: |
+                            '{
+                             "ionBean": "CallSequenceAction",
+                             "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserDetail",
+                             "noLoading": "plain:true"
+                            }'
+                          ↓user [ngx.components.UIControlVariable-1781166327184]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.selectedUser
+                          ↓StoreDetail [ngx.components.UIDynamicAction-1781166327186]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetLocalAction",
+                               "Property": "plain:userDetail",
+                               "Value": "script:out"
+                              }'
+                          ↓ReloadPerms [ngx.components.UIDynamicAction-1781166327188]: 
+                            beanData: |
+                              '{
+                               "ionBean": "CallSequenceAction",
+                               "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserPermissions",
+                               "noLoading": "plain:true"
+                              }'
+                            ↓user [ngx.components.UIControlVariable-1781166327190]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: script:this.local?.selectedUser
+                            ↓StorePerms [ngx.components.UIDynamicAction-1781166327192]: 
+                              beanData: |
+                                '{
+                                 "ionBean": "SetLocalAction",
+                                 "Property": "plain:userPerms",
+                                 "Value": "script:out"
+                                }'
+                  ↓Class [ngx.components.UIAttribute-1781194065094]: 
+                    attrName: class
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: plain:entity-chip
+              ↓AddGroupSelect [ngx.components.UIDynamicElement-1781166340929]: 
+                beanData: |
+                  '{
+                   "ionBean": "Select",
+                   "ControlName": "plain:name1781166340929",
+                   "Placeholder": "plain:Ajouter à un groupe…"
+                  }'
+                tagName: ion-select
+                ↓Class [ngx.components.UIAttribute-1781166340931]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:add-select
+                ↓Pick [ngx.components.UIControlEvent-1781166340933]: 
+                  attrName: (ionChange)
+                  eventName: ionChange
+                  ↓StorePick [ngx.components.UIDynamicAction-1781166341699]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetLocalAction",
+                       "Property": "plain:newUserGroup",
+                       "Value": "script:event.detail.value"
+                      }'
+                ↓CandidateGroups [ngx.components.UIControlDirective-1781192667283]: 
+                  directiveIndexName: cgi
+                  directiveItemName: cg
+                  directiveSource: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:[].concat(this.local?.userDetail?.candidateGroup || [])
+                  ↓Option [ngx.components.UIDynamicElement-1781192669593]: 
+                    beanData: '{"ionBean":"SelectOption","Value":"script:cg"}'
+                    tagName: ion-select-option
+                    ↓Text [ngx.components.UIText-1781192669595]: 
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: script:cg
+              ↓AddGroupBtn [ngx.components.UIDynamicElement-1781166372446]: 
+                beanData: '{"ionBean":"Button","IonColor":"plain:secondary"}'
+                tagName: ion-button
+                ↓Text [ngx.components.UIText-1781166372448]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:Ajouter au groupe
+                ↓Add [ngx.components.UIControlEvent-1781166372450]: 
+                  ↓DoAdd [ngx.components.UIDynamicAction-1781166373216]: 
+                    beanData: |
+                      '{
+                       "ionBean": "CallSequenceAction",
+                       "requestable": "plain:lib_FullSyncGrp_ui_ngx.AddUserToGroup",
+                       "noLoading": "plain:true"
+                      }'
+                    ↓user [ngx.components.UIControlVariable-1781166373994]: 
+                      varValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: script:this.local?.selectedUser
+                    ↓group [ngx.components.UIControlVariable-1781166373996]: 
+                      varValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: script:this.local?.newUserGroup
+                    ↓ReloadDetail [ngx.components.UIDynamicAction-1781166373998]: 
+                      beanData: |
+                        '{
+                         "ionBean": "CallSequenceAction",
+                         "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserDetail",
+                         "noLoading": "plain:true"
+                        }'
+                      ↓user [ngx.components.UIControlVariable-1781166374000]: 
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:this.local?.selectedUser
+                      ↓StoreDetail [ngx.components.UIDynamicAction-1781166374002]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetLocalAction",
+                           "Property": "plain:userDetail",
+                           "Value": "script:out"
+                          }'
+                      ↓ReloadPerms [ngx.components.UIDynamicAction-1781166374004]: 
+                        beanData: |
+                          '{
+                           "ionBean": "CallSequenceAction",
+                           "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserPermissions",
+                           "noLoading": "plain:true"
+                          }'
+                        ↓user [ngx.components.UIControlVariable-1781166374006]: 
+                          varValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: script:this.local?.selectedUser
+                        ↓StorePerms [ngx.components.UIDynamicAction-1781166374008]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:userPerms",
+                             "Value": "script:out"
+                            }'
+                ↓Class [ngx.components.UIAttribute-1781194150340]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-action-button
+              ↓PermsLabel [ngx.components.UIDynamicElement-1781166310243]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                tagName: p
+                ↓Class [ngx.components.UIAttribute-1781166310245]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-section-label
+                ↓Text [ngx.components.UIText-1781166310247]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:Permissions effectives
+              ↓PermsForEach [ngx.components.UIControlDirective-1781166310249]: 
+                directiveIndexName: pi
+                directiveItemName: p
+                directiveSource: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:[].concat(this.local?.userPerms?.permission || [])
+                ↓PermChip [ngx.components.UIDynamicElement-1781166310251]: 
+                  beanData: '{"ionBean":"Chip","IonColor":"plain:primary"}'
+                  tagName: ion-chip
+                  ↓Text [ngx.components.UIText-1781166310253]: 
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:p?.text || p
+                  ↓Class [ngx.components.UIAttribute-1781194067404]: 
+                    attrName: class
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: plain:entity-chip
+              ↓Class [ngx.components.UIAttribute-1781194028094]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:entity-detail-body
+          ↓Class [ngx.components.UIAttribute-1781194000374]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:admin-panel entity-panel
+    ↓Class [ngx.components.UIAttribute-1781193988824]: 
+      attrName: class
+      attrValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:admin-grid entity-grid
+↓LoadUsers [ngx.components.UIPageEvent-1781166175826]: 
+  comment: Loads users on page open.
+  ↓CallDashboard [ngx.components.UIDynamicAction-1781166176592]: 
+    beanData: |
+      '{
+       "ionBean": "CallSequenceAction",
+       "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+       "noLoading": "plain:true"
+      }'
+    ↓StoreUsers [ngx.components.UIDynamicAction-1781166177370]: 
+      beanData: |
+        '{
+         "ionBean": "SetLocalAction",
+         "Property": "plain:usersData",
+         "Value": "script:out"
+        }'

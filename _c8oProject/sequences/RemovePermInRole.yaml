@@ -1,0 +1,78 @@
+comment: 'Facade: remove a permission (element.action:scope) from a role.'
+↓InputVariables [steps.InputVariablesStep-1781166448822]: 
+  nodeName: InputVariables
+↓ReadPermission [steps.SimpleSourceStep-1781192884170]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781166448822
+        - java.lang.String: 
+          - ↑value: ./permission/text()
+  variableName: permissionFull
+↓ParsePermission [steps.SimpleStep-1781192920339]: 
+  expression: |
+    'var _permissionFull = '''' + (permissionFull || '''');
+    var _permissionParts = _permissionFull.split('':'');
+    var _permissionLeft = _permissionParts[0] || '''';
+    var _permissionLastDot = _permissionLeft.lastIndexOf(''.'');
+    var _parsedElement = _permissionLastDot >= 0 ? _permissionLeft.substring(0, _permissionLastDot) : _permissionLeft;
+    var _parsedAction = _permissionLastDot >= 0 ? _permissionLeft.substring(_permissionLastDot + 1) : '''';
+    var _parsedScope = _permissionParts[1] || '''';'
+↓ParsedElement [steps.ElementStep-1781192920360]: 
+  expression: _parsedElement
+  nodeName: parsedElement
+  output: false
+↓ParsedAction [steps.ElementStep-1781192920382]: 
+  expression: _parsedAction
+  nodeName: parsedAction
+  output: false
+↓ParsedScope [steps.ElementStep-1781192920403]: 
+  expression: _parsedScope
+  nodeName: parsedScope
+  output: false
+↓Remove [steps.SequenceStep-1781166448824]: 
+  output: true
+  sourceSequence: lib_FullSyncGrp.RemovePermissionFromRole
+  ↓role [variables.StepVariable-1781166469018]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781166448822
+          - java.lang.String: 
+            - ↑value: ./role/text()
+  ↓element [variables.StepVariable-1781166469026]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192920360
+          - java.lang.String: 
+            - ↑value: ./text()
+  ↓action [variables.StepVariable-1781166469039]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192920382
+          - java.lang.String: 
+            - ↑value: ./text()
+  ↓scope [variables.StepVariable-1781166469053]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192920403
+          - java.lang.String: 
+            - ↑value: ./text()
+↓role [variables.RequestableVariable-1781166448814]: 
+↓element [variables.RequestableVariable-1781166448816]: 
+↓action [variables.RequestableVariable-1781166448818]: 
+↓scope [variables.RequestableVariable-1781166448820]: 
+↓permission [variables.RequestableVariable-1781192884149]: 
