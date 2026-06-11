@@ -1,17 +1,15 @@
 
 
 
-# template_ngxBuilderIonic
+# lib_FullSyncGrp_ui_ngx
 
-Convertigo NGX builder Project
+Administration UI for lib_UserManager and lib_FullSyncGrp. Provides RBAC dashboard and master-detail pages to manage users, groups, roles, permissions, and backend-prepared relation candidates without page-side business logic.
 
 
 For more technical informations : [documentation](./project.md)
 
 - [Installation](#installation)
-- [Mobile Application](#mobile-application)
-    - [Pages](#pages)
-        - [Page](#page)
+- [Mobile Library](#mobile-library)
 
 
 ## Installation
@@ -27,28 +25,22 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     template_ngxBuilderIonic=git@github.com:convertigo/c8oprj-template-ngx-builder.git:branch=8.4.0
+     lib_FullSyncGrp_ui_ngx=https://github.com/convertigo/c8oprj-lib-fullsync-grp-ui-ngx.git:branch=master
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     template_ngxBuilderIonic=git@github.com:convertigo/c8oprj-template-ngx-builder/archive/8.4.0.zip
+     lib_FullSyncGrp_ui_ngx=https://github.com/convertigo/c8oprj-lib-fullsync-grp-ui-ngx/archive/master.zip
      ```
      </td></tr>
     </table>
-3. Click the `Finish` button. This will automatically import the __template_ngxBuilderIonic__ project
+3. Click the `Finish` button. This will automatically import the __lib_FullSyncGrp_ui_ngx__ project
 
 
-## Mobile Application
+## Mobile Library
 
 Describes the mobile application global properties
-
-### Pages
-
-#### Page
-
-Default home page
 
 
 

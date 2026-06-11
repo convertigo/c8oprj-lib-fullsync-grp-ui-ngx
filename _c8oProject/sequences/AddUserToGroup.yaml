@@ -2,6 +2,7 @@ comment: 'Facade: add a user to a group (pass-through to lib_FullSyncGrp.SetUser
 ↓InputVariables [steps.InputVariablesStep-1781164842065]: 
   nodeName: InputVariables
 ↓Set [steps.SequenceStep-1781164707375]: 
+  comment: Delegates user/group assignment to lib_FullSyncGrp.SetUserInGroup.
   output: true
   sourceSequence: lib_FullSyncGrp.SetUserInGroup
   ↓user [variables.StepVariable-1781164874353]: 

@@ -1,4 +1,4 @@
-comment: Master-detail management page for users.
+comment: 'Administration page for user accounts: create internal users, inspect group membership, and view effective permissions.'
 icon: people-circle
 segment: users
 title: Utilisateurs
@@ -151,9 +151,11 @@ title: Utilisateurs
                 - MobileSmartSourceType: plain:Lang_Spanish
 ↓Content [ngx.components.UIDynamicElement-1781166175808]: 
   beanData: '{"ionBean":"Content"}'
+  comment: Scrollable content hosting the users master-detail administration layout.
   tagName: ion-content
   ↓UsersGrid [ngx.components.UIDynamicElement-1781166175810]: 
     beanData: '{"ionBean":"Grid"}'
+    comment: 'Two-column Ionic grid: user list on the left, selected user details on the right.'
     tagName: ion-grid
     ↓UsersRow [ngx.components.UIDynamicElement-1781166175812]: 
       beanData: '{"ionBean":"GridRow"}'
@@ -169,6 +171,7 @@ title: Utilisateurs
               - MobileSmartSourceType: plain:4
         ↓MasterCard [ngx.components.UIDynamicElement-1781166175818]: 
           beanData: '{"ionBean":"Card"}'
+          comment: Master panel containing the create-user form and the selectable users list.
           tagName: ion-card
           ↓MasterHeader [ngx.components.UIDynamicElement-1781194055826]: 
             beanData: '{"ionBean":"CardHeader"}'
@@ -197,6 +200,7 @@ title: Utilisateurs
                     - MobileSmartSourceType: plain:admin-count-badge
           ↓CreateForm [ngx.components.UIDynamicElement-1781166199511]: 
             beanData: '{"ionBean":"CardContent"}'
+            comment: Palette-built form that collects the email and password used by the CreateUser backend facade.
             tagName: ion-card-content
             ↓MTitle [ngx.components.UIDynamicElement-1781166199513]: 
               beanData: '{"ionBean":"Heading2"}'
@@ -315,6 +319,7 @@ title: Utilisateurs
                   - MobileSmartSourceType: plain:entity-form entity-panel-body
           ↓UsersList [ngx.components.UIDynamicElement-1781166219922]: 
             beanData: '{"ionBean":"List","Lines":"plain:none"}'
+            comment: Compact list bound to AdminDashboard.dashboardUser so provider icons, display names, and group counts are prepared in backend.
             tagName: ion-list
             ↓UsersForEach [ngx.components.UIControlDirective-1781166219924]: 
               directiveIndexName: ui
@@ -431,6 +436,7 @@ title: Utilisateurs
               - MobileSmartSourceType: plain:8
         ↓DetailCard [ngx.components.UIDynamicElement-1781166175824]: 
           beanData: '{"ionBean":"Card"}'
+          comment: Detail panel showing the selected user's groups and effective permissions.
           tagName: ion-card
           ↓EmptyIf [ngx.components.UIControlDirective-1781166238295]: 
             directiveName: If
@@ -749,7 +755,7 @@ title: Utilisateurs
           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
           - MobileSmartSourceType: plain:admin-grid entity-grid
 ↓LoadUsers [ngx.components.UIPageEvent-1781166175826]: 
-  comment: Loads users on page open.
+  comment: Loads the backend-prepared dashboard payload used by the user list when the page opens.
   ↓CallDashboard [ngx.components.UIDynamicAction-1781166176592]: 
     beanData: |
       '{

@@ -5,6 +5,7 @@ comment: 'Facade: roles that include one permission.'
   nodeName: status
   nodeText: ok
 ↓Roles [steps.SequenceStep-1781166448792]: 
+  comment: Reads roles that include the selected permission for the Permissions detail panel.
   output: true
   sourceSequence: lib_FullSyncGrp.RolesOfPermission
   ↓permission [variables.StepVariable-1781166468952]: 
@@ -17,3 +18,4 @@ comment: 'Facade: roles that include one permission.'
           - java.lang.String: 
             - ↑value: ./permission/text()
 ↓permission [variables.RequestableVariable-1781166448786]: 
+  comment: Permission key to inspect, formatted as element.action:scope.

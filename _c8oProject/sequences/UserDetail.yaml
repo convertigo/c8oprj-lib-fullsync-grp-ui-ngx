@@ -18,10 +18,12 @@ comment: 'Facade: groups of one user (master-detail Users page).'
           - java.lang.String: 
             - ↑value: ./user/text()
 ↓InitCandidates [steps.SimpleStep-1781192382268]: 
+  comment: Initializes assigned and candidate group arrays for the selected user.
   expression: |
     var _assignedGroups = [];
     var _candidateGroups = [];
 ↓IteratorAssignedGroups [steps.IteratorStep-1781192382297]: 
+  comment: Collects groups already attached to the user so candidate groups can be computed backend-side.
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -47,6 +49,7 @@ comment: 'Facade: groups of one user (master-detail Users page).'
       	_assignedGroups.push(assignedGroupName);
       }'
 ↓AllGroups [steps.SequenceStep-1781192382320]: 
+  comment: Reads all RBAC groups from lib_FullSyncGrp for candidate computation.
   sourceSequence: lib_FullSyncGrp.Groups
 ↓IteratorAllGroups [steps.IteratorStep-1781192394095]: 
   sourceDefinition: 
@@ -74,6 +77,7 @@ comment: 'Facade: groups of one user (master-detail Users page).'
       	_candidateGroups.push(allGroupName);
       }'
 ↓IteratorCandidateGroups [steps.SimpleIteratorStep-1781192407843]: 
+  comment: Emits candidateGroup nodes excluding groups already assigned to the selected user.
   expression: _candidateGroups
   ↓CandidateGroup [steps.ElementStep-1781192407845]: 
     expression: _candidateGroups[index]

@@ -1,4 +1,4 @@
-comment: 'Master-detail page for permissions (read-only: roles that include each permission).'
+comment: 'Read-only administration page for RBAC permissions: inspect each permission and the roles that include it.'
 icon: key
 segment: permissions
 title: Permissions
@@ -146,6 +146,7 @@ title: Permissions
                 - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                 - MobileSmartSourceType: plain:Lang_Spanish
 ↓LoadPerms [ngx.components.UIPageEvent-1781166751522]: 
+  comment: Loads the RBAC dashboard facade so the permissions list and count are available on entry.
   ↓CallDashboard [ngx.components.UIDynamicAction-1781166752288]: 
     beanData: |
       '{
@@ -162,9 +163,11 @@ title: Permissions
         }'
 ↓Content [ngx.components.UIDynamicElement-1781166771594]: 
   beanData: '{"ionBean":"Content"}'
+  comment: Scrollable content hosting the permissions master-detail inspection layout.
   tagName: ion-content
   ↓PermsGrid [ngx.components.UIDynamicElement-1781166773886]: 
     beanData: '{"ionBean":"Grid"}'
+    comment: 'Two-column Ionic grid: permission list on the left, selected permission usage on the right.'
     tagName: ion-grid
     ↓GridClass [ngx.components.UIAttribute-1781194784130]: 
       attrName: class
@@ -186,6 +189,7 @@ title: Permissions
               - MobileSmartSourceType: plain:5
         ↓MasterCard [ngx.components.UIDynamicElement-1781166773894]: 
           beanData: '{"ionBean":"Card"}'
+          comment: Master panel listing permissions returned by the AdminDashboard facade.
           tagName: ion-card
           ↓PanelClass [ngx.components.UIAttribute-1781194786440]: 
             attrName: class
@@ -283,6 +287,7 @@ title: Permissions
               - MobileSmartSourceType: plain:7
         ↓DetailCard [ngx.components.UIDynamicElement-1781166777750]: 
           beanData: '{"ionBean":"Card"}'
+          comment: Detail panel showing roles that include the selected permission, using PermissionDetail.
           tagName: ion-card
           ↓EmptyIf [ngx.components.UIControlDirective-1781194832627]: 
             directiveName: If

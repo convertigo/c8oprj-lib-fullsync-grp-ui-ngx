@@ -1,4 +1,4 @@
-comment: Master-detail management page for roles.
+comment: 'Administration page for RBAC roles: inspect permissions, add or remove permissions, and see groups using the role.'
 icon: shield-checkmark
 segment: roles
 title: Rôles
@@ -147,9 +147,11 @@ title: Rôles
                 - MobileSmartSourceType: plain:Lang_Spanish
 ↓Content [ngx.components.UIDynamicElement-1781166634709]: 
   beanData: '{"ionBean":"Content"}'
+  comment: Scrollable content hosting the roles master-detail administration layout.
   tagName: ion-content
   ↓RolesGrid [ngx.components.UIDynamicElement-1781166637001]: 
     beanData: '{"ionBean":"Grid"}'
+    comment: 'Two-column Ionic grid: role list on the left, selected role details on the right.'
     tagName: ion-grid
     ↓GridClass [ngx.components.UIAttribute-1781194777200]: 
       attrName: class
@@ -171,6 +173,7 @@ title: Rôles
               - MobileSmartSourceType: plain:4
         ↓MasterCard [ngx.components.UIDynamicElement-1781166637009]: 
           beanData: '{"ionBean":"Card"}'
+          comment: Master panel listing RBAC roles from the AdminDashboard facade.
           tagName: ion-card
           ↓PanelClass [ngx.components.UIAttribute-1781194779510]: 
             attrName: class
@@ -268,6 +271,7 @@ title: Rôles
               - MobileSmartSourceType: plain:8
         ↓DetailCard [ngx.components.UIDynamicElement-1781166637021]: 
           beanData: '{"ionBean":"Card"}'
+          comment: Detail panel showing permissions attached to the selected role and groups using it; add candidates come from RoleDetail.
           tagName: ion-card
           ↓PanelClass [ngx.components.UIAttribute-1781194781820]: 
             attrName: class
@@ -572,6 +576,7 @@ title: Rôles
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:entity-detail-body
 ↓LoadRoles [ngx.components.UIPageEvent-1781166644640]: 
+  comment: Loads the RBAC dashboard facade so the roles list and count are available on entry.
   ↓CallDashboard [ngx.components.UIDynamicAction-1781166645406]: 
     beanData: |
       '{

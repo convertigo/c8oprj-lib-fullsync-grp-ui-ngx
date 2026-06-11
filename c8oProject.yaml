@@ -1,6 +1,6 @@
 ↑convertigo: 8.4.0.m006
 ↓lib_FullSyncGrp_ui_ngx [core.Project]: 
-  comment: Convertigo NGX builder Project
+  comment: Administration UI for lib_UserManager and lib_FullSyncGrp. Provides RBAC dashboard and master-detail pages to manage users, groups, roles, permissions, and backend-prepared relation candidates without page-side business logic.
   contextTimeout: 59
   corsOrigin: =Origin
   httpSessionTimeout: 60

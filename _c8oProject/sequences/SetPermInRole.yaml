@@ -2,6 +2,7 @@ comment: 'Facade: add a permission (element.action:scope) to a role.'
 ↓InputVariables [steps.InputVariablesStep-1781166448805]: 
   nodeName: InputVariables
 ↓ReadPermission [steps.SimpleSourceStep-1781192884123]: 
+  comment: Reads the full permission key passed by the page; keeps parsing logic out of the NGX template.
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -12,6 +13,7 @@ comment: 'Facade: add a permission (element.action:scope) to a role.'
           - ↑value: ./permission/text()
   variableName: permissionFull
 ↓ParsePermission [steps.SimpleStep-1781192920243]: 
+  comment: Parses permission formatted as element.action:scope into the lib_FullSyncGrp SetPermInRole variables.
   expression: |
     'var _permissionFull = '''' + (permissionFull || '''');
     var _permissionParts = _permissionFull.split('':'');
@@ -33,6 +35,7 @@ comment: 'Facade: add a permission (element.action:scope) to a role.'
   nodeName: parsedScope
   output: false
 ↓Set [steps.SequenceStep-1781166448807]: 
+  comment: Calls lib_FullSyncGrp.SetPermInRole with backend-parsed element, action, and scope values.
   output: true
   sourceSequence: lib_FullSyncGrp.SetPermissionInRole
   ↓role [variables.StepVariable-1781166468967]: 
@@ -72,7 +75,12 @@ comment: 'Facade: add a permission (element.action:scope) to a role.'
           - java.lang.String: 
             - ↑value: ./text()
 ↓role [variables.RequestableVariable-1781166448797]: 
+  comment: Target role receiving the permission.
 ↓element [variables.RequestableVariable-1781166448799]: 
+  comment: Compatibility variable populated from permission parsing when needed.
 ↓action [variables.RequestableVariable-1781166448801]: 
+  comment: Compatibility variable populated from permission parsing when needed.
 ↓scope [variables.RequestableVariable-1781166448803]: 
+  comment: Compatibility variable populated from permission parsing when needed.
 ↓permission [variables.RequestableVariable-1781192884103]: 
+  comment: Full permission key selected in the UI, formatted as element.action:scope.

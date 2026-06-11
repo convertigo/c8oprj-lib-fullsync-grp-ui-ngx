@@ -2,6 +2,7 @@ comment: 'Facade: add a role to a group (pass-through to lib_FullSyncGrp.SetRole
 ↓InputVariables [steps.InputVariablesStep-1781164842097]: 
   nodeName: InputVariables
 ↓Set [steps.SequenceStep-1781164707410]: 
+  comment: Delegates role/group assignment to lib_FullSyncGrp.SetRoleInGroup.
   output: true
   sourceSequence: lib_FullSyncGrp.SetRoleInGroup
   ↓role [variables.StepVariable-1781164874436]: 

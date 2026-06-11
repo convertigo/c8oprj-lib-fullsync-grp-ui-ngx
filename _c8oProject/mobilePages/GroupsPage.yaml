@@ -1,4 +1,4 @@
-comment: Master-detail management page for RBAC groups.
+comment: 'Administration page for RBAC groups: inspect members and roles, then add or remove relations through backend facades.'
 icon: people
 segment: groups
 title: Groupes
@@ -151,9 +151,11 @@ title: Groupes
                 - MobileSmartSourceType: plain:Lang_Spanish
 ↓Content [ngx.components.UIDynamicElement-1781165173993]: 
   beanData: '{"ionBean":"Content"}'
+  comment: Scrollable content hosting the groups master-detail administration layout.
   tagName: ion-content
   ↓GroupsGrid [ngx.components.UIDynamicElement-1781165173995]: 
     beanData: '{"ionBean":"Grid"}'
+    comment: 'Two-column Ionic grid: group list on the left, selected group details on the right.'
     tagName: ion-grid
     ↓GroupsRow [ngx.components.UIDynamicElement-1781165173997]: 
       beanData: '{"ionBean":"GridRow"}'
@@ -169,6 +171,7 @@ title: Groupes
               - MobileSmartSourceType: plain:4
         ↓MasterCard [ngx.components.UIDynamicElement-1781165174003]: 
           beanData: '{"ionBean":"Card"}'
+          comment: Master panel listing visible RBAC groups from AdminDashboard.visibleGroup.
           tagName: ion-card
           ↓MasterHeader [ngx.components.UIDynamicElement-1781165174005]: 
             beanData: '{"ionBean":"CardHeader"}'
@@ -266,6 +269,7 @@ title: Groupes
               - MobileSmartSourceType: plain:8
         ↓DetailCard [ngx.components.UIDynamicElement-1781165177865]: 
           beanData: '{"ionBean":"Card"}'
+          comment: Detail panel showing the selected group's members and roles plus candidate add controls prepared by GroupDetail.
           tagName: ion-card
           ↓EmptyIf [ngx.components.UIControlDirective-1781165177867]: 
             directiveName: If
@@ -687,7 +691,7 @@ title: Groupes
           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
           - MobileSmartSourceType: plain:admin-grid entity-grid
 ↓LoadGroups [ngx.components.UIPageEvent-1781165177905]: 
-  comment: Loads RBAC lists when the Groups page opens.
+  comment: Loads the RBAC dashboard facade so the group list and counts are ready when the page opens.
   ↓CallDashboard [ngx.components.UIDynamicAction-1781165178671]: 
     beanData: |
       '{

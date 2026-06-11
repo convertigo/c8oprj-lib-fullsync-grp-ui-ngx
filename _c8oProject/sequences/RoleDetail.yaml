@@ -29,10 +29,12 @@ comment: 'Facade: permissions and groups of one role.'
           - java.lang.String: 
             - ↑value: ./role/text()
 ↓InitCandidates [steps.SimpleStep-1781192344699]: 
+  comment: Initializes assigned and candidate permission arrays for the selected role.
   expression: |
     var _assignedPermissions = [];
     var _candidatePermissions = [];
 ↓IteratorAssignedPermissions [steps.IteratorStep-1781192344722]: 
+  comment: Collects permissions already attached to the role so candidate permissions can be computed backend-side.
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -58,6 +60,7 @@ comment: 'Facade: permissions and groups of one role.'
       	_assignedPermissions.push(assignedPermissionName);
       }'
 ↓AllPermissions [steps.SequenceStep-1781192344743]: 
+  comment: Reads all permissions from lib_FullSyncGrp for candidate computation.
   sourceSequence: lib_FullSyncGrp.Permissions
 ↓IteratorAllPermissions [steps.IteratorStep-1781192356812]: 
   sourceDefinition: 
@@ -85,6 +88,7 @@ comment: 'Facade: permissions and groups of one role.'
       	_candidatePermissions.push(allPermissionName);
       }'
 ↓IteratorCandidatePermissions [steps.SimpleIteratorStep-1781192368861]: 
+  comment: Emits candidatePermission nodes excluding permissions already assigned to the selected role.
   expression: _candidatePermissions
   ↓CandidatePermission [steps.ElementStep-1781192368864]: 
     expression: _candidatePermissions[index]

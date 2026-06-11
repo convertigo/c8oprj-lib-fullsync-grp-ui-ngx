@@ -2,6 +2,7 @@ comment: 'Facade: effective permissions of one user, resolved through groups and
 ↓InputVariables [steps.InputVariablesStep-1781165752751]: 
   nodeName: InputVariables
 ↓InitPermissions [steps.SimpleStep-1781165752753]: 
+  comment: Initializes the unique effective-permission accumulator for the selected user.
   expression: |
     'var effectivePermissions = {};
     var scopePriorities = {
@@ -9,6 +10,7 @@ comment: 'Facade: effective permissions of one user, resolved through groups and
     	all: 2
     };'
 ↓Call_GroupsOf [steps.SequenceStep-1781165752755]: 
+  comment: Reads the selected user's groups before resolving role permissions.
   sourceSequence: lib_FullSyncGrp.GroupsOf
   ↓user [variables.StepVariable-1781165752757]: 
     sourceDefinition: 
@@ -20,6 +22,7 @@ comment: 'Facade: effective permissions of one user, resolved through groups and
           - java.lang.String: 
             - ↑value: ./user/text()
 ↓IteratorGroups [steps.IteratorStep-1781165752759]: 
+  comment: Iterates user groups, reads group roles, then accumulates permissions for each role.
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -94,11 +97,13 @@ comment: 'Facade: effective permissions of one user, resolved through groups and
           	}
           }'
 ↓BuildPermissions [steps.SimpleStep-1781165752777]: 
+  comment: Sorts the accumulated effective permissions into a stable backend-prepared list.
   expression: |
     'var _effectivePermissions = Object.keys(effectivePermissions).map(function(resourceAction) {
     	return resourceAction + ":" + effectivePermissions[resourceAction].scope;
     }).sort();'
 ↓IteratorEffectivePermissions [steps.SimpleIteratorStep-1781165752779]: 
+  comment: Emits effectivePermission nodes consumed directly by UsersPage.
   expression: _effectivePermissions
   ↓Permission [steps.ElementStep-1781165752781]: 
     expression: _effectivePermissions[index]

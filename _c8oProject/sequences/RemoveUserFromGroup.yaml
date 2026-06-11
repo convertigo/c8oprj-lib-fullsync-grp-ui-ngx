@@ -2,6 +2,7 @@ comment: 'Facade: remove a user from a group (pass-through to lib_FullSyncGrp.Re
 ↓InputVariables [steps.InputVariablesStep-1781164842078]: 
   nodeName: InputVariables
 ↓Remove [steps.SequenceStep-1781164707391]: 
+  comment: Delegates user/group removal to lib_FullSyncGrp.RemoveUserFromGroup.
   output: true
   sourceSequence: lib_FullSyncGrp.RemoveUserFromGroup
   ↓user [variables.StepVariable-1781164874396]: 

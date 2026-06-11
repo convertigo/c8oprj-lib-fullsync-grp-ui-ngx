@@ -19,8 +19,10 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
   output: true
   sourceSequence: lib_FullSyncGrp.Permissions
 ↓InitVisibleGroups [steps.SimpleStep-1781192200069]: 
+  comment: Initializes backend arrays used to expose only visible groups and normalized user rows to NGX pages.
   expression: var _visibleGroups = [];
 ↓IteratorRawGroups [steps.IteratorStep-1781192228352]: 
+  comment: Scans raw FullSyncGrp groups and filters hidden/internal group names before exposing them to the UI.
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -46,12 +48,13 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
       	_visibleGroups.push(groupName);
       }'
 ↓IteratorVisibleGroups [steps.SimpleIteratorStep-1781192241869]: 
+  comment: Writes the backend-prepared visibleGroup nodes consumed by GroupsPage and the home dashboard.
   expression: _visibleGroups
   ↓VisibleGroup [steps.ElementStep-1781192241871]: 
     expression: _visibleGroups[index]
     nodeName: visibleGroup
 ↓BuildDashboardUsers [steps.IteratorStep-1781192762088]: 
-  comment: Builds backend-prepared user view models for the dashboard list.
+  comment: Normalizes users into dashboardUser view models with name, displayName, provider icon state, group count, and label.
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector

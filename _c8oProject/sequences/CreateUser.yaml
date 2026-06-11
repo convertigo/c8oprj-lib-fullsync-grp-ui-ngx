@@ -2,6 +2,7 @@ comment: 'Facade: create an internal user account (pass-through to lib_UserManag
 ↓InputVariables [steps.InputVariablesStep-1781165701593]: 
   nodeName: InputVariables
 ↓Add [steps.SequenceStep-1781165701595]: 
+  comment: Delegates account creation to lib_UserManager.AddUser; the page only passes user and password.
   output: true
   sourceSequence: lib_UserManager.AddUser
   ↓user [variables.StepVariable-1781165713894]: 

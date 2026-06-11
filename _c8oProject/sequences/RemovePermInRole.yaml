@@ -2,6 +2,7 @@ comment: 'Facade: remove a permission (element.action:scope) from a role.'
 ↓InputVariables [steps.InputVariablesStep-1781166448822]: 
   nodeName: InputVariables
 ↓ReadPermission [steps.SimpleSourceStep-1781192884170]: 
+  comment: Reads the full permission key passed by the page; keeps parsing logic out of the NGX template.
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -12,6 +13,7 @@ comment: 'Facade: remove a permission (element.action:scope) from a role.'
           - ↑value: ./permission/text()
   variableName: permissionFull
 ↓ParsePermission [steps.SimpleStep-1781192920339]: 
+  comment: Parses permission formatted as element.action:scope into the lib_FullSyncGrp RemovePermInRole variables.
   expression: |
     'var _permissionFull = '''' + (permissionFull || '''');
     var _permissionParts = _permissionFull.split('':'');
@@ -33,6 +35,7 @@ comment: 'Facade: remove a permission (element.action:scope) from a role.'
   nodeName: parsedScope
   output: false
 ↓Remove [steps.SequenceStep-1781166448824]: 
+  comment: Calls lib_FullSyncGrp.RemovePermInRole with backend-parsed element, action, and scope values.
   output: true
   sourceSequence: lib_FullSyncGrp.RemovePermissionFromRole
   ↓role [variables.StepVariable-1781166469018]: 
@@ -72,7 +75,12 @@ comment: 'Facade: remove a permission (element.action:scope) from a role.'
           - java.lang.String: 
             - ↑value: ./text()
 ↓role [variables.RequestableVariable-1781166448814]: 
+  comment: Target role losing the permission.
 ↓element [variables.RequestableVariable-1781166448816]: 
+  comment: Compatibility variable populated from permission parsing when needed.
 ↓action [variables.RequestableVariable-1781166448818]: 
+  comment: Compatibility variable populated from permission parsing when needed.
 ↓scope [variables.RequestableVariable-1781166448820]: 
+  comment: Compatibility variable populated from permission parsing when needed.
 ↓permission [variables.RequestableVariable-1781192884149]: 
+  comment: Full permission key selected in the UI, formatted as element.action:scope.
