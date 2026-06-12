@@ -18,10 +18,12 @@ comment: 'Facade: groups of one user (master-detail Users page).'
           - java.lang.String: 
             - ↑value: ./user/text()
 ↓InitCandidates [steps.SimpleStep-1781192382268]: 
-  comment: Initializes assigned and candidate group arrays for the selected user.
+  comment: Initializes assigned and bounded candidate group arrays for the selected user.
   expression: |
     var _assignedGroups = [];
     var _candidateGroups = [];
+    var _candidateGroupTotal = 0;
+    var _maxCandidateGroups = 100;
 ↓IteratorAssignedGroups [steps.IteratorStep-1781192382297]: 
   comment: Collects groups already attached to the user so candidate groups can be computed backend-side.
   sourceDefinition: 
@@ -74,7 +76,10 @@ comment: 'Facade: groups of one user (master-detail Users page).'
     expression: |
       'var allGroupName = '''' + allGroup;
       if (allGroupName && allGroupName.indexOf(''C8Oreserved'') !== 0 && allGroupName.indexOf(''_C8O_HIDDEN'') !== 0 && _assignedGroups.indexOf(allGroupName) === -1) {
-      	_candidateGroups.push(allGroupName);
+      	_candidateGroupTotal++;
+      	if (_candidateGroups.length < _maxCandidateGroups) {
+      		_candidateGroups.push(allGroupName);
+      	}
       }'
 ↓IteratorCandidateGroups [steps.SimpleIteratorStep-1781192407843]: 
   comment: Emits candidateGroup nodes excluding groups already assigned to the selected user.

@@ -191,7 +191,7 @@ title: Utilisateurs
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.usersData?.sequence?.[0]?.document?.user || []).length || 0)
+                    - MobileSmartSourceType: script:this.local?.usersData?.listMetrics?.userTotal || '0'
               ↓BadgeClass [ngx.components.UIAttribute-1781194055836]: 
                 attrName: class
                 attrValue: 
@@ -279,32 +279,77 @@ title: Utilisateurs
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:Créer le compte
               ↓Create [ngx.components.UIControlEvent-1781166200305]: 
-                ↓DoCreate [ngx.components.UIDynamicAction-1781166200307]: 
-                  beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_FullSyncGrp_ui_ngx.CreateUser"}'
-                  ↓user [ngx.components.UIControlVariable-1781166201085]: 
-                    varValue: 
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:this.local?.newUserEmail
-                  ↓password [ngx.components.UIControlVariable-1781166201087]: 
-                    varValue: 
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:this.local?.newUserPassword
-                  ↓ReloadList [ngx.components.UIDynamicAction-1781166201089]: 
-                    beanData: |
-                      '{
-                       "ionBean": "CallSequenceAction",
-                       "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
-                       "noLoading": "plain:true"
-                      }'
-                    ↓StoreUsers [ngx.components.UIDynamicAction-1781166201091]: 
-                      beanData: |
-                        '{
-                         "ionBean": "SetLocalAction",
-                         "Property": "plain:usersData",
-                         "Value": "script:out"
-                        }'
+                ↓ConfirmCreateUser [ngx.components.UIDynamicAction-1781247120993]: 
+                  beanData: |
+                    '{
+                     "ionBean": "AlertAction",
+                     "header": "plain:Confirmer la création",
+                     "message": "script:''Créer le compte utilisateur '' + (this.local?.newUserEmail || '''') + '' ?''",
+                     "backdropDismiss": "plain:false",
+                     "button1": "plain:Annuler",
+                     "button2": "plain:Créer",
+                     "value1": "plain:cancel",
+                     "value2": "plain:confirm",
+                     "cancel1": "plain:cancel",
+                     "css1": "plain:alert-button-cancel",
+                     "css2": "plain:alert-button-confirm"
+                    }'
+                  comment: Confirmation dialog shown before creating an internal user account.
+                  ↓IfConfirmed [ngx.components.UIDynamicAction-1781247121771]: 
+                    beanData: '{"ionBean":"IfAction","condition":"script:parent.out?.data == ''confirm''"}'
+                    comment: Runs the user creation flow only when the administrator confirms the alert.
+                    ↓DoCreate [ngx.components.UIDynamicAction-1781247121773]: 
+                      beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_FullSyncGrp_ui_ngx.CreateUser"}'
+                      ↓user [ngx.components.UIControlVariable-1781248637053]: 
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:this.local?.newUserEmail
+                      ↓password [ngx.components.UIControlVariable-1781248638446]: 
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:this.local?.newUserPassword
+                      ↓IfCreateError [ngx.components.UIDynamicAction-1781248638521]: 
+                        beanData: '{"ionBean":"IfAction","condition":"script:out?.hasError == ''true''"}'
+                        comment: Shows the account creation notification only when the backend-prepared CreateUser contract reports an error.
+                        ↓ShowCreateError [ngx.components.UIDynamicAction-1781248836785]: 
+                          beanData: |
+                            '{
+                             "ionBean": "ToastAction",
+                             "IonColor": "plain:danger",
+                             "message": "script:stack[''DoCreate'']?.out?.toastMessage",
+                             "duration": "plain:4500",
+                             "position": "plain:top",
+                             "icon": "plain:alert-circle-outline",
+                             "showCloseButton": "plain:true",
+                             "closeButtonText": "plain:Fermer"
+                            }'
+                          comment: Displays the backend-prepared account creation error message.
+                      ↓ReloadList [ngx.components.UIDynamicAction-1781248646667]: 
+                        beanData: |
+                          '{
+                           "ionBean": "CallSequenceAction",
+                           "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+                           "noLoading": "plain:true"
+                          }'
+                        ↓StoreUsers [ngx.components.UIDynamicAction-1781248646674]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:usersData",
+                             "Value": "script:out"
+                            }'
+                        ↓userSearch [ngx.components.UIControlVariable-1781248646676]: 
+                          varValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: script:this.local?.userSearch || ''
+                        ↓maxUsers [ngx.components.UIControlVariable-1781248646678]: 
+                          varValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: plain:100
               ↓Class [ngx.components.UIAttribute-1781194148030]: 
                 attrName: class
                 attrValue: 
@@ -317,6 +362,71 @@ title: Utilisateurs
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                   - MobileSmartSourceType: plain:entity-form entity-panel-body
+          ↓UserSearchInput [ngx.components.UIDynamicElement-1781245222168]: 
+            beanData: |
+              '{
+               "ionBean": "Input",
+               "ControlName": "plain:userSearch",
+               "ClearInput": "plain:true",
+               "Debounce": "plain:250",
+               "Placeholder": "plain:Rechercher un utilisateur..."
+              }'
+            comment: Search input that reloads backend-prepared user rows without filtering in the page.
+            tagName: ion-input
+            ↓Class [ngx.components.UIAttribute-1781245222170]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-search-input
+            ↓Typing [ngx.components.UIControlEvent-1781245222172]: 
+              attrName: (ionInput)
+              eventName: ionInput
+              ↓StoreUserSearch [ngx.components.UIDynamicAction-1781245222938]: 
+                beanData: |
+                  '{
+                   "ionBean": "SetLocalAction",
+                   "Property": "plain:userSearch",
+                   "Value": "script:event.detail.value || ''''"
+                  }'
+              ↓ReloadUsers [ngx.components.UIDynamicAction-1781245222940]: 
+                beanData: |
+                  '{
+                   "ionBean": "CallSequenceAction",
+                   "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+                   "noLoading": "plain:true"
+                  }'
+                ↓userSearch [ngx.components.UIControlVariable-1781245223718]: 
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.userSearch || ''
+                ↓maxUsers [ngx.components.UIControlVariable-1781245223720]: 
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:100
+                ↓StoreUsers [ngx.components.UIDynamicAction-1781245223722]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:usersData",
+                     "Value": "script:out"
+                    }'
+          ↓UserResultSummary [ngx.components.UIDynamicElement-1781245226032]: 
+            beanData: '{"ionBean":"Paragraph"}'
+            tagName: p
+            ↓Text [ngx.components.UIText-1781245226034]: 
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:this.local?.usersData?.listMetrics?.userLabel || ''
+            ↓Class [ngx.components.UIAttribute-1781245226036]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-result-summary
           ↓UsersList [ngx.components.UIDynamicElement-1781166219922]: 
             beanData: '{"ionBean":"List","Lines":"plain:none"}'
             comment: Compact list bound to AdminDashboard.dashboardUser so provider icons, display names, and group counts are prepared in backend.
@@ -327,7 +437,7 @@ title: Utilisateurs
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:this.local?.usersData?.dashboardUser || []
+                  - MobileSmartSourceType: script:[].concat(this.local?.usersData?.dashboardUser || [])
               ↓UItem [ngx.components.UIDynamicElement-1781166222216]: 
                 beanData: '{"ionBean":"ListItem","Button":"plain:true"}'
                 tagName: ion-item
@@ -770,3 +880,13 @@ title: Utilisateurs
          "Property": "plain:usersData",
          "Value": "script:out"
         }'
+    ↓maxUsers [ngx.components.UIControlVariable-1781245217524]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:100
+    ↓userSearch [ngx.components.UIControlVariable-1781245218302]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:this.local?.userSearch || ''

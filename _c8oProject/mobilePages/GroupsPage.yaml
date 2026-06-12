@@ -191,13 +191,78 @@ title: Groupes
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.groupsData?.visibleGroup || []).length || 0)
+                    - MobileSmartSourceType: script:this.local?.groupsData?.listMetrics?.groupTotal || '0'
               ↓BadgeClass [ngx.components.UIAttribute-1781194058150]: 
                 attrName: class
                 attrValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:admin-count-badge
+          ↓GroupSearchInput [ngx.components.UIDynamicElement-1781245228346]: 
+            beanData: |
+              '{
+               "ionBean": "Input",
+               "ControlName": "plain:groupSearch",
+               "ClearInput": "plain:true",
+               "Debounce": "plain:250",
+               "Placeholder": "plain:Rechercher un groupe..."
+              }'
+            comment: Search input that reloads backend-prepared group rows without filtering in the page.
+            tagName: ion-input
+            ↓Class [ngx.components.UIAttribute-1781245228348]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-search-input
+            ↓Typing [ngx.components.UIControlEvent-1781245228350]: 
+              attrName: (ionInput)
+              eventName: ionInput
+              ↓StoreGroupSearch [ngx.components.UIDynamicAction-1781245229116]: 
+                beanData: |
+                  '{
+                   "ionBean": "SetLocalAction",
+                   "Property": "plain:groupSearch",
+                   "Value": "script:event.detail.value || ''''"
+                  }'
+              ↓ReloadGroups [ngx.components.UIDynamicAction-1781245229118]: 
+                beanData: |
+                  '{
+                   "ionBean": "CallSequenceAction",
+                   "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+                   "noLoading": "plain:true"
+                  }'
+                ↓groupSearch [ngx.components.UIControlVariable-1781245229896]: 
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.groupSearch || ''
+                ↓maxGroups [ngx.components.UIControlVariable-1781245229898]: 
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:100
+                ↓StoreGroups [ngx.components.UIDynamicAction-1781245229900]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:groupsData",
+                     "Value": "script:out"
+                    }'
+          ↓GroupResultSummary [ngx.components.UIDynamicElement-1781245232210]: 
+            beanData: '{"ionBean":"Paragraph"}'
+            tagName: p
+            ↓Text [ngx.components.UIText-1781245232212]: 
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:this.local?.groupsData?.listMetrics?.groupLabel || ''
+            ↓Class [ngx.components.UIAttribute-1781245232214]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-result-summary
           ↓GroupsList [ngx.components.UIDynamicElement-1781165174011]: 
             beanData: '{"ionBean":"List","Lines":"plain:none"}'
             tagName: ion-list
@@ -706,3 +771,13 @@ title: Groupes
          "Property": "plain:groupsData",
          "Value": "script:out"
         }'
+    ↓maxGroups [ngx.components.UIControlVariable-1781245219080]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:100
+    ↓groupSearch [ngx.components.UIControlVariable-1781245219858]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:this.local?.groupSearch || ''

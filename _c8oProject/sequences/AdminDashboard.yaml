@@ -3,12 +3,10 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
   nodeName: status
   nodeText: ok
 ↓Users [steps.SequenceStep-1781106451634]: 
-  comment: All users known by FullSyncGrp
-  output: true
+  comment: All users known by FullSyncGrp, consumed internally to prepare bounded dashboard rows.
   sourceSequence: lib_FullSyncGrp.Users
 ↓Groups [steps.SequenceStep-1781106451636]: 
-  comment: All RBAC groups
-  output: true
+  comment: All RBAC groups, consumed internally to prepare bounded visible group rows.
   sourceSequence: lib_FullSyncGrp.Groups
 ↓Roles [steps.SequenceStep-1781106451638]: 
   comment: All RBAC roles
@@ -19,8 +17,19 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
   output: true
   sourceSequence: lib_FullSyncGrp.Permissions
 ↓InitVisibleGroups [steps.SimpleStep-1781192200069]: 
-  comment: Initializes backend arrays used to expose only visible groups and normalized user rows to NGX pages.
-  expression: var _visibleGroups = [];
+  comment: Initializes bounded backend arrays, filters, totals, and labels used by NGX pages for large user/group directories.
+  expression: |
+    var _visibleGroups = [];
+    var _dashboardGroups = [];
+    var _dashboardUsers = [];
+    var _userSearch = ('' + (userSearch || '')).toLowerCase();
+    var _groupSearch = ('' + (groupSearch || '')).toLowerCase();
+    var _maxUsers = parseInt(maxUsers || '100', 10);
+    var _maxGroups = parseInt(maxGroups || '100', 10);
+    if (!isFinite(_maxUsers) || _maxUsers < 1) { _maxUsers = 100; }
+    if (!isFinite(_maxGroups) || _maxGroups < 1) { _maxGroups = 100; }
+    var _dashboardUserTotal = 0;
+    var _visibleGroupTotal = 0;
 ↓IteratorRawGroups [steps.IteratorStep-1781192228352]: 
   comment: Scans raw FullSyncGrp groups and filters hidden/internal group names before exposing them to the UI.
   sourceDefinition: 
@@ -41,11 +50,27 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
           - java.lang.String: 
             - ↑value: ./text()
     variableName: currentGroup
+  ↓CurrentGroupUsers [steps.SimpleSourceStep-1781245143688]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781192228352
+          - java.lang.String: 
+            - ↑value: ./@users
+    variableName: currentGroupUsers
   ↓CollectVisibleGroup [steps.SimpleStep-1781192241842]: 
     expression: |
       'var groupName = '''' + currentGroup;
-      if (groupName && groupName.indexOf(''C8Oreserved'') !== 0 && groupName.indexOf(''_C8O_HIDDEN'') !== 0) {
-      	_visibleGroups.push(groupName);
+      var visibleGroup = groupName && groupName.indexOf(''C8Oreserved'') !== 0 && groupName.indexOf(''_C8O_HIDDEN'') !== 0;
+      var groupMatches = !_groupSearch || groupName.toLowerCase().indexOf(_groupSearch) !== -1;
+      if (visibleGroup && groupMatches) {
+      	_visibleGroupTotal++;
+      	if (_visibleGroups.length < _maxGroups) {
+      		_visibleGroups.push(groupName);
+      		_dashboardGroups.push({ name: groupName, users: currentGroupUsers || ''0'', usersLabel: (currentGroupUsers || ''0'') + '' users'' });
+      	}
       }'
 ↓IteratorVisibleGroups [steps.SimpleIteratorStep-1781192241869]: 
   comment: Writes the backend-prepared visibleGroup nodes consumed by GroupsPage and the home dashboard.
@@ -53,6 +78,21 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
   ↓VisibleGroup [steps.ElementStep-1781192241871]: 
     expression: _visibleGroups[index]
     nodeName: visibleGroup
+↓IteratorDashboardGroups [steps.SimpleIteratorStep-1781245143778]: 
+  comment: Writes backend-prepared group rows with member counts for dashboard previews.
+  expression: _dashboardGroups
+  ↓DashboardGroup [steps.ElementStep-1781245143781]: 
+    expression: ''''''
+    nodeName: dashboardGroup
+    ↓Name [steps.ElementStep-1781245143783]: 
+      expression: _dashboardGroups[index].name
+      nodeName: name
+    ↓Users [steps.ElementStep-1781245143785]: 
+      expression: _dashboardGroups[index].users
+      nodeName: users
+    ↓UsersLabel [steps.ElementStep-1781245143787]: 
+      expression: _dashboardGroups[index].usersLabel
+      nodeName: usersLabel
 ↓BuildDashboardUsers [steps.IteratorStep-1781192762088]: 
   comment: Normalizes users into dashboardUser view models with name, displayName, provider icon state, group count, and label.
   sourceDefinition: 
@@ -98,26 +138,71 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
       };
       var _dashboardDisplayName = _dashboardIsProvider ? ('''' + (_dashboardParts[2] || '''')) : _dashboardRawUser;
       var _dashboardProviderIcon = _dashboardProviderIcons[_dashboardProvider] || ''key-outline'';
-      var _dashboardProviderIconBlank = !_dashboardIsProvider;'
-  ↓DashboardUser [steps.ElementStep-1781192762100]: 
+      var _dashboardProviderIconBlank = !_dashboardIsProvider;
+      var _dashboardUserMatches = !_userSearch || (_dashboardRawUser + '' '' + _dashboardDisplayName).toLowerCase().indexOf(_userSearch) !== -1;
+      if (_dashboardUserMatches) {
+      	_dashboardUserTotal++;
+      	if (_dashboardUsers.length < _maxUsers) {
+      		_dashboardUsers.push({ name: _dashboardRawUser, displayName: _dashboardDisplayName, providerIcon: _dashboardProviderIcon, providerIconBlank: _dashboardProviderIconBlank, groups: dashboardUserGroups || ''0'', groupsLabel: (dashboardUserGroups || ''0'') + '' groupes'' });
+      	}
+      }'
+↓IteratorDashboardUsers [steps.SimpleIteratorStep-1781245143810]: 
+  comment: Writes only backend-prepared user rows that match the optional search and maximum row limit.
+  expression: _dashboardUsers
+  ↓DashboardUser [steps.ElementStep-1781245143812]: 
     expression: ''''''
     nodeName: dashboardUser
-    ↓Name [steps.ElementStep-1781192762102]: 
-      expression: _dashboardRawUser
+    ↓Name [steps.ElementStep-1781245143814]: 
+      expression: _dashboardUsers[index].name
       nodeName: name
-    ↓DisplayName [steps.ElementStep-1781192762104]: 
-      expression: _dashboardDisplayName
+    ↓DisplayName [steps.ElementStep-1781245143816]: 
+      expression: _dashboardUsers[index].displayName
       nodeName: displayName
-    ↓ProviderIcon [steps.ElementStep-1781192762106]: 
-      expression: _dashboardProviderIcon
+    ↓ProviderIcon [steps.ElementStep-1781245143818]: 
+      expression: _dashboardUsers[index].providerIcon
       nodeName: providerIcon
-    ↓ProviderIconBlank [steps.ElementStep-1781192762108]: 
-      expression: _dashboardProviderIconBlank
+    ↓ProviderIconBlank [steps.ElementStep-1781245143820]: 
+      expression: _dashboardUsers[index].providerIconBlank
       nodeName: providerIconBlank
       schemaDataType: xsd:boolean
-    ↓Groups [steps.ElementStep-1781192762110]: 
-      expression: dashboardUserGroups || '0'
+    ↓Groups [steps.ElementStep-1781245143822]: 
+      expression: _dashboardUsers[index].groups
       nodeName: groups
-    ↓GroupsLabel [steps.ElementStep-1781192809605]: 
-      expression: (dashboardUserGroups || '0') + ' groupes'
+    ↓GroupsLabel [steps.ElementStep-1781245143824]: 
+      expression: _dashboardUsers[index].groupsLabel
       nodeName: groupsLabel
+↓ListMetrics [steps.XMLComplexStep-1781245143846]: 
+  comment: Summary metrics for large directory UX.
+  nodeName: listMetrics
+  ↓UserTotal [steps.ElementStep-1781245143849]: 
+    expression: _dashboardUserTotal
+    nodeName: userTotal
+  ↓UserShown [steps.ElementStep-1781245143851]: 
+    expression: _dashboardUsers.length
+    nodeName: userShown
+  ↓UserLimit [steps.ElementStep-1781245143853]: 
+    expression: _maxUsers
+    nodeName: userLimit
+  ↓UserLabel [steps.ElementStep-1781245143855]: 
+    expression: '_dashboardUsers.length + '' / '' + _dashboardUserTotal + '' utilisateurs affiches'' + (_dashboardUserTotal > _dashboardUsers.length ? '' - affinez la recherche'' : '''')'
+    nodeName: userLabel
+  ↓GroupTotal [steps.ElementStep-1781245143857]: 
+    expression: _visibleGroupTotal
+    nodeName: groupTotal
+  ↓GroupShown [steps.ElementStep-1781245143859]: 
+    expression: _visibleGroups.length
+    nodeName: groupShown
+  ↓GroupLimit [steps.ElementStep-1781245143861]: 
+    expression: _maxGroups
+    nodeName: groupLimit
+  ↓GroupLabel [steps.ElementStep-1781245143863]: 
+    expression: '_visibleGroups.length + '' / '' + _visibleGroupTotal + '' groupes affiches'' + (_visibleGroupTotal > _visibleGroups.length ? '' - affinez la recherche'' : '''')'
+    nodeName: groupLabel
+↓userSearch [variables.RequestableVariable-1781245105055]: 
+  comment: Optional user search text used by AdminDashboard to limit large user directories before they reach NGX pages.
+↓groupSearch [variables.RequestableVariable-1781245105081]: 
+  comment: Optional group search text used by AdminDashboard to limit large group directories before they reach NGX pages.
+↓maxUsers [variables.RequestableVariable-1781245105117]: 
+  comment: Maximum number of prepared user rows returned to the UI. Defaults to 100.
+↓maxGroups [variables.RequestableVariable-1781245105142]: 
+  comment: Maximum number of prepared group rows returned to the UI. Defaults to 100.

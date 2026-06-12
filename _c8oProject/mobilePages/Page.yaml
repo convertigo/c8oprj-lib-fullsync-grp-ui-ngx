@@ -348,7 +348,7 @@ title: Administration RBAC
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[0]?.document?.user || []).length || 0)
+                    - MobileSmartSourceType: script:this.local?.adminDashboard?.listMetrics?.userTotal || '0'
             ↓Label [ngx.components.UIDynamicElement-1781106921984]: 
               beanData: '{"ionBean":"Paragraph"}'
               tagName: p
@@ -379,7 +379,7 @@ title: Administration RBAC
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[1]?.document?.group || []).length || 0)
+                    - MobileSmartSourceType: script:this.local?.adminDashboard?.listMetrics?.groupTotal || '0'
             ↓Label [ngx.components.UIDynamicElement-1781106922000]: 
               beanData: '{"ionBean":"Paragraph"}'
               tagName: p
@@ -410,7 +410,7 @@ title: Administration RBAC
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[2]?.document?.role || []).length || 0)
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[0]?.document?.role || []).length || 0)
             ↓Label [ngx.components.UIDynamicElement-1781106922016]: 
               beanData: '{"ionBean":"Paragraph"}'
               tagName: p
@@ -441,7 +441,7 @@ title: Administration RBAC
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[3]?.document?.permission || []).length || 0)
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[1]?.document?.permission || []).length || 0)
             ↓Label [ngx.components.UIDynamicElement-1781106922032]: 
               beanData: '{"ionBean":"Paragraph"}'
               tagName: p
@@ -492,7 +492,7 @@ title: Administration RBAC
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[0]?.document?.user || []).length || 0)
+                    - MobileSmartSourceType: script:this.local?.adminDashboard?.listMetrics?.userTotal || '0'
               ↓BadgeClass [ngx.components.UIAttribute-1781110516108]: 
                 attrName: class
                 attrValue: 
@@ -508,7 +508,7 @@ title: Administration RBAC
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:this.local?.adminDashboard?.dashboardUser || []
+                  - MobileSmartSourceType: script:[].concat(this.local?.adminDashboard?.dashboardUser || [])
               ↓Item [ngx.components.UIDynamicElement-1781106943764]: 
                 beanData: '{"ionBean":"ListItem"}'
                 tagName: ion-item
@@ -586,7 +586,7 @@ title: Administration RBAC
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[1]?.document?.group || []).length || 0)
+                    - MobileSmartSourceType: script:this.local?.adminDashboard?.listMetrics?.groupTotal || '0'
               ↓BadgeClass [ngx.components.UIAttribute-1781110518400]: 
                 attrName: class
                 attrValue: 
@@ -602,7 +602,7 @@ title: Administration RBAC
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:this.local?.adminDashboard?.sequence?.[1]?.document?.group || []
+                  - MobileSmartSourceType: script:[].concat(this.local?.adminDashboard?.dashboardGroup || [])
               ↓Item [ngx.components.UIDynamicElement-1781106956967]: 
                 beanData: '{"ionBean":"ListItem"}'
                 tagName: ion-item
@@ -613,7 +613,7 @@ title: Administration RBAC
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:group?.text || group || ''
+                        - MobileSmartSourceType: script:group?.name
                 ↓Note [ngx.components.UIDynamicElement-1781106956973]: 
                   beanData: '{"ionBean":"Note","IonSlot":"plain:end"}'
                   tagName: ion-note
@@ -621,7 +621,7 @@ title: Administration RBAC
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:'' + (group?.attr?.users || 0) + ' users'
+                        - MobileSmartSourceType: script:group?.usersLabel
                 ↓AdminListItemClass [ngx.components.UIAttribute-1781109908266]: 
                   attrName: class
                   attrValue: 
@@ -658,7 +658,7 @@ title: Administration RBAC
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[2]?.document?.role || []).length || 0)
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[0]?.document?.role || []).length || 0)
               ↓BadgeClass [ngx.components.UIAttribute-1781110520692]: 
                 attrName: class
                 attrValue: 
@@ -674,7 +674,7 @@ title: Administration RBAC
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:this.local?.adminDashboard?.sequence?.[2]?.document?.role || []
+                  - MobileSmartSourceType: script:[].concat(this.local?.adminDashboard?.sequence?.[0]?.document?.role || [])
               ↓Item [ngx.components.UIDynamicElement-1781106969668]: 
                 beanData: '{"ionBean":"ListItem"}'
                 tagName: ion-item
@@ -730,7 +730,7 @@ title: Administration RBAC
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[3]?.document?.permission || []).length || 0)
+                    - MobileSmartSourceType: script:'' + ((this.local?.adminDashboard?.sequence?.[1]?.document?.permission || []).length || 0)
               ↓BadgeClass [ngx.components.UIAttribute-1781110522984]: 
                 attrName: class
                 attrValue: 
@@ -746,7 +746,7 @@ title: Administration RBAC
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:this.local?.adminDashboard?.sequence?.[3]?.document?.permission || []
+                  - MobileSmartSourceType: script:[].concat(this.local?.adminDashboard?.sequence?.[1]?.document?.permission || [])
               ↓Item [ngx.components.UIDynamicElement-1781106982458]: 
                 beanData: '{"ionBean":"ListItem"}'
                 tagName: ion-item
@@ -790,6 +790,16 @@ title: Administration RBAC
          "Value": "script:out"
         }'
       comment: Stores the dashboard payload prepared by the backend facade for template bindings.
+    ↓maxUsers [ngx.components.UIControlVariable-1781245250771]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:100
+    ↓maxGroups [ngx.components.UIControlVariable-1781245251549]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:100
 ↓AdminPageStyle [ngx.components.UIStyle-1781106508520]: 
   comment: Administration page layout styles.
   styleContent: 

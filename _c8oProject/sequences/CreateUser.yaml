@@ -23,6 +23,33 @@ comment: 'Facade: create an internal user account (pass-through to lib_UserManag
             - ↑value: 1781165701593
           - java.lang.String: 
             - ↑value: ./password/text()
+↓CreateUserErrorMessage [steps.SimpleSourceStep-1781248823096]: 
+  comment: Extracts the backend error message from lib_UserManager.AddUser for a UI-ready response contract.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781165701595
+        - java.lang.String: 
+          - ↑value: ./document/error/message/text()
+  variableName: createUserErrorMessage
+↓PrepareCreateUserResult [steps.SimpleStep-1781248823125]: 
+  comment: 'Prepares the small response contract consumed by NGX pages: hasError and toastMessage.'
+  expression: |
+    'var _createUserRawError = '''' + (createUserErrorMessage || '''');
+    var _createUserHasError = _createUserRawError.length > 0;
+    var _createUserDisplayError = _createUserRawError == ''Authentication required'' ? ''authentification requise'' : _createUserRawError;
+    var _createUserToastMessage = _createUserHasError ? (''Création impossible : '' + _createUserDisplayError) : '''';'
+↓HasError [steps.ElementStep-1781248823152]: 
+  comment: Boolean-like flag used by the UI to show the creation error toast only on failure.
+  expression: ''''' + _createUserHasError'
+  nodeName: hasError
+  schemaDataType: xsd:boolean
+↓ToastMessage [steps.ElementStep-1781248823177]: 
+  comment: Prepared administrator-facing message displayed only when hasError is true.
+  expression: _createUserToastMessage
+  nodeName: toastMessage
 ↓user [variables.RequestableVariable-1781165701589]: 
   comment: User id as a valid email.
 ↓password [variables.RequestableVariable-1781165701591]: 

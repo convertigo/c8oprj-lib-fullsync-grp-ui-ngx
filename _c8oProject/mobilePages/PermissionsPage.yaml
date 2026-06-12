@@ -215,7 +215,7 @@ title: Permissions
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.permsData?.sequence?.[3]?.document?.permission || []).length || 0)
+                    - MobileSmartSourceType: script:'' + ((this.local?.permsData?.sequence?.[1]?.document?.permission || []).length || 0)
               ↓BadgeClass [ngx.components.UIAttribute-1781194062784]: 
                 attrName: class
                 attrValue: 
@@ -231,7 +231,7 @@ title: Permissions
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:[].concat(this.local?.permsData?.sequence?.[3]?.document?.permission || [])
+                  - MobileSmartSourceType: script:[].concat(this.local?.permsData?.sequence?.[1]?.document?.permission || [])
               ↓PItem [ngx.components.UIDynamicElement-1781166776190]: 
                 beanData: '{"ionBean":"ListItem","Button":"plain:true"}'
                 tagName: ion-item

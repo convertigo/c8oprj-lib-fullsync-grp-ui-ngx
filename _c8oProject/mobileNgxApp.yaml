@@ -3259,7 +3259,22 @@ tplProjectName: mobilebuilder_tpl_8_4_0_ngx
           .entity-chip { margin: 2px 3px 3px 0; min-height: 1.75rem; font-weight: 600; }
           .chip-remove { cursor: pointer; color: var(--ion-color-medium); margin-left: 2px; }
           .chip-remove:hover { color: var(--ion-color-danger); }
+          ion-select.add-select { --padding-start: 12px !important; --padding-end: 10px !important; --highlight-height: 0px !important; --highlight-color-focused: var(--ion-text-color, #0f172a) !important; --highlight-color-valid: transparent !important; --highlight-color-invalid: transparent !important; }
+          ion-input.create-input { --padding-start: 14px !important; --padding-end: 10px !important; --highlight-height: 0px !important; --highlight-color-focused: var(--ion-text-color, #0f172a) !important; --highlight-color-valid: transparent !important; --highlight-color-invalid: transparent !important; }
           .add-select { max-width: 320px; margin: .35rem 0 .3rem; border: 0.5px solid var(--ion-color-step-200, #ccc); border-radius: 8px; padding-inline-start: 10px; }
           .create-input { min-height: 2.25rem; border: 0.5px solid var(--ion-color-step-200, #ccc); border-radius: 8px; margin-bottom: .25rem; padding-inline-start: 10px; }
           .entity-action-button { margin-top: .25rem; }
           @media (max-width: 640px) { .admin-grid ion-col { min-width: 100%; } .entity-grid ion-col { min-width: 100%; } .admin-panel ion-card-header { padding-right: 3.4rem; } }'
+↓AdminLargeDirectoryStyle [ngx.components.UIStyle-1781245249844]: 
+  comment: Global styles for large-directory search controls and result summaries.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          'ion-input.entity-search-input { --padding-start: 14px !important; --padding-end: 10px !important; --highlight-height: 0px !important; --highlight-color-focused: var(--ion-text-color, #0f172a) !important; --highlight-color-valid: transparent !important; --highlight-color-invalid: transparent !important; }
+          .entity-search-input { width: calc(100% - 1.8rem); max-width: calc(100% - 1.8rem); min-height: 2.35rem; margin: .65rem .9rem .25rem; padding-inline-start: 10px; border: 0.5px solid var(--ion-color-step-200, #ccc); border-radius: 8px; background: var(--ion-card-background); box-sizing: border-box; }
+          .entity-result-summary { display: flex; align-items: center; justify-content: center; width: fit-content; max-width: calc(100% - 1.8rem); min-height: 1.65rem; margin: .15rem .9rem .55rem auto; padding: .18rem .55rem; border: 1px solid rgba(37, 99, 235, .24); border-radius: 999px; background: rgba(37, 99, 235, .08); color: #1e3a8a; font-size: .78rem; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; box-sizing: border-box; }
+          .entity-result-summary:empty { display: none; }
+          :root.force-dark .entity-result-summary { border-color: rgba(96, 165, 250, .34); background: rgba(96, 165, 250, .14); color: #bfdbfe; }
+          @media (prefers-color-scheme: dark) { :root:not(.force-light) .entity-result-summary { border-color: rgba(96, 165, 250, .34); background: rgba(96, 165, 250, .14); color: #bfdbfe; } }'

@@ -31,12 +31,14 @@ comment: 'Facade: returns the users and roles attached to one group (master-deta
           - java.lang.String: 
             - ↑value: ./group/text()
 ↓InitCandidates [steps.SimpleStep-1781192294437]: 
-  comment: Initializes assigned and candidate relation arrays for the selected group.
+  comment: Initializes assigned and bounded candidate relation arrays for the selected group.
   expression: |
     var _assignedUsers = [];
     var _assignedRoles = [];
     var _candidateUsers = [];
     var _candidateRoles = [];
+    var _candidateUserTotal = 0;
+    var _maxCandidateUsers = 100;
 ↓IteratorAssignedUsers [steps.IteratorStep-1781192294469]: 
   comment: Collects users already attached to the group so candidate users can be computed backend-side.
   sourceDefinition: 
@@ -118,7 +120,10 @@ comment: 'Facade: returns the users and roles attached to one group (master-deta
     expression: |
       'var allUserName = '''' + allUser;
       if (allUserName && _assignedUsers.indexOf(allUserName) === -1) {
-      	_candidateUsers.push(allUserName);
+      	_candidateUserTotal++;
+      	if (_candidateUsers.length < _maxCandidateUsers) {
+      		_candidateUsers.push(allUserName);
+      	}
       }'
 ↓IteratorAllRoles [steps.IteratorStep-1781192311317]: 
   sourceDefinition: 

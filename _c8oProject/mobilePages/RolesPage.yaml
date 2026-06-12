@@ -199,7 +199,7 @@ title: Rôles
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.rolesData?.sequence?.[2]?.document?.role || []).length || 0)
+                    - MobileSmartSourceType: script:'' + ((this.local?.rolesData?.sequence?.[0]?.document?.role || []).length || 0)
               ↓BadgeClass [ngx.components.UIAttribute-1781194060464]: 
                 attrName: class
                 attrValue: 
@@ -215,7 +215,7 @@ title: Rôles
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:[].concat(this.local?.rolesData?.sequence?.[2]?.document?.role || [])
+                  - MobileSmartSourceType: script:[].concat(this.local?.rolesData?.sequence?.[0]?.document?.role || [])
               ↓RItem [ngx.components.UIDynamicElement-1781166660442]: 
                 beanData: '{"ionBean":"ListItem","Button":"plain:true"}'
                 tagName: ion-item
