@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: add a permission (element.action:scope) to a role.'
 ↓InputVariables [steps.InputVariablesStep-1781166448805]: 
   nodeName: InputVariables

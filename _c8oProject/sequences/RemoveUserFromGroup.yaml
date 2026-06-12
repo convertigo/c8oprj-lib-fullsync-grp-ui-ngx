@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: remove a user from a group (pass-through to lib_FullSyncGrp.RemoveUserFromGroup).'
 ↓InputVariables [steps.InputVariablesStep-1781164842078]: 
   nodeName: InputVariables

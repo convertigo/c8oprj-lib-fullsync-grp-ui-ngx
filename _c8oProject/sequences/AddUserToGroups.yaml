@@ -1,0 +1,105 @@
+authenticatedContextRequired: true
+comment: 'Facade: add one user to several groups selected from the Users page.'
+↓InputVariables [steps.InputVariablesStep-1781251740007]: 
+  nodeName: InputVariables
+↓Init [steps.SimpleStep-1781251740009]: 
+  comment: Initializes counters for the multi-group assignment response.
+  expression: |
+    var _addedGroups = [];
+    var _addGroupTotal = 0;
+    var _addGroupErrors = [];
+    var _addGroupHasError = false;
+↓GroupsIterator [steps.IteratorStep-1781251740011]: 
+  comment: Iterates over each selected group received from the NGX multi-select.
+  condition: GroupsIterator
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781251740007
+        - java.lang.String: 
+          - ↑value: ./groups/text()
+  ↓CurrentGroup [steps.SimpleSourceStep-1781251740013]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781251740011
+          - java.lang.String: 
+            - ↑value: .
+    variableName: currentGroup
+  ↓Set [steps.SequenceStep-1781251740015]: 
+    comment: Delegates one user/group assignment to lib_FullSyncGrp.SetUserInGroup.
+    output: true
+    sourceSequence: lib_FullSyncGrp.SetUserInGroup
+    ↓user [variables.StepVariable-1781251740017]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1781251740007
+            - java.lang.String: 
+              - ↑value: ./user/text()
+    ↓group [variables.StepVariable-1781251740019]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1781251740011
+            - java.lang.String: 
+              - ↑value: .
+  ↓SetGroupErrorMessage [steps.SimpleSourceStep-1781258154519]: 
+    comment: Extracts one assignment error message from lib_FullSyncGrp.SetUserInGroup for the UI-ready response contract.
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781251740015
+          - java.lang.String: 
+            - ↑value: ./document/error/message/text()
+    variableName: setGroupErrorMessage
+  ↓CollectAddedGroup [steps.SimpleStep-1781251740021]: 
+    comment: Collects successful requested groups and aggregates backend assignment errors for toast reporting.
+    expression: |
+      'var groupName = '''' + currentGroup;
+      var rawError = '''' + (setGroupErrorMessage || '''');
+      if (rawError.length > 0) {
+      	_addGroupHasError = true;
+      	_addGroupErrors.push((groupName ? (groupName + '' : '') : '''') + rawError);
+      } else if (groupName) {
+      	_addedGroups.push(groupName);
+      	_addGroupTotal++;
+      }'
+↓AddedGroups [steps.SimpleIteratorStep-1781251740023]: 
+  comment: Returns the groups requested for assignment.
+  expression: _addedGroups
+  ↓AddedGroup [steps.ElementStep-1781251740025]: 
+    expression: _addedGroups[index]
+    nodeName: addedGroup
+↓AddedTotal [steps.ElementStep-1781251740027]: 
+  expression: _addGroupTotal
+  nodeName: addedTotal
+↓PrepareAddGroupsResult [steps.SimpleStep-1781258154549]: 
+  comment: 'Prepares the response contract consumed by NGX pages: hasError and toastMessage.'
+  expression: |
+    'var _addGroupErrorText = _addGroupErrors.join(''; '');
+    var _addGroupDisplayError = _addGroupErrorText == ''Authentication required'' ? ''authentification requise'' : _addGroupErrorText;
+    var _addGroupToastMessage = _addGroupHasError ? (''Ajout aux groupes impossible : '' + _addGroupDisplayError) : '''';'
+↓HasError [steps.ElementStep-1781258154560]: 
+  comment: Boolean-like flag used by the UI to show the group assignment error toast only on failure.
+  expression: ''''' + _addGroupHasError'
+  nodeName: hasError
+  schemaDataType: xsd:boolean
+↓ToastMessage [steps.ElementStep-1781258154572]: 
+  comment: Prepared administrator-facing message displayed only when hasError is true.
+  expression: _addGroupToastMessage
+  nodeName: toastMessage
+↓user [variables.RequestableVariable-1781251740029]: 
+  comment: User identifier to add to selected groups.
+↓groups [variables.RequestableMultiValuedVariable-1781251740031]: 
+  comment: Selected target groups.

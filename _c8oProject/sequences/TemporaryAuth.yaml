@@ -1,0 +1,18 @@
+comment: 'Temporary development facade: artificially authenticates the current session before secured administration facades are called.'
+↓SetAuthenticatedUser [steps.SetAuthenticatedUserStep-1781280554081]: 
+  comment: Temporary development authentication used by the dashboard bootstrap.
+  output: true
+  userid: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+      - SmartType: 
+        - ↑mode: PLAIN
+        - →→: temporary-admin
+↓AuthMode [steps.ElementStep-1781280554084]: 
+  comment: Marks this authentication as temporary so callers can distinguish it from a real login.
+  expression: '''temporary'''
+  nodeName: authMode
+↓User [steps.ElementStep-1781280554086]: 
+  comment: Returns the temporary authenticated user id.
+  expression: '''temporary-admin'''
+  nodeName: user

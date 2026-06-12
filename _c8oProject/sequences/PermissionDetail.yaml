@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: roles that include one permission.'
 ↓InputVariables [steps.InputVariablesStep-1781166448788]: 
   nodeName: InputVariables

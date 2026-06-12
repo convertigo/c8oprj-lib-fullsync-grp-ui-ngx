@@ -230,48 +230,6 @@ title: Administration RBAC
         ↓ActionsRow [ngx.components.UIDynamicElement-1781106899537]: 
           beanData: '{"ionBean":"GridRow"}'
           tagName: ion-row
-          ↓AddUserCol [ngx.components.UIDynamicElement-1781106899539]: 
-            beanData: '{"ionBean":"GridCol"}'
-            tagName: ion-col
-            ↓Button [ngx.components.UIDynamicElement-1781106899541]: 
-              beanData: |
-                '{
-                 "ionBean": "Button",
-                 "Disabled": "plain:true",
-                 "IonColor": "plain:primary",
-                 "IonFill": "plain:outline",
-                 "IonSize": "plain:small"
-                }'
-              tagName: ion-button
-              ↓Text [ngx.components.UIText-1781106899543]: 
-                textValue: 
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:Creer un utilisateur
-              ↓Go [ngx.components.UIControlEvent-1781166821127]: 
-                ↓GoUsers [ngx.components.UIDynamicAction-1781166821893]: 
-                  beanData: '{"ionBean":"NavigatePageAction","url":"plain:users"}'
-          ↓UserGroupCol [ngx.components.UIDynamicElement-1781106899545]: 
-            beanData: '{"ionBean":"GridCol"}'
-            tagName: ion-col
-            ↓Button [ngx.components.UIDynamicElement-1781106899547]: 
-              beanData: |
-                '{
-                 "ionBean": "Button",
-                 "Disabled": "plain:true",
-                 "IonColor": "plain:secondary",
-                 "IonFill": "plain:outline",
-                 "IonSize": "plain:small"
-                }'
-              tagName: ion-button
-              ↓Text [ngx.components.UIText-1781106899549]: 
-                textValue: 
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:Affecter a un groupe
-              ↓Go [ngx.components.UIControlEvent-1781166824185]: 
-                ↓GoGroups [ngx.components.UIDynamicAction-1781166824951]: 
-                  beanData: '{"ionBean":"NavigatePageAction","url":"plain:groups"}'
           ↓GroupRoleCol [ngx.components.UIDynamicElement-1781106899551]: 
             beanData: '{"ionBean":"GridCol"}'
             tagName: ion-col
@@ -293,6 +251,48 @@ title: Administration RBAC
               ↓Go [ngx.components.UIControlEvent-1781166827243]: 
                 ↓GoRoles [ngx.components.UIDynamicAction-1781166828009]: 
                   beanData: '{"ionBean":"NavigatePageAction","url":"plain:roles"}'
+          ↓UserGroupCol [ngx.components.UIDynamicElement-1781106899545]: 
+            beanData: '{"ionBean":"GridCol"}'
+            tagName: ion-col
+            ↓Button [ngx.components.UIDynamicElement-1781106899547]: 
+              beanData: |
+                '{
+                 "ionBean": "Button",
+                 "Disabled": "plain:true",
+                 "IonColor": "plain:secondary",
+                 "IonFill": "plain:outline",
+                 "IonSize": "plain:small"
+                }'
+              tagName: ion-button
+              ↓Text [ngx.components.UIText-1781106899549]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Affecter a un groupe
+              ↓Go [ngx.components.UIControlEvent-1781166824185]: 
+                ↓GoGroups [ngx.components.UIDynamicAction-1781166824951]: 
+                  beanData: '{"ionBean":"NavigatePageAction","url":"plain:groups"}'
+          ↓AddUserCol [ngx.components.UIDynamicElement-1781106899539]: 
+            beanData: '{"ionBean":"GridCol"}'
+            tagName: ion-col
+            ↓Button [ngx.components.UIDynamicElement-1781106899541]: 
+              beanData: |
+                '{
+                 "ionBean": "Button",
+                 "Disabled": "plain:true",
+                 "IonColor": "plain:primary",
+                 "IonFill": "plain:outline",
+                 "IonSize": "plain:small"
+                }'
+              tagName: ion-button
+              ↓Text [ngx.components.UIText-1781106899543]: 
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Creer un utilisateur
+              ↓Go [ngx.components.UIControlEvent-1781166821127]: 
+                ↓GoUsers [ngx.components.UIDynamicAction-1781166821893]: 
+                  beanData: '{"ionBean":"NavigatePageAction","url":"plain:users"}'
           ↓RolePermissionCol [ngx.components.UIDynamicElement-1781106899557]: 
             beanData: '{"ionBean":"GridCol"}'
             tagName: ion-col
@@ -773,33 +773,41 @@ title: Administration RBAC
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                       - MobileSmartSourceType: plain:admin-list-item
 ↓LoadAdminDashboard [ngx.components.UIPageEvent-1781106506974]: 
-  comment: Loads the RBAC dashboard facade when the administration page is opened.
-  ↓CallAdminDashboard [ngx.components.UIDynamicAction-1781106507740]: 
+  comment: Temporarily authenticates the session, then loads the secured RBAC dashboard facade when the administration page is opened.
+  ↓CallTemporaryAuth [ngx.components.UIDynamicAction-1781280554887]: 
     beanData: |
       '{
        "ionBean": "CallSequenceAction",
-       "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+       "requestable": "plain:lib_FullSyncGrp_ui_ngx.TemporaryAuth",
        "noLoading": "plain:true"
       }'
-    comment: Calls the stable administration facade.
-    ↓StoreDashboard [ngx.components.UIDynamicAction-1781106508518]: 
+    comment: Temporary development bootstrap authentication before calling secured administration facades.
+    ↓CallAdminDashboard [ngx.components.UIDynamicAction-1781280555665]: 
       beanData: |
         '{
-         "ionBean": "SetLocalAction",
-         "Property": "plain:adminDashboard",
-         "Value": "script:out"
+         "ionBean": "CallSequenceAction",
+         "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+         "noLoading": "plain:true"
         }'
-      comment: Stores the dashboard payload prepared by the backend facade for template bindings.
-    ↓maxUsers [ngx.components.UIControlVariable-1781245250771]: 
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: plain:100
-    ↓maxGroups [ngx.components.UIControlVariable-1781245251549]: 
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: plain:100
+      comment: Calls the secured administration facade after the temporary authentication step.
+      ↓StoreDashboard [ngx.components.UIDynamicAction-1781280555667]: 
+        beanData: |
+          '{
+           "ionBean": "SetLocalAction",
+           "Property": "plain:adminDashboard",
+           "Value": "script:out"
+          }'
+        comment: Stores the dashboard payload prepared by the backend facade for template bindings.
+      ↓maxUsers [ngx.components.UIControlVariable-1781280555669]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:100
+      ↓maxGroups [ngx.components.UIControlVariable-1781280555671]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:100
 ↓AdminPageStyle [ngx.components.UIStyle-1781106508520]: 
   comment: Administration page layout styles.
   styleContent: 

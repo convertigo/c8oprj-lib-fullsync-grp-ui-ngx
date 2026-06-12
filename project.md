@@ -120,12 +120,96 @@ User identifier to add.
 
 </p></blockquote></details>
 
+<details><summary><b>AddUserToGroups</b> : Facade: add one user to several groups selected from the Users page</summary><blockquote><p>
+
+
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") AddUserToGroups
+
+Facade: add one user to several groups selected from the Users page.
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/multivaluedvariable_color_16x16.png?raw=true "  alt="RequestableMultiValuedVariable" >&nbsp;groups
+</td>
+<td>
+Selected target groups.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;user
+</td>
+<td>
+User identifier to add to selected groups.
+</td>
+</tr>
+</table>
+
+</p></blockquote></details>
+
 <details><summary><b>AdminDashboard</b> : Stable administration facade aggregating lib_FullSyncGrp RBAC lists for the NGX UI</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") AdminDashboard
 
 Stable administration facade aggregating lib_FullSyncGrp RBAC lists for the NGX UI.
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;groupSearch
+</td>
+<td>
+Optional group search text used by AdminDashboard to limit large group directories before they reach NGX pages.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;maxGroups
+</td>
+<td>
+Maximum number of prepared group rows returned to the UI. Defaults to 100.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;maxUsers
+</td>
+<td>
+Maximum number of prepared user rows returned to the UI. Defaults to 100.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;userSearch
+</td>
+<td>
+Optional user search text used by AdminDashboard to limit large user directories before they reach NGX pages.
+</td>
+</tr>
+</table>
+
 </p></blockquote></details>
 
 <details><summary><b>CreateUser</b> : Facade: create an internal user account (pass-through to lib_UserManager</summary><blockquote><p>
@@ -473,6 +557,22 @@ name
 <th>
 comment
 </th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;candidateGroupSearch
+</td>
+<td>
+Optional group search text used to filter candidate groups before they reach the Users page.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;maxCandidateGroups
+</td>
+<td>
+Maximum number of candidate groups returned to the Users page. Defaults to 100.
+</td>
 </tr>
 <tr>
 <td>

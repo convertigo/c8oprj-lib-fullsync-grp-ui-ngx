@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: remove a role from a group (pass-through to lib_FullSyncGrp.RemoveRoleFromGroup).'
 ↓InputVariables [steps.InputVariablesStep-1781164842114]: 
   nodeName: InputVariables

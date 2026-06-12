@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for the NGX UI.
 ↓status [steps.XMLElementStep-1781106451632]: 
   nodeName: status

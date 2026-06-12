@@ -7,6 +7,7 @@
   ↓void [connectors.SqlConnector]: 🗏 connectors/void.yaml
   ↓AddRoleToGroup [sequences.GenericSequence]: 🗏 sequences/AddRoleToGroup.yaml
   ↓AddUserToGroup [sequences.GenericSequence]: 🗏 sequences/AddUserToGroup.yaml
+  ↓AddUserToGroups [sequences.GenericSequence]: 🗏 sequences/AddUserToGroups.yaml
   ↓AdminDashboard [sequences.GenericSequence]: 🗏 sequences/AdminDashboard.yaml
   ↓CreateUser [sequences.GenericSequence]: 🗏 sequences/CreateUser.yaml
   ↓GroupDetail [sequences.GenericSequence]: 🗏 sequences/GroupDetail.yaml
@@ -16,6 +17,7 @@
   ↓RemoveUserFromGroup [sequences.GenericSequence]: 🗏 sequences/RemoveUserFromGroup.yaml
   ↓RoleDetail [sequences.GenericSequence]: 🗏 sequences/RoleDetail.yaml
   ↓SetPermInRole [sequences.GenericSequence]: 🗏 sequences/SetPermInRole.yaml
+  ↓TemporaryAuth [sequences.GenericSequence]: 🗏 sequences/TemporaryAuth.yaml
   ↓UserDetail [sequences.GenericSequence]: 🗏 sequences/UserDetail.yaml
   ↓UserPermissions [sequences.GenericSequence]: 🗏 sequences/UserPermissions.yaml
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 

@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: remove a permission (element.action:scope) from a role.'
 ↓InputVariables [steps.InputVariablesStep-1781166448822]: 
   nodeName: InputVariables

@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: groups of one user (master-detail Users page).'
 ↓InputVariables [steps.InputVariablesStep-1781165701572]: 
   nodeName: InputVariables
@@ -18,12 +19,14 @@ comment: 'Facade: groups of one user (master-detail Users page).'
           - java.lang.String: 
             - ↑value: ./user/text()
 ↓InitCandidates [steps.SimpleStep-1781192382268]: 
-  comment: Initializes assigned and bounded candidate group arrays for the selected user.
+  comment: Initializes assigned and bounded candidate group arrays for the selected user, with backend-side filtering for large group catalogs.
   expression: |
     var _assignedGroups = [];
     var _candidateGroups = [];
     var _candidateGroupTotal = 0;
-    var _maxCandidateGroups = 100;
+    var _candidateGroupSearch = ('' + (candidateGroupSearch || '')).toLowerCase();
+    var _maxCandidateGroups = parseInt(maxCandidateGroups || '100', 10);
+    if (!isFinite(_maxCandidateGroups) || _maxCandidateGroups < 1) { _maxCandidateGroups = 100; }
 ↓IteratorAssignedGroups [steps.IteratorStep-1781192382297]: 
   comment: Collects groups already attached to the user so candidate groups can be computed backend-side.
   sourceDefinition: 
@@ -75,7 +78,10 @@ comment: 'Facade: groups of one user (master-detail Users page).'
   ↓CollectCandidateGroup [steps.SimpleStep-1781192407820]: 
     expression: |
       'var allGroupName = '''' + allGroup;
-      if (allGroupName && allGroupName.indexOf(''C8Oreserved'') !== 0 && allGroupName.indexOf(''_C8O_HIDDEN'') !== 0 && _assignedGroups.indexOf(allGroupName) === -1) {
+      var visibleGroup = allGroupName && allGroupName.indexOf(''C8Oreserved'') !== 0 && allGroupName.indexOf(''_C8O_HIDDEN'') !== 0;
+      var availableGroup = visibleGroup && _assignedGroups.indexOf(allGroupName) === -1;
+      var groupMatches = !_candidateGroupSearch || allGroupName.toLowerCase().indexOf(_candidateGroupSearch) !== -1;
+      if (availableGroup && groupMatches) {
       	_candidateGroupTotal++;
       	if (_candidateGroups.length < _maxCandidateGroups) {
       		_candidateGroups.push(allGroupName);
@@ -87,5 +93,24 @@ comment: 'Facade: groups of one user (master-detail Users page).'
   ↓CandidateGroup [steps.ElementStep-1781192407845]: 
     expression: _candidateGroups[index]
     nodeName: candidateGroup
+↓CandidateGroupMetrics [steps.XMLComplexStep-1781251771917]: 
+  comment: Summary metrics for candidate groups after backend filtering and limiting.
+  nodeName: candidateGroupMetrics
+  ↓Total [steps.ElementStep-1781251771919]: 
+    expression: _candidateGroupTotal
+    nodeName: total
+  ↓Shown [steps.ElementStep-1781251771921]: 
+    expression: _candidateGroups.length
+    nodeName: shown
+  ↓Limit [steps.ElementStep-1781251771923]: 
+    expression: _maxCandidateGroups
+    nodeName: limit
+  ↓Label [steps.ElementStep-1781251771925]: 
+    expression: '_candidateGroups.length + '' / '' + _candidateGroupTotal + '' groupes disponibles'' + (_candidateGroupTotal > _candidateGroups.length ? '' - affinez la recherche'' : '''')'
+    nodeName: label
 ↓user [variables.RequestableVariable-1781165701570]: 
   comment: User to inspect.
+↓candidateGroupSearch [variables.RequestableVariable-1781251771937]: 
+  comment: Optional group search text used to filter candidate groups before they reach the Users page.
+↓maxCandidateGroups [variables.RequestableVariable-1781251771947]: 
+  comment: Maximum number of candidate groups returned to the Users page. Defaults to 100.

@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: returns the users and roles attached to one group (master-detail Groups page).'
 ↓InputVariables [steps.InputVariablesStep-1781164809389]: 
   nodeName: InputVariables

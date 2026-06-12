@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: create an internal user account (pass-through to lib_UserManager.AddUser).'
 ↓InputVariables [steps.InputVariablesStep-1781165701593]: 
   nodeName: InputVariables

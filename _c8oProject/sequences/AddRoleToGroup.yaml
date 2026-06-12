@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: add a role to a group (pass-through to lib_FullSyncGrp.SetRoleInGroup).'
 ↓InputVariables [steps.InputVariablesStep-1781164842097]: 
   nodeName: InputVariables

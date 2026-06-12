@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: effective permissions of one user, resolved through groups and roles (parameterized version of lib_FullSyncGrp.EffectivePermissionsOfUser).'
 ↓InputVariables [steps.InputVariablesStep-1781165752751]: 
   nodeName: InputVariables

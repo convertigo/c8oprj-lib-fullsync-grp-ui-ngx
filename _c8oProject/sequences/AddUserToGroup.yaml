@@ -1,3 +1,4 @@
+authenticatedContextRequired: true
 comment: 'Facade: add a user to a group (pass-through to lib_FullSyncGrp.SetUserInGroup).'
 ↓InputVariables [steps.InputVariablesStep-1781164842065]: 
   nodeName: InputVariables

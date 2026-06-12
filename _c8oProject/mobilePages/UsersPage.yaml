@@ -469,6 +469,22 @@ title: Utilisateurs
                        "Property": "plain:selectedUser",
                        "Value": "script:u?.name || u?.displayName || u"
                       }'
+                    ↓ResetCandidateGroupSearch [ngx.components.UIDynamicAction-1781251833470]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetLocalAction",
+                         "Property": "plain:candidateGroupSearch",
+                         "Value": "plain:"
+                        }'
+                      comment: Reset group candidate filtering when switching selected user.
+                    ↓ResetGroupSelection [ngx.components.UIDynamicAction-1781251834248]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetLocalAction",
+                         "Property": "plain:newUserGroups",
+                         "Value": "script:[]"
+                        }'
+                      comment: Clear pending group multi-selection when switching selected user.
                     ↓LoadDetail [ngx.components.UIDynamicAction-1781166223762]: 
                       beanData: |
                         '{
@@ -507,6 +523,16 @@ title: Utilisateurs
                              "Property": "plain:userPerms",
                              "Value": "script:out"
                             }'
+                      ↓candidateGroupSearch [ngx.components.UIControlVariable-1781251835026]: 
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:this.local?.candidateGroupSearch || ''
+                      ↓maxCandidateGroups [ngx.components.UIControlVariable-1781251835028]: 
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:100
                 ↓ULabel [ngx.components.UIDynamicElement-1781166223774]: 
                   beanData: '{"ionBean":"Label"}'
                   tagName: ion-label
@@ -702,110 +728,301 @@ title: Utilisateurs
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                         - MobileSmartSourceType: plain:entity-chip
-              ↓AddGroupSelect [ngx.components.UIDynamicElement-1781166340929]: 
-                beanData: |
-                  '{
-                   "ionBean": "Select",
-                   "ControlName": "plain:name1781166340929",
-                   "Placeholder": "plain:Ajouter à un groupe…"
-                  }'
-                tagName: ion-select
-                ↓Class [ngx.components.UIAttribute-1781166340931]: 
+              ↓GroupPickerGrid [ngx.components.UIDynamicElement-1781257673081]: 
+                beanData: '{"ionBean":"Grid"}'
+                comment: Inline group filtering and multi-select controls.
+                tagName: ion-grid
+                ↓Class [ngx.components.UIAttribute-1781257673083]: 
                   attrName: class
                   attrValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: plain:add-select
-                ↓Pick [ngx.components.UIControlEvent-1781166340933]: 
-                  attrName: (ionChange)
-                  eventName: ionChange
-                  ↓StorePick [ngx.components.UIDynamicAction-1781166341699]: 
+                      - MobileSmartSourceType: plain:group-picker-grid
+                ↓PickerRow [ngx.components.UIDynamicElement-1781257673085]: 
+                  beanData: '{"ionBean":"GridRow"}'
+                  tagName: ion-row
+                  ↓FilterCol [ngx.components.UIDynamicElement-1781257673087]: 
                     beanData: |
                       '{
-                       "ionBean": "SetLocalAction",
-                       "Property": "plain:newUserGroup",
-                       "Value": "script:event.detail.value"
+                       "ionBean": "GridCol",
+                       "SizeMd": "plain:6",
+                       "SizeXs": "plain:12"
                       }'
-                ↓CandidateGroups [ngx.components.UIControlDirective-1781192667283]: 
-                  directiveIndexName: cgi
-                  directiveItemName: cg
-                  directiveSource: 
-                    - xmlizable: 
-                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:[].concat(this.local?.userDetail?.candidateGroup || [])
-                  ↓Option [ngx.components.UIDynamicElement-1781192669593]: 
-                    beanData: '{"ionBean":"SelectOption","Value":"script:cg"}'
-                    tagName: ion-select-option
-                    ↓Text [ngx.components.UIText-1781192669595]: 
-                      textValue: 
+                    tagName: ion-col
+                    ↓SizeMd [ngx.components.UIAttribute-1781257673089]: 
+                      attrName: size-md
+                      attrValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: script:cg
-              ↓AddGroupBtn [ngx.components.UIDynamicElement-1781166372446]: 
-                beanData: '{"ionBean":"Button","IonColor":"plain:secondary"}'
-                tagName: ion-button
-                ↓Text [ngx.components.UIText-1781166372448]: 
+                          - MobileSmartSourceType: plain:6
+                    ↓SizeXs [ngx.components.UIAttribute-1781257673091]: 
+                      attrName: size-xs
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:12
+                    ↓CandidateGroupSearchInput [ngx.components.UIDynamicElement-1781257673093]: 
+                      beanData: |
+                        '{
+                         "ionBean": "Input",
+                         "ControlName": "plain:candidateGroupSearch",
+                         "ClearInput": "plain:true",
+                         "Debounce": "plain:250",
+                         "Placeholder": "plain:Filtrer les groupes disponibles..."
+                        }'
+                      comment: Search input that reloads backend-prepared candidate groups without filtering in the page.
+                      tagName: ion-input
+                      ↓Class [ngx.components.UIAttribute-1781257673095]: 
+                        attrName: class
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:entity-search-input group-filter-input
+                      ↓Typing [ngx.components.UIControlEvent-1781257673097]: 
+                        attrName: (ionInput)
+                        eventName: ionInput
+                        ↓StoreCandidateGroupSearch [ngx.components.UIDynamicAction-1781257673863]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:candidateGroupSearch",
+                             "Value": "script:event.detail.value || ''''"
+                            }'
+                        ↓ReloadCandidateGroups [ngx.components.UIDynamicAction-1781257673865]: 
+                          beanData: |
+                            '{
+                             "ionBean": "CallSequenceAction",
+                             "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserDetail",
+                             "noLoading": "plain:true"
+                            }'
+                          ↓user [ngx.components.UIControlVariable-1781257674643]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.selectedUser
+                          ↓candidateGroupSearch [ngx.components.UIControlVariable-1781257674645]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.candidateGroupSearch || ''
+                          ↓maxCandidateGroups [ngx.components.UIControlVariable-1781257674647]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: plain:100
+                          ↓StoreDetail [ngx.components.UIDynamicAction-1781257674649]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetLocalAction",
+                               "Property": "plain:userDetail",
+                               "Value": "script:out"
+                              }'
+                          ↓ClearGroupSelection [ngx.components.UIDynamicAction-1781257674651]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetLocalAction",
+                               "Property": "plain:newUserGroups",
+                               "Value": "script:[]"
+                              }'
+                  ↓SelectCol [ngx.components.UIDynamicElement-1781257674653]: 
+                    beanData: |
+                      '{
+                       "ionBean": "GridCol",
+                       "SizeMd": "plain:6",
+                       "SizeXs": "plain:12"
+                      }'
+                    tagName: ion-col
+                    ↓SizeMd [ngx.components.UIAttribute-1781257674655]: 
+                      attrName: size-md
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:6
+                    ↓SizeXs [ngx.components.UIAttribute-1781257674657]: 
+                      attrName: size-xs
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:12
+                    ↓AddGroupSelect [ngx.components.UIDynamicElement-1781257674659]: 
+                      beanData: |
+                        '{
+                         "ionBean": "Select",
+                         "ControlName": "plain:newUserGroups",
+                         "CancelText": "plain:Annuler",
+                         "OkText": "plain:Ajouter",
+                         "Placeholder": "plain:Ajouter à des groupes...",
+                         "Multiple": "plain:true"
+                        }'
+                      tagName: ion-select
+                      ↓Class [ngx.components.UIAttribute-1781257674661]: 
+                        attrName: class
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:add-select group-multi-select
+                      ↓SelectedText [ngx.components.UIAttribute-1781257674663]: 
+                        attrName: '[selectedText]'
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: 'script:(this.local?.newUserGroups?.length || 0) > 0 ? ((this.local?.newUserGroups?.length || 0) + '' groupes sélectionnés'') : '''''
+                      ↓MultipleBinding [ngx.components.UIAttribute-1781257674665]: 
+                        attrName: '[multiple]'
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:true
+                      ↓ValueBinding [ngx.components.UIAttribute-1781257674667]: 
+                        attrName: '[value]'
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:this.local?.newUserGroups || []
+                      ↓Pick [ngx.components.UIControlEvent-1781257674669]: 
+                        attrName: (ionChange)
+                        eventName: ionChange
+                        ↓StorePick [ngx.components.UIDynamicAction-1781257674671]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:newUserGroups",
+                             "Value": "script:event.detail.value || []"
+                            }'
+                      ↓CandidateGroups [ngx.components.UIControlDirective-1781257674673]: 
+                        directiveIndexName: cgi
+                        directiveItemName: cg
+                        directiveSource: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:[].concat(this.local?.userDetail?.candidateGroup || [])
+                        ↓Option [ngx.components.UIDynamicElement-1781257676983]: 
+                          beanData: '{"ionBean":"SelectOption","Value":"script:cg"}'
+                          tagName: ion-select-option
+                          ↓Text [ngx.components.UIText-1781257676985]: 
+                            textValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:cg
+              ↓CandidateGroupSummary [ngx.components.UIDynamicElement-1781251846600]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                comment: Backend-prepared candidate group count for large group catalogs.
+                tagName: p
+                ↓Text [ngx.components.UIText-1781251846602]: 
                   textValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: plain:Ajouter au groupe
-                ↓Add [ngx.components.UIControlEvent-1781166372450]: 
-                  ↓DoAdd [ngx.components.UIDynamicAction-1781166373216]: 
+                      - MobileSmartSourceType: script:this.local?.userDetail?.candidateGroupMetrics?.label || ''
+                ↓Class [ngx.components.UIAttribute-1781251846604]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-result-summary
+              ↓AddGroupBtn [ngx.components.UIDynamicElement-1781166372446]: 
+                beanData: '{"ionBean":"Button","IonColor":"plain:secondary"}'
+                tagName: ion-button
+                ↓Text [ngx.components.UIText-1781251848914]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:Ajouter aux groupes
+                ↓Disabled [ngx.components.UIAttribute-1781251848916]: 
+                  attrName: '[disabled]'
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:!(this.local?.newUserGroups?.length > 0)
+                ↓Add [ngx.components.UIControlEvent-1781251848918]: 
+                  ↓DoAdd [ngx.components.UIDynamicAction-1781251849684]: 
                     beanData: |
                       '{
                        "ionBean": "CallSequenceAction",
-                       "requestable": "plain:lib_FullSyncGrp_ui_ngx.AddUserToGroup",
+                       "requestable": "plain:lib_FullSyncGrp_ui_ngx.AddUserToGroups",
                        "noLoading": "plain:true"
                       }'
-                    ↓user [ngx.components.UIControlVariable-1781166373994]: 
+                    ↓user [ngx.components.UIControlVariable-1781251850462]: 
                       varValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                           - MobileSmartSourceType: script:this.local?.selectedUser
-                    ↓group [ngx.components.UIControlVariable-1781166373996]: 
+                    ↓groups [ngx.components.UIControlVariable-1781251850464]: 
                       varValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: script:this.local?.newUserGroup
-                    ↓ReloadDetail [ngx.components.UIDynamicAction-1781166373998]: 
+                          - MobileSmartSourceType: script:this.local?.newUserGroups || []
+                    ↓IfAddGroupsError [ngx.components.UIDynamicAction-1781258155381]: 
+                      beanData: '{"ionBean":"IfAction","condition":"script:out?.hasError == ''true''"}'
+                      comment: Shows the group assignment notification only when the backend-prepared AddUserToGroups contract reports an error.
+                      ↓ShowAddGroupsError [ngx.components.UIDynamicAction-1781258155383]: 
+                        beanData: |
+                          '{
+                           "ionBean": "ToastAction",
+                           "IonColor": "plain:danger",
+                           "message": "script:stack[''DoAdd'']?.out?.toastMessage",
+                           "duration": "plain:4500",
+                           "position": "plain:top",
+                           "icon": "plain:alert-circle-outline",
+                           "showCloseButton": "plain:true",
+                           "closeButtonText": "plain:Fermer"
+                          }'
+                        comment: Displays the backend-prepared group assignment error message.
+                    ↓ReloadDetail [ngx.components.UIDynamicAction-1781251850466]: 
                       beanData: |
                         '{
                          "ionBean": "CallSequenceAction",
                          "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserDetail",
                          "noLoading": "plain:true"
                         }'
-                      ↓user [ngx.components.UIControlVariable-1781166374000]: 
+                      ↓user [ngx.components.UIControlVariable-1781251850468]: 
                         varValue: 
                           - xmlizable: 
                             - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                             - MobileSmartSourceType: script:this.local?.selectedUser
-                      ↓StoreDetail [ngx.components.UIDynamicAction-1781166374002]: 
+                      ↓candidateGroupSearch [ngx.components.UIControlVariable-1781251850470]: 
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:this.local?.candidateGroupSearch || ''
+                      ↓maxCandidateGroups [ngx.components.UIControlVariable-1781251850472]: 
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:100
+                      ↓StoreDetail [ngx.components.UIDynamicAction-1781251850474]: 
                         beanData: |
                           '{
                            "ionBean": "SetLocalAction",
                            "Property": "plain:userDetail",
                            "Value": "script:out"
                           }'
-                      ↓ReloadPerms [ngx.components.UIDynamicAction-1781166374004]: 
+                      ↓ClearGroupSelection [ngx.components.UIDynamicAction-1781251850476]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetLocalAction",
+                           "Property": "plain:newUserGroups",
+                           "Value": "script:[]"
+                          }'
+                      ↓ReloadPerms [ngx.components.UIDynamicAction-1781251850478]: 
                         beanData: |
                           '{
                            "ionBean": "CallSequenceAction",
                            "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserPermissions",
                            "noLoading": "plain:true"
                           }'
-                        ↓user [ngx.components.UIControlVariable-1781166374006]: 
+                        ↓user [ngx.components.UIControlVariable-1781251850480]: 
                           varValue: 
                             - xmlizable: 
                               - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                               - MobileSmartSourceType: script:this.local?.selectedUser
-                        ↓StorePerms [ngx.components.UIDynamicAction-1781166374008]: 
+                        ↓StorePerms [ngx.components.UIDynamicAction-1781251850482]: 
                           beanData: |
                             '{
                              "ionBean": "SetLocalAction",
                              "Property": "plain:userPerms",
                              "Value": "script:out"
                             }'
-                ↓Class [ngx.components.UIAttribute-1781194150340]: 
+                ↓Class [ngx.components.UIAttribute-1781251850484]: 
                   attrName: class
                   attrValue: 
                     - xmlizable: 
