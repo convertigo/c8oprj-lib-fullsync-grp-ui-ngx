@@ -967,6 +967,21 @@ title: Utilisateurs
                            "closeButtonText": "plain:Fermer"
                           }'
                         comment: Displays the backend-prepared group assignment error message.
+                    ↓IfAddGroupsSuccess [ngx.components.UIDynamicAction-1781337250310]: 
+                      beanData: '{"ionBean":"IfAction","condition":"script:out?.hasError != ''true'' && +(out?.addedTotal || 0) > 0"}'
+                      comment: Shows a confirmation notification when the backend reports successful group assignments.
+                      ↓ShowAddGroupsSuccess [ngx.components.UIDynamicAction-1781337266297]: 
+                        beanData: |
+                          '{
+                           "ionBean": "ToastAction",
+                           "IonColor": "plain:success",
+                           "message": "script:(+(stack[''DoAdd'']?.out?.addedTotal || 0)) + '' '' + ((+(stack[''DoAdd'']?.out?.addedTotal || 0)) > 1 ? ''groupes ajoutés'' : ''groupe ajouté'')",
+                           "duration": "plain:3200",
+                           "position": "plain:top",
+                           "icon": "plain:checkmark-circle-outline",
+                           "showCloseButton": "plain:true",
+                           "closeButtonText": "plain:Fermer"
+                          }'
                     ↓ReloadDetail [ngx.components.UIDynamicAction-1781251850466]: 
                       beanData: |
                         '{

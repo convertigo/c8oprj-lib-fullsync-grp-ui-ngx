@@ -11,7 +11,6 @@ comment: 'Facade: add one user to several groups selected from the Users page.'
     var _addGroupHasError = false;
 ↓GroupsIterator [steps.IteratorStep-1781251740011]: 
   comment: Iterates over each selected group received from the NGX multi-select.
-  condition: GroupsIterator
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -19,7 +18,7 @@ comment: 'Facade: add one user to several groups selected from the Users page.'
         - java.lang.String: 
           - ↑value: 1781251740007
         - java.lang.String: 
-          - ↑value: ./groups/text()
+          - ↑value: ./groups/text() | ./groups/item/text()
   ↓CurrentGroup [steps.SimpleSourceStep-1781251740013]: 
     sourceDefinition: 
       - xmlizable: 
