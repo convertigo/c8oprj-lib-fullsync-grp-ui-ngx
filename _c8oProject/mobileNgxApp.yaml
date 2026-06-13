@@ -3285,3 +3285,15 @@ tplProjectName: mobilebuilder_tpl_8_4_0_ngx
           :root.force-dark .entity-result-summary { border-color: rgba(96, 165, 250, .34); background: rgba(96, 165, 250, .14); color: #bfdbfe; }
           @media (prefers-color-scheme: dark) { :root:not(.force-light) .entity-result-summary { border-color: rgba(96, 165, 250, .34); background: rgba(96, 165, 250, .14); color: #bfdbfe; } }
           @media (max-width: 720px) { .group-picker-grid ion-col { padding: .2rem 0; } }'
+↓UserDetailHeaderSummaryStyle [ngx.components.UIStyle-1781346195937]: 
+  comment: Keeps the user detail provider icon, title, and available-groups summary on one padded line.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          'ion-card-header.user-detail-header-with-summary { position: relative !important; display: grid !important; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: .5rem; align-items: center; min-height: 3.25rem; padding-left: .6rem !important; padding-right: .6rem !important; }
+          ion-card-header.user-detail-header-with-summary .user-detail-provider-icon { position: static; display: inline-block !important; width: 1.15rem; min-width: 1.15rem; height: 1.15rem; min-height: 1.15rem; margin: 0; font-size: 1.15rem; }
+          ion-card-header.user-detail-header-with-summary h2 { position: static; display: block; width: auto; max-width: none; min-width: 0; margin: 0 !important; margin-inline-start: 0 !important; margin-inline-end: 0 !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; line-height: 1.3; }
+          ion-card-header.user-detail-header-with-summary .user-detail-header-summary.entity-result-summary { position: static; justify-self: end; max-width: 11rem; margin: 0; white-space: nowrap; }
+          @media (max-width: 720px) { ion-card-header.user-detail-header-with-summary { padding-left: .5rem !important; padding-right: .5rem !important; column-gap: .4rem; } ion-card-header.user-detail-header-with-summary .user-detail-header-summary.entity-result-summary { max-width: 9.5rem; } }'

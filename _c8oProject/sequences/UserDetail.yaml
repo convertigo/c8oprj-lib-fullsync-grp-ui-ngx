@@ -2,9 +2,36 @@ authenticatedContextRequired: true
 comment: 'Facade: groups of one user (master-detail Users page).'
 ↓InputVariables [steps.InputVariablesStep-1781165701572]: 
   nodeName: InputVariables
+↓PrepareUserIdentity [steps.SimpleStep-1781346705862]: 
+  comment: Prepares provider display fields for the selected user detail header.
+  expression: |
+    'var _detailRawUser = '''' + (user || '''');
+    var _detailParts = _detailRawUser.split('':'');
+    var _detailIsProvider = _detailParts.length >= 3 && ('''' + (_detailParts[2] || '''')).indexOf(''@'') !== -1;
+    var _detailProvider = _detailIsProvider ? ('''' + (_detailParts[0] || '''')).toLowerCase() : '''';
+    var _detailProviderIcons = {
+    	google: ''logo-google'', github: ''logo-github'', facebook: ''logo-facebook'', apple: ''logo-apple'',
+    	microsoft: ''logo-microsoft'', azure: ''logo-microsoft'', azuread: ''logo-microsoft'', twitter: ''logo-twitter'',
+    	x: ''logo-twitter'', linkedin: ''logo-linkedin'', gitlab: ''logo-gitlab'', bitbucket: ''logo-bitbucket'',
+    	amazon: ''logo-amazon'', yahoo: ''logo-yahoo'', slack: ''logo-slack'', discord: ''logo-discord'',
+    	paypal: ''logo-paypal'', dropbox: ''logo-dropbox'', instagram: ''logo-instagram''
+    };
+    var _detailDisplayName = _detailIsProvider ? ('''' + (_detailParts[2] || '''')) : _detailRawUser;
+    var _detailProviderIcon = _detailProviderIcons[_detailProvider] || ''key-outline'';
+    var _detailProviderIconBlank = !_detailIsProvider;'
 ↓status [steps.XMLElementStep-1781165701574]: 
   nodeName: status
   nodeText: ok
+↓DisplayName [steps.ElementStep-1781346705887]: 
+  expression: _detailDisplayName
+  nodeName: displayName
+↓ProviderIcon [steps.ElementStep-1781346705906]: 
+  expression: _detailProviderIcon
+  nodeName: providerIcon
+↓ProviderIconBlank [steps.ElementStep-1781346705927]: 
+  expression: _detailProviderIconBlank
+  nodeName: providerIconBlank
+  schemaDataType: xsd:boolean
 ↓Groups [steps.SequenceStep-1781165701576]: 
   comment: Groups the user belongs to
   output: true

@@ -460,7 +460,7 @@ title: Utilisateurs
                     attrValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:u?.providerIconBlank
+                        - MobileSmartSourceType: script:u?.providerIconBlank === true || u?.providerIconBlank == 'true'
                 ↓Select [ngx.components.UIControlEvent-1781166222218]: 
                   ↓SetSel [ngx.components.UIDynamicAction-1781166222984]: 
                     beanData: |
@@ -612,6 +612,22 @@ title: Utilisateurs
             ↓DetailHeader [ngx.components.UIDynamicElement-1781166310223]: 
               beanData: '{"ionBean":"CardHeader"}'
               tagName: ion-card-header
+              ↓ProviderIcon [ngx.components.UIDynamicElement-1781346730850]: 
+                beanData: '{"ionBean":"Icon","IconName":"script:this.local?.userDetail?.providerIcon"}'
+                comment: Provider logo prepared by UserDetail; invisible for plain users so detail titles stay aligned.
+                tagName: ion-icon
+                ↓Class [ngx.components.UIAttribute-1781346730852]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:provider-icon user-detail-provider-icon
+                ↓BlankClass [ngx.components.UIAttribute-1781346730854]: 
+                  attrName: '[class.provider-icon-blank]'
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.userDetail?.providerIconBlank === true || this.local?.userDetail?.providerIconBlank == 'true'
               ↓DetailTitle [ngx.components.UIDynamicElement-1781166310225]: 
                 beanData: '{"ionBean":"Heading2"}'
                 tagName: h2
@@ -619,7 +635,28 @@ title: Utilisateurs
                   textValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:this.local?.selectedUser
+                      - MobileSmartSourceType: script:this.local?.userDetail?.displayName || this.local?.selectedUser
+              ↓HeaderClass [ngx.components.UIAttribute-1781346195805]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:user-detail-header-with-summary
+              ↓CandidateGroupSummary [ngx.components.UIDynamicElement-1781346195807]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                comment: Backend-prepared candidate group count displayed in the user detail header.
+                tagName: p
+                ↓Text [ngx.components.UIText-1781346195809]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.userDetail?.candidateGroupMetrics?.label || ''
+                ↓Class [ngx.components.UIAttribute-1781346195811]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-result-summary user-detail-header-summary
             ↓Body [ngx.components.UIDynamicElement-1781166310229]: 
               beanData: '{"ionBean":"CardContent"}'
               tagName: ion-card-content
@@ -904,21 +941,6 @@ title: Utilisateurs
                               - xmlizable: 
                                 - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                                 - MobileSmartSourceType: script:cg
-              ↓CandidateGroupSummary [ngx.components.UIDynamicElement-1781251846600]: 
-                beanData: '{"ionBean":"Paragraph"}'
-                comment: Backend-prepared candidate group count for large group catalogs.
-                tagName: p
-                ↓Text [ngx.components.UIText-1781251846602]: 
-                  textValue: 
-                    - xmlizable: 
-                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:this.local?.userDetail?.candidateGroupMetrics?.label || ''
-                ↓Class [ngx.components.UIAttribute-1781251846604]: 
-                  attrName: class
-                  attrValue: 
-                    - xmlizable: 
-                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: plain:entity-result-summary
               ↓AddGroupBtn [ngx.components.UIDynamicElement-1781166372446]: 
                 beanData: '{"ionBean":"Button","IonColor":"plain:secondary"}'
                 tagName: ion-button
