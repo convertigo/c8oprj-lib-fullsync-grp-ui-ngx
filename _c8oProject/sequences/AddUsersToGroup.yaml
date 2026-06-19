@@ -1,0 +1,104 @@
+authenticatedContextRequired: true
+comment: 'Facade: add several users to one group selected from the Groups page.'
+↓InputVariables [steps.InputVariablesStep-1781349629021]: 
+  nodeName: InputVariables
+↓Init [steps.SimpleStep-1781349629023]: 
+  comment: Initializes counters for the multi-user assignment response.
+  expression: |
+    var _addedUsers = [];
+    var _addUserTotal = 0;
+    var _addUserErrors = [];
+    var _addUserHasError = false;
+↓UsersIterator [steps.IteratorStep-1781349629025]: 
+  comment: Iterates over each selected user received from the NGX multi-select.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781349629021
+        - java.lang.String: 
+          - ↑value: ./users/text() | ./users/item/text()
+  ↓CurrentUser [steps.SimpleSourceStep-1781349629027]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781349629025
+          - java.lang.String: 
+            - ↑value: .
+    variableName: currentUser
+  ↓Set [steps.SequenceStep-1781349629029]: 
+    comment: Delegates one user/group assignment to lib_FullSyncGrp.SetUserInGroup.
+    output: true
+    sourceSequence: lib_FullSyncGrp.SetUserInGroup
+    ↓user [variables.StepVariable-1781349629031]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1781349629025
+            - java.lang.String: 
+              - ↑value: .
+    ↓group [variables.StepVariable-1781349629033]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1781349629021
+            - java.lang.String: 
+              - ↑value: ./group/text()
+  ↓SetUserErrorMessage [steps.SimpleSourceStep-1781349629035]: 
+    comment: Extracts one assignment error message from lib_FullSyncGrp.SetUserInGroup for the UI-ready response contract.
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781349629029
+          - java.lang.String: 
+            - ↑value: ./document/error/message/text()
+    variableName: setUserErrorMessage
+  ↓CollectAddedUser [steps.SimpleStep-1781349629037]: 
+    comment: Collects successful requested users and aggregates backend assignment errors for toast reporting.
+    expression: |
+      'var userName = '''' + currentUser;
+      var rawError = '''' + (setUserErrorMessage || '''');
+      if (rawError.length > 0) {
+      	_addUserHasError = true;
+      	_addUserErrors.push((userName ? (userName + '' : '') : '''') + rawError);
+      } else if (userName) {
+      	_addedUsers.push(userName);
+      	_addUserTotal++;
+      }'
+↓AddedUsers [steps.SimpleIteratorStep-1781349629039]: 
+  comment: Returns the users requested for assignment.
+  expression: _addedUsers
+  ↓AddedUser [steps.ElementStep-1781349629041]: 
+    expression: _addedUsers[index]
+    nodeName: addedUser
+↓AddedTotal [steps.ElementStep-1781349629043]: 
+  expression: _addUserTotal
+  nodeName: addedTotal
+↓PrepareAddUsersResult [steps.SimpleStep-1781349629045]: 
+  comment: 'Prepares the response contract consumed by NGX pages: hasError and toastMessage.'
+  expression: |
+    'var _addUserErrorText = _addUserErrors.join(''; '');
+    var _addUserDisplayError = _addUserErrorText == ''Authentication required'' ? ''authentification requise'' : _addUserErrorText;
+    var _addUserToastMessage = _addUserHasError ? (''Ajout des membres impossible : '' + _addUserDisplayError) : '''';'
+↓HasError [steps.ElementStep-1781349629047]: 
+  comment: Boolean-like flag used by the UI to show the member assignment error toast only on failure.
+  expression: ''''' + _addUserHasError'
+  nodeName: hasError
+  schemaDataType: xsd:boolean
+↓ToastMessage [steps.ElementStep-1781349629049]: 
+  comment: Prepared administrator-facing message displayed only when hasError is true.
+  expression: _addUserToastMessage
+  nodeName: toastMessage
+↓group [variables.RequestableVariable-1781349629051]: 
+  comment: Target group receiving selected members.
+↓users [variables.RequestableMultiValuedVariable-1781349629053]: 
+  comment: Selected users to add to the group.

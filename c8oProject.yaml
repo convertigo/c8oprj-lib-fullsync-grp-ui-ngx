@@ -5,7 +5,9 @@
   corsOrigin: =Origin
   httpSessionTimeout: 60
   ↓void [connectors.SqlConnector]: 🗏 connectors/void.yaml
+  ↓AddRolesToGroup [sequences.GenericSequence]: 🗏 sequences/AddRolesToGroup.yaml
   ↓AddRoleToGroup [sequences.GenericSequence]: 🗏 sequences/AddRoleToGroup.yaml
+  ↓AddUsersToGroup [sequences.GenericSequence]: 🗏 sequences/AddUsersToGroup.yaml
   ↓AddUserToGroup [sequences.GenericSequence]: 🗏 sequences/AddUserToGroup.yaml
   ↓AddUserToGroups [sequences.GenericSequence]: 🗏 sequences/AddUserToGroups.yaml
   ↓AdminDashboard [sequences.GenericSequence]: 🗏 sequences/AdminDashboard.yaml

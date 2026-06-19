@@ -18,5 +18,43 @@ comment: 'Facade: roles that include one permission.'
             - ↑value: 1781166448788
           - java.lang.String: 
             - ↑value: ./permission/text()
+↓InitRoles [steps.SimpleStep-1781348128826]: 
+  comment: Initializes role usage metrics for the selected permission.
+  expression: var _assignedRoles = [];
+↓IteratorAssignedRoles [steps.IteratorStep-1781348128844]: 
+  comment: Collects roles including the selected permission so header metrics are prepared in backend.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781166448792
+        - java.lang.String: 
+          - ↑value: ./document/role
+  ↓CurrentAssignedRole [steps.SimpleSourceStep-1781348128846]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781348128844
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: assignedRole
+  ↓CollectAssignedRole [steps.SimpleStep-1781348128848]: 
+    expression: |
+      'var assignedRoleName = '''' + assignedRole;
+      if (assignedRoleName) {
+      	_assignedRoles.push(assignedRoleName);
+      }'
+↓DetailMetrics [steps.XMLComplexStep-1781348128862]: 
+  comment: Backend-prepared compact summary for the permission detail header.
+  nodeName: detailMetrics
+  ↓Label [steps.ElementStep-1781348128865]: 
+    expression: _assignedRoles.length + ' roles'
+    nodeName: label
+  ↓Roles [steps.ElementStep-1781348128867]: 
+    expression: _assignedRoles.length
+    nodeName: roles
 ↓permission [variables.RequestableVariable-1781166448786]: 
   comment: Permission key to inspect, formatted as element.action:scope.

@@ -1,0 +1,104 @@
+authenticatedContextRequired: true
+comment: 'Facade: add several roles to one group selected from the Groups page.'
+↓InputVariables [steps.InputVariablesStep-1781349629071]: 
+  nodeName: InputVariables
+↓Init [steps.SimpleStep-1781349629073]: 
+  comment: Initializes counters for the multi-role assignment response.
+  expression: |
+    var _addedRoles = [];
+    var _addRoleTotal = 0;
+    var _addRoleErrors = [];
+    var _addRoleHasError = false;
+↓RolesIterator [steps.IteratorStep-1781349629075]: 
+  comment: Iterates over each selected role received from the NGX multi-select.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781349629071
+        - java.lang.String: 
+          - ↑value: ./roles/text() | ./roles/item/text()
+  ↓CurrentRole [steps.SimpleSourceStep-1781349629077]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781349629075
+          - java.lang.String: 
+            - ↑value: .
+    variableName: currentRole
+  ↓Set [steps.SequenceStep-1781349629079]: 
+    comment: Delegates one role/group assignment to lib_FullSyncGrp.SetRoleInGroup.
+    output: true
+    sourceSequence: lib_FullSyncGrp.SetRoleInGroup
+    ↓role [variables.StepVariable-1781349629081]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1781349629075
+            - java.lang.String: 
+              - ↑value: .
+    ↓group [variables.StepVariable-1781349629083]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1781349629071
+            - java.lang.String: 
+              - ↑value: ./group/text()
+  ↓SetRoleErrorMessage [steps.SimpleSourceStep-1781349629085]: 
+    comment: Extracts one assignment error message from lib_FullSyncGrp.SetRoleInGroup for the UI-ready response contract.
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781349629079
+          - java.lang.String: 
+            - ↑value: ./document/error/message/text()
+    variableName: setRoleErrorMessage
+  ↓CollectAddedRole [steps.SimpleStep-1781349629087]: 
+    comment: Collects successful requested roles and aggregates backend assignment errors for toast reporting.
+    expression: |
+      'var roleName = '''' + currentRole;
+      var rawError = '''' + (setRoleErrorMessage || '''');
+      if (rawError.length > 0) {
+      	_addRoleHasError = true;
+      	_addRoleErrors.push((roleName ? (roleName + '' : '') : '''') + rawError);
+      } else if (roleName) {
+      	_addedRoles.push(roleName);
+      	_addRoleTotal++;
+      }'
+↓AddedRoles [steps.SimpleIteratorStep-1781349629089]: 
+  comment: Returns the roles requested for assignment.
+  expression: _addedRoles
+  ↓AddedRole [steps.ElementStep-1781349629091]: 
+    expression: _addedRoles[index]
+    nodeName: addedRole
+↓AddedTotal [steps.ElementStep-1781349629093]: 
+  expression: _addRoleTotal
+  nodeName: addedTotal
+↓PrepareAddRolesResult [steps.SimpleStep-1781349629095]: 
+  comment: 'Prepares the response contract consumed by NGX pages: hasError and toastMessage.'
+  expression: |
+    'var _addRoleErrorText = _addRoleErrors.join(''; '');
+    var _addRoleDisplayError = _addRoleErrorText == ''Authentication required'' ? ''authentification requise'' : _addRoleErrorText;
+    var _addRoleToastMessage = _addRoleHasError ? (''Ajout des roles impossible : '' + _addRoleDisplayError) : '''';'
+↓HasError [steps.ElementStep-1781349629097]: 
+  comment: Boolean-like flag used by the UI to show the role assignment error toast only on failure.
+  expression: ''''' + _addRoleHasError'
+  nodeName: hasError
+  schemaDataType: xsd:boolean
+↓ToastMessage [steps.ElementStep-1781349629099]: 
+  comment: Prepared administrator-facing message displayed only when hasError is true.
+  expression: _addRoleToastMessage
+  nodeName: toastMessage
+↓group [variables.RequestableVariable-1781349629101]: 
+  comment: Target group receiving selected roles.
+↓roles [variables.RequestableMultiValuedVariable-1781349629103]: 
+  comment: Selected roles to add to the group.

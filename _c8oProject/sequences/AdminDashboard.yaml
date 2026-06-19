@@ -18,19 +18,29 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
   output: true
   sourceSequence: lib_FullSyncGrp.Permissions
 ↓InitVisibleGroups [steps.SimpleStep-1781192200069]: 
-  comment: Initializes bounded backend arrays, filters, totals, and labels used by NGX pages for large user/group directories.
+  comment: Initializes bounded backend arrays, filters, totals, and labels used by NGX pages for large RBAC directories.
   expression: |
     var _visibleGroups = [];
     var _dashboardGroups = [];
     var _dashboardUsers = [];
+    var _visibleRoles = [];
+    var _visiblePermissions = [];
     var _userSearch = ('' + (userSearch || '')).toLowerCase();
     var _groupSearch = ('' + (groupSearch || '')).toLowerCase();
+    var _roleSearch = ('' + (roleSearch || '')).toLowerCase();
+    var _permissionSearch = ('' + (permissionSearch || '')).toLowerCase();
     var _maxUsers = parseInt(maxUsers || '100', 10);
     var _maxGroups = parseInt(maxGroups || '100', 10);
+    var _maxRoles = parseInt(maxRoles || '100', 10);
+    var _maxPermissions = parseInt(maxPermissions || '100', 10);
     if (!isFinite(_maxUsers) || _maxUsers < 1) { _maxUsers = 100; }
     if (!isFinite(_maxGroups) || _maxGroups < 1) { _maxGroups = 100; }
+    if (!isFinite(_maxRoles) || _maxRoles < 1) { _maxRoles = 100; }
+    if (!isFinite(_maxPermissions) || _maxPermissions < 1) { _maxPermissions = 100; }
     var _dashboardUserTotal = 0;
     var _visibleGroupTotal = 0;
+    var _visibleRoleTotal = 0;
+    var _visiblePermissionTotal = 0;
 ↓IteratorRawGroups [steps.IteratorStep-1781192228352]: 
   comment: Scans raw FullSyncGrp groups and filters hidden/internal group names before exposing them to the UI.
   sourceDefinition: 
@@ -172,6 +182,78 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
     ↓GroupsLabel [steps.ElementStep-1781245143824]: 
       expression: _dashboardUsers[index].groupsLabel
       nodeName: groupsLabel
+↓BuildVisibleRoles [steps.IteratorStep-1781348046339]: 
+  comment: Prepares bounded role rows for RBAC pages without filtering in NGX.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781106451638
+        - java.lang.String: 
+          - ↑value: ./document/role
+  ↓CurrentRole [steps.SimpleSourceStep-1781348046342]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781348046339
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: currentRole
+  ↓CollectVisibleRole [steps.SimpleStep-1781348046344]: 
+    expression: |
+      'var roleName = '''' + currentRole;
+      var roleMatches = !_roleSearch || roleName.toLowerCase().indexOf(_roleSearch) !== -1;
+      if (roleName && roleMatches) {
+      	_visibleRoleTotal++;
+      	if (_visibleRoles.length < _maxRoles) {
+      		_visibleRoles.push(roleName);
+      	}
+      }'
+↓IteratorVisibleRoles [steps.SimpleIteratorStep-1781348074461]: 
+  comment: Writes backend-prepared visibleRole nodes consumed by RolesPage and dashboards.
+  expression: _visibleRoles
+  ↓VisibleRole [steps.ElementStep-1781348074464]: 
+    expression: _visibleRoles[index]
+    nodeName: visibleRole
+↓BuildVisiblePermissions [steps.IteratorStep-1781348074518]: 
+  comment: Prepares bounded permission rows for RBAC pages without filtering in NGX.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781106451640
+        - java.lang.String: 
+          - ↑value: ./document/permission
+  ↓CurrentPermission [steps.SimpleSourceStep-1781348074520]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781348074518
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: currentPermission
+  ↓CollectVisiblePermission [steps.SimpleStep-1781348074522]: 
+    expression: |
+      'var permissionName = '''' + currentPermission;
+      var permissionMatches = !_permissionSearch || permissionName.toLowerCase().indexOf(_permissionSearch) !== -1;
+      if (permissionName && permissionMatches) {
+      	_visiblePermissionTotal++;
+      	if (_visiblePermissions.length < _maxPermissions) {
+      		_visiblePermissions.push(permissionName);
+      	}
+      }'
+↓IteratorVisiblePermissions [steps.SimpleIteratorStep-1781348074541]: 
+  comment: Writes backend-prepared visiblePermission nodes consumed by PermissionsPage and dashboards.
+  expression: _visiblePermissions
+  ↓VisiblePermission [steps.ElementStep-1781348074543]: 
+    expression: _visiblePermissions[index]
+    nodeName: visiblePermission
 ↓ListMetrics [steps.XMLComplexStep-1781245143846]: 
   comment: Summary metrics for large directory UX.
   nodeName: listMetrics
@@ -199,6 +281,30 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
   ↓GroupLabel [steps.ElementStep-1781245143863]: 
     expression: '_visibleGroups.length + '' / '' + _visibleGroupTotal + '' groupes affiches'' + (_visibleGroupTotal > _visibleGroups.length ? '' - affinez la recherche'' : '''')'
     nodeName: groupLabel
+  ↓RoleTotal [steps.ElementStep-1781348074564]: 
+    expression: _visibleRoleTotal
+    nodeName: roleTotal
+  ↓RoleShown [steps.ElementStep-1781348074584]: 
+    expression: _visibleRoles.length
+    nodeName: roleShown
+  ↓RoleLimit [steps.ElementStep-1781348074611]: 
+    expression: _maxRoles
+    nodeName: roleLimit
+  ↓RoleLabel [steps.ElementStep-1781348074639]: 
+    expression: '_visibleRoles.length + '' / '' + _visibleRoleTotal + '' roles affiches'' + (_visibleRoleTotal > _visibleRoles.length ? '' - affinez la recherche'' : '''')'
+    nodeName: roleLabel
+  ↓PermissionTotal [steps.ElementStep-1781348074661]: 
+    expression: _visiblePermissionTotal
+    nodeName: permissionTotal
+  ↓PermissionShown [steps.ElementStep-1781348074681]: 
+    expression: _visiblePermissions.length
+    nodeName: permissionShown
+  ↓PermissionLimit [steps.ElementStep-1781348074705]: 
+    expression: _maxPermissions
+    nodeName: permissionLimit
+  ↓PermissionLabel [steps.ElementStep-1781348074728]: 
+    expression: '_visiblePermissions.length + '' / '' + _visiblePermissionTotal + '' permissions affichees'' + (_visiblePermissionTotal > _visiblePermissions.length ? '' - affinez la recherche'' : '''')'
+    nodeName: permissionLabel
 ↓userSearch [variables.RequestableVariable-1781245105055]: 
   comment: Optional user search text used by AdminDashboard to limit large user directories before they reach NGX pages.
 ↓groupSearch [variables.RequestableVariable-1781245105081]: 
@@ -207,3 +313,11 @@ comment: Stable administration facade aggregating lib_FullSyncGrp RBAC lists for
   comment: Maximum number of prepared user rows returned to the UI. Defaults to 100.
 ↓maxGroups [variables.RequestableVariable-1781245105142]: 
   comment: Maximum number of prepared group rows returned to the UI. Defaults to 100.
+↓roleSearch [variables.RequestableVariable-1781348074768]: 
+  comment: Optional role search text used by AdminDashboard to limit role directories before they reach NGX pages.
+↓permissionSearch [variables.RequestableVariable-1781348074791]: 
+  comment: Optional permission search text used by AdminDashboard to limit permission directories before they reach NGX pages.
+↓maxRoles [variables.RequestableVariable-1781348074809]: 
+  comment: Maximum number of prepared role rows returned to the UI. Defaults to 100.
+↓maxPermissions [variables.RequestableVariable-1781348074828]: 
+  comment: Maximum number of prepared permission rows returned to the UI. Defaults to 100.

@@ -39,7 +39,11 @@ comment: 'Facade: returns the users and roles attached to one group (master-deta
     var _candidateUsers = [];
     var _candidateRoles = [];
     var _candidateUserTotal = 0;
-    var _maxCandidateUsers = 100;
+    var _candidateRoleTotal = 0;
+    var _candidateUserSearch = ('' + (candidateUserSearch || '')).toLowerCase();
+    var _candidateRoleSearch = ('' + (candidateRoleSearch || '')).toLowerCase();
+    var _maxCandidateUsers = Math.max(1, parseInt(maxCandidateUsers || '100', 10) || 100);
+    var _maxCandidateRoles = Math.max(1, parseInt(maxCandidateRoles || '100', 10) || 100);
 ↓IteratorAssignedUsers [steps.IteratorStep-1781192294469]: 
   comment: Collects users already attached to the group so candidate users can be computed backend-side.
   sourceDefinition: 
@@ -120,7 +124,8 @@ comment: 'Facade: returns the users and roles attached to one group (master-deta
   ↓CollectCandidateUser [steps.SimpleStep-1781192329337]: 
     expression: |
       'var allUserName = '''' + allUser;
-      if (allUserName && _assignedUsers.indexOf(allUserName) === -1) {
+      var userMatches = !_candidateUserSearch || allUserName.toLowerCase().indexOf(_candidateUserSearch) !== -1;
+      if (allUserName && userMatches && _assignedUsers.indexOf(allUserName) === -1) {
       	_candidateUserTotal++;
       	if (_candidateUsers.length < _maxCandidateUsers) {
       		_candidateUsers.push(allUserName);
@@ -148,8 +153,12 @@ comment: 'Facade: returns the users and roles attached to one group (master-deta
   ↓CollectCandidateRole [steps.SimpleStep-1781192329379]: 
     expression: |
       'var allRoleName = '''' + allRole;
-      if (allRoleName && _assignedRoles.indexOf(allRoleName) === -1) {
-      	_candidateRoles.push(allRoleName);
+      var roleMatches = !_candidateRoleSearch || allRoleName.toLowerCase().indexOf(_candidateRoleSearch) !== -1;
+      if (allRoleName && roleMatches && _assignedRoles.indexOf(allRoleName) === -1) {
+      	_candidateRoleTotal++;
+      	if (_candidateRoles.length < _maxCandidateRoles) {
+      		_candidateRoles.push(allRoleName);
+      	}
       }'
 ↓IteratorCandidateUsers [steps.SimpleIteratorStep-1781192329402]: 
   comment: Emits candidateUser nodes excluding users already assigned to the selected group.
@@ -163,5 +172,55 @@ comment: 'Facade: returns the users and roles attached to one group (master-deta
   ↓CandidateRole [steps.ElementStep-1781192329428]: 
     expression: _candidateRoles[index]
     nodeName: candidateRole
+↓CandidateUserMetrics [steps.XMLComplexStep-1781349784611]: 
+  comment: Summary metrics for candidate users after backend filtering and limiting.
+  nodeName: candidateUserMetrics
+  ↓Total [steps.ElementStep-1781349784613]: 
+    expression: _candidateUserTotal
+    nodeName: total
+  ↓Shown [steps.ElementStep-1781349784615]: 
+    expression: _candidateUsers.length
+    nodeName: shown
+  ↓Limit [steps.ElementStep-1781349784617]: 
+    expression: _maxCandidateUsers
+    nodeName: limit
+  ↓Label [steps.ElementStep-1781349784619]: 
+    expression: '_candidateUsers.length + '' / '' + _candidateUserTotal + '' membres disponibles'' + (_candidateUserTotal > _candidateUsers.length ? '' - affinez la recherche'' : '''')'
+    nodeName: label
+↓CandidateRoleMetrics [steps.XMLComplexStep-1781349784642]: 
+  comment: Summary metrics for candidate roles after backend filtering and limiting.
+  nodeName: candidateRoleMetrics
+  ↓Total [steps.ElementStep-1781349784644]: 
+    expression: _candidateRoleTotal
+    nodeName: total
+  ↓Shown [steps.ElementStep-1781349784646]: 
+    expression: _candidateRoles.length
+    nodeName: shown
+  ↓Limit [steps.ElementStep-1781349784648]: 
+    expression: _maxCandidateRoles
+    nodeName: limit
+  ↓Label [steps.ElementStep-1781349784650]: 
+    expression: '_candidateRoles.length + '' / '' + _candidateRoleTotal + '' roles disponibles'' + (_candidateRoleTotal > _candidateRoles.length ? '' - affinez la recherche'' : '''')'
+    nodeName: label
+↓DetailMetrics [steps.XMLComplexStep-1781348128735]: 
+  comment: Backend-prepared compact summary for the group detail header.
+  nodeName: detailMetrics
+  ↓Label [steps.ElementStep-1781348128740]: 
+    expression: _assignedUsers.length + ' membres - ' + _assignedRoles.length + ' roles'
+    nodeName: label
+  ↓Users [steps.ElementStep-1781348128743]: 
+    expression: _assignedUsers.length
+    nodeName: users
+  ↓Roles [steps.ElementStep-1781348128745]: 
+    expression: _assignedRoles.length
+    nodeName: roles
 ↓group [variables.RequestableVariable-1781164707344]: 
   comment: Group name to inspect.
+↓candidateUserSearch [variables.RequestableVariable-1781349800902]: 
+  comment: Optional user search text used to filter candidate members before they reach the Groups page.
+↓maxCandidateUsers [variables.RequestableVariable-1781349800923]: 
+  comment: Maximum number of candidate members returned to the Groups page. Defaults to 100.
+↓candidateRoleSearch [variables.RequestableVariable-1781349800941]: 
+  comment: Optional role search text used to filter candidate roles before they reach the Groups page.
+↓maxCandidateRoles [variables.RequestableVariable-1781349800959]: 
+  comment: Maximum number of candidate roles returned to the Groups page. Defaults to 100.

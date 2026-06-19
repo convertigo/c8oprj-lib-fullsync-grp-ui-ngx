@@ -689,76 +689,110 @@ title: Utilisateurs
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                         - MobileSmartSourceType: script:g?.text || g
-                  ↓RemoveGroupIcon [ngx.components.UIDynamicElement-1781166325630]: 
+                  ↓RemoveGroupButton [ngx.components.UIDynamicElement-1781876168176]: 
                     beanData: |
                       '{
-                       "ionBean": "Icon",
-                       "IconName": "plain:close-circle",
-                       "IconSlot": "plain:end"
+                       "ionBean": "Button",
+                       "IonColor": "plain:danger",
+                       "IonShape": "plain:round",
+                       "IonFill": "plain:solid",
+                       "IonSize": "plain:small"
                       }'
-                    tagName: ion-icon
-                    ↓Class [ngx.components.UIAttribute-1781166325632]: 
+                    tagName: ion-button
+                    ↓Class [ngx.components.UIAttribute-1781876168178]: 
                       attrName: class
                       attrValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: plain:chip-remove
-                    ↓Remove [ngx.components.UIControlEvent-1781166325634]: 
-                      ↓DoRemove [ngx.components.UIDynamicAction-1781166326400]: 
+                          - MobileSmartSourceType: plain:chip-remove-button
+                    ↓Title [ngx.components.UIAttribute-1781876168180]: 
+                      attrName: title
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:Supprimer ce groupe
+                    ↓AriaLabel [ngx.components.UIAttribute-1781876168182]: 
+                      attrName: aria-label
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:Supprimer ce groupe
+                    ↓Text [ngx.components.UIText-1781876168184]: 
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:×
+                    ↓Remove [ngx.components.UIControlEvent-1781876168186]: 
+                      ↓ConfirmRemoveGroup [ngx.components.UIDynamicAction-1781876168952]: 
                         beanData: |
                           '{
-                           "ionBean": "CallSequenceAction",
-                           "requestable": "plain:lib_FullSyncGrp_ui_ngx.RemoveUserFromGroup",
-                           "noLoading": "plain:true"
+                           "ionBean": "IonicActionSheetAction",
+                           "header": "script:\"Retirer le groupe \" + (g?.text || g) + \" de \" + (this.local?.selectedUser || \"\") + \" ?\"",
+                           "subHeader": "plain:Cette action retire uniquement l''association de l''utilisateur au groupe.",
+                           "button1": "plain:Retirer le groupe",
+                           "button2": "plain:Annuler",
+                           "value1": "script:\"remove\"",
+                           "value2": "script:\"cancel\"",
+                           "cancel1": "plain:destructive",
+                           "cancel2": "plain:cancel"
                           }'
-                        ↓user [ngx.components.UIControlVariable-1781166327178]: 
-                          varValue: 
-                            - xmlizable: 
-                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: script:this.local?.selectedUser
-                        ↓group [ngx.components.UIControlVariable-1781166327180]: 
-                          varValue: 
-                            - xmlizable: 
-                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: script:g?.text || g
-                        ↓ReloadDetail [ngx.components.UIDynamicAction-1781166327182]: 
-                          beanData: |
-                            '{
-                             "ionBean": "CallSequenceAction",
-                             "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserDetail",
-                             "noLoading": "plain:true"
-                            }'
-                          ↓user [ngx.components.UIControlVariable-1781166327184]: 
-                            varValue: 
-                              - xmlizable: 
-                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                                - MobileSmartSourceType: script:this.local?.selectedUser
-                          ↓StoreDetail [ngx.components.UIDynamicAction-1781166327186]: 
-                            beanData: |
-                              '{
-                               "ionBean": "SetLocalAction",
-                               "Property": "plain:userDetail",
-                               "Value": "script:out"
-                              }'
-                          ↓ReloadPerms [ngx.components.UIDynamicAction-1781166327188]: 
+                        ↓IfConfirmed [ngx.components.UIDynamicAction-1781876169730]: 
+                          beanData: '{"ionBean":"IfAction","condition":"script:parent.out?.data == ''remove''"}'
+                          ↓DoRemove [ngx.components.UIDynamicAction-1781876169732]: 
                             beanData: |
                               '{
                                "ionBean": "CallSequenceAction",
-                               "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserPermissions",
+                               "requestable": "plain:lib_FullSyncGrp_ui_ngx.RemoveUserFromGroup",
                                "noLoading": "plain:true"
                               }'
-                            ↓user [ngx.components.UIControlVariable-1781166327190]: 
+                            ↓user [ngx.components.UIControlVariable-1781876169734]: 
                               varValue: 
                                 - xmlizable: 
                                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                                   - MobileSmartSourceType: script:this.local?.selectedUser
-                            ↓StorePerms [ngx.components.UIDynamicAction-1781166327192]: 
+                            ↓group [ngx.components.UIControlVariable-1781876169736]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: script:g?.text || g
+                            ↓ReloadDetail [ngx.components.UIDynamicAction-1781876169738]: 
                               beanData: |
                                 '{
-                                 "ionBean": "SetLocalAction",
-                                 "Property": "plain:userPerms",
-                                 "Value": "script:out"
+                                 "ionBean": "CallSequenceAction",
+                                 "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserDetail",
+                                 "noLoading": "plain:true"
                                 }'
+                              ↓user [ngx.components.UIControlVariable-1781876169740]: 
+                                varValue: 
+                                  - xmlizable: 
+                                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                    - MobileSmartSourceType: script:this.local?.selectedUser
+                              ↓StoreDetail [ngx.components.UIDynamicAction-1781876169742]: 
+                                beanData: |
+                                  '{
+                                   "ionBean": "SetLocalAction",
+                                   "Property": "plain:userDetail",
+                                   "Value": "script:out"
+                                  }'
+                              ↓ReloadPerms [ngx.components.UIDynamicAction-1781876169744]: 
+                                beanData: |
+                                  '{
+                                   "ionBean": "CallSequenceAction",
+                                   "requestable": "plain:lib_FullSyncGrp_ui_ngx.UserPermissions",
+                                   "noLoading": "plain:true"
+                                  }'
+                                ↓user [ngx.components.UIControlVariable-1781876169746]: 
+                                  varValue: 
+                                    - xmlizable: 
+                                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                      - MobileSmartSourceType: script:this.local?.selectedUser
+                                ↓StorePerms [ngx.components.UIDynamicAction-1781876169748]: 
+                                  beanData: |
+                                    '{
+                                     "ionBean": "SetLocalAction",
+                                     "Property": "plain:userPerms",
+                                     "Value": "script:out"
+                                    }'
                   ↓Class [ngx.components.UIAttribute-1781194065094]: 
                     attrName: class
                     attrValue: 

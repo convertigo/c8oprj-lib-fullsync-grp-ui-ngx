@@ -29,6 +29,35 @@ comment: 'Facade: permissions and groups of one role.'
             - ↑value: 1781166448771
           - java.lang.String: 
             - ↑value: ./role/text()
+↓InitAssignedGroups [steps.SimpleStep-1781348550764]: 
+  comment: Initializes assigned group metrics before collecting groups for the selected role.
+  expression: var _assignedGroups = [];
+↓IteratorAssignedGroups [steps.IteratorStep-1781348128785]: 
+  comment: Collects groups using the selected role so header metrics are prepared in backend.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781166448777
+        - java.lang.String: 
+          - ↑value: ./document/group
+  ↓CurrentAssignedGroup [steps.SimpleSourceStep-1781348128787]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1781348128785
+          - java.lang.String: 
+            - ↑value: ./text()
+    variableName: assignedGroup
+  ↓CollectAssignedGroup [steps.SimpleStep-1781348128789]: 
+    expression: |
+      'var assignedGroupName = '''' + assignedGroup;
+      if (assignedGroupName) {
+      	_assignedGroups.push(assignedGroupName);
+      }'
 ↓InitCandidates [steps.SimpleStep-1781192344699]: 
   comment: Initializes assigned and candidate permission arrays for the selected role.
   expression: |
@@ -94,4 +123,16 @@ comment: 'Facade: permissions and groups of one role.'
   ↓CandidatePermission [steps.ElementStep-1781192368864]: 
     expression: _candidatePermissions[index]
     nodeName: candidatePermission
+↓DetailMetrics [steps.XMLComplexStep-1781348128807]: 
+  comment: Backend-prepared compact summary for the role detail header.
+  nodeName: detailMetrics
+  ↓Label [steps.ElementStep-1781348128809]: 
+    expression: _assignedPermissions.length + ' permissions - ' + _assignedGroups.length + ' groupes'
+    nodeName: label
+  ↓Permissions [steps.ElementStep-1781348128811]: 
+    expression: _assignedPermissions.length
+    nodeName: permissions
+  ↓Groups [steps.ElementStep-1781348128813]: 
+    expression: _assignedGroups.length
+    nodeName: groups
 ↓role [variables.RequestableVariable-1781166448769]: 

@@ -3297,3 +3297,115 @@ tplProjectName: mobilebuilder_tpl_8_4_0_ngx
           ion-card-header.user-detail-header-with-summary h2 { position: static; display: block; width: auto; max-width: none; min-width: 0; margin: 0 !important; margin-inline-start: 0 !important; margin-inline-end: 0 !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; line-height: 1.3; }
           ion-card-header.user-detail-header-with-summary .user-detail-header-summary.entity-result-summary { position: static; justify-self: end; max-width: 11rem; margin: 0; white-space: nowrap; }
           @media (max-width: 720px) { ion-card-header.user-detail-header-with-summary { padding-left: .5rem !important; padding-right: .5rem !important; column-gap: .4rem; } ion-card-header.user-detail-header-with-summary .user-detail-header-summary.entity-result-summary { max-width: 9.5rem; } }'
+↓AdminDetailHeaderSummaryStyle [ngx.components.UIStyle-1781348103320]: 
+  comment: Keeps RBAC detail titles and summary pills aligned on one padded header line.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          'ion-card-header.admin-detail-header-with-summary { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; column-gap: .5rem; align-items: center; min-height: 3.25rem; padding-left: .75rem !important; padding-right: .6rem !important; }
+          ion-card-header.admin-detail-header-with-summary h2 { display: block; width: auto; max-width: none; min-width: 0; margin: 0 !important; margin-inline-start: 0 !important; margin-inline-end: 0 !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; line-height: 1.3; }
+          ion-card-header.admin-detail-header-with-summary .admin-detail-header-summary.entity-result-summary { justify-self: end; max-width: 14rem; margin: 0; white-space: nowrap; }
+          @media (max-width: 720px) { ion-card-header.admin-detail-header-with-summary { padding-left: .5rem !important; padding-right: .5rem !important; column-gap: .4rem; } ion-card-header.admin-detail-header-with-summary .admin-detail-header-summary.entity-result-summary { max-width: 10rem; } }'
+↓AdminGroupPickerResponsiveStyle [ngx.components.UIStyle-1781864578650]: 
+  comment: Overrides the mobile full-width entity-grid column rule for nested group picker grids so filters and multi-selects remain on one line.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.entity-grid .group-picker-grid ion-col {
+            min-width: 0 !important;
+          }
+          
+          @media (max-width: 720px) {
+            .entity-grid .group-picker-grid ion-col {
+              min-width: 0 !important;
+            }
+          }
+          '
+↓AdminChipRemoveVisibleStyle [ngx.components.UIStyle-1781872298664]: 
+  comment: Makes destructive chip actions visible and easy to target on admin entity pages.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.entity-chip .chip-remove {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.15rem;
+            height: 1.15rem;
+            min-width: 1.15rem;
+            margin-inline-start: .4rem;
+            border-radius: 999px;
+            color: var(--ion-color-danger) !important;
+            background: rgba(var(--ion-color-danger-rgb), .12);
+            font-size: 1.05rem;
+            opacity: 1 !important;
+            cursor: pointer;
+            flex-shrink: 0;
+          }
+          
+          .entity-chip .chip-remove:hover,
+          .entity-chip .chip-remove:focus {
+            color: var(--ion-color-danger-contrast) !important;
+            background: var(--ion-color-danger);
+          }
+          
+          .entity-chip .chip-remove::part(icon) {
+            color: currentColor;
+          }
+          
+          .entity-chip .chip-remove-button {
+            --padding-start: 0;
+            --padding-end: 0;
+            --border-radius: 999px;
+            width: 1.35rem;
+            height: 1.35rem;
+            min-width: 1.35rem;
+            min-height: 1.35rem;
+            margin: 0 0 0 .45rem;
+            font-size: 1rem;
+            font-weight: 800;
+            line-height: 1;
+            vertical-align: middle;
+            flex-shrink: 0;
+          }
+          
+          .entity-chip .chip-remove-button::part(native) {
+            width: 1.35rem;
+            height: 1.35rem;
+            min-height: 1.35rem;
+            padding: 0;
+          }'
+↓AdminRolePermissionActionLayoutStyle [ngx.components.UIStyle-1781877735405]: 
+  comment: Aligns the existing-permission add action on the right side of the roles detail grid while preserving mobile stacking.
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.role-existing-permission-action-col {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          }
+          
+          .role-existing-permission-action-col .entity-action-button {
+            margin-left: auto;
+          }
+          
+          @media (max-width: 720px) {
+            .role-existing-permission-action-col {
+              justify-content: stretch;
+            }
+          
+            .role-existing-permission-action-col .entity-action-button {
+              width: 100%;
+              margin-left: 0;
+            }
+          }
+          '

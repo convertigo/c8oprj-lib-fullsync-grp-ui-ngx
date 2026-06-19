@@ -199,13 +199,78 @@ title: Rôles
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.rolesData?.sequence?.[0]?.document?.role || []).length || 0)
+                    - MobileSmartSourceType: script:this.local?.rolesData?.listMetrics?.roleTotal || '0'
               ↓BadgeClass [ngx.components.UIAttribute-1781194060464]: 
                 attrName: class
                 attrValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:admin-count-badge
+          ↓RoleSearchInput [ngx.components.UIDynamicElement-1781348163073]: 
+            beanData: |
+              '{
+               "ionBean": "Input",
+               "ControlName": "plain:roleSearch",
+               "ClearInput": "plain:true",
+               "Debounce": "plain:250",
+               "Placeholder": "plain:Rechercher un rôle..."
+              }'
+            comment: Search input that reloads backend-prepared role rows without filtering in the page.
+            tagName: ion-input
+            ↓Class [ngx.components.UIAttribute-1781348163075]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-search-input
+            ↓Typing [ngx.components.UIControlEvent-1781348163077]: 
+              attrName: (ionInput)
+              eventName: ionInput
+              ↓StoreRoleSearch [ngx.components.UIDynamicAction-1781348163843]: 
+                beanData: |
+                  '{
+                   "ionBean": "SetLocalAction",
+                   "Property": "plain:roleSearch",
+                   "Value": "script:event.detail.value || ''''"
+                  }'
+              ↓ReloadRoles [ngx.components.UIDynamicAction-1781348163845]: 
+                beanData: |
+                  '{
+                   "ionBean": "CallSequenceAction",
+                   "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+                   "noLoading": "plain:true"
+                  }'
+                ↓roleSearch [ngx.components.UIControlVariable-1781348164623]: 
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.roleSearch || ''
+                ↓maxRoles [ngx.components.UIControlVariable-1781348164625]: 
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:100
+                ↓StoreRoles [ngx.components.UIDynamicAction-1781348164627]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:rolesData",
+                     "Value": "script:out"
+                    }'
+          ↓RoleResultSummary [ngx.components.UIDynamicElement-1781348166937]: 
+            beanData: '{"ionBean":"Paragraph"}'
+            tagName: ion-p
+            ↓Text [ngx.components.UIText-1781348166939]: 
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:this.local?.rolesData?.listMetrics?.roleLabel || ''
+            ↓Class [ngx.components.UIAttribute-1781348166941]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-result-summary
           ↓RolesList [ngx.components.UIDynamicElement-1781166658148]: 
             beanData: '{"ionBean":"List","Lines":"plain:none"}'
             tagName: ion-list
@@ -215,7 +280,7 @@ title: Rôles
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:[].concat(this.local?.rolesData?.sequence?.[0]?.document?.role || [])
+                  - MobileSmartSourceType: script:[].concat(this.local?.rolesData?.visibleRole || [])
               ↓RItem [ngx.components.UIDynamicElement-1781166660442]: 
                 beanData: '{"ionBean":"ListItem","Button":"plain:true"}'
                 tagName: ion-item
@@ -325,6 +390,27 @@ title: Rôles
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                       - MobileSmartSourceType: script:this.local?.selectedRole
+              ↓DetailSummary [ngx.components.UIDynamicElement-1781348171561]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                comment: Backend-prepared role detail summary displayed in the detail header.
+                tagName: p
+                ↓Text [ngx.components.UIText-1781348171563]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.roleDetail?.detailMetrics?.label || ''
+                ↓Class [ngx.components.UIAttribute-1781348171565]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-result-summary admin-detail-header-summary
+              ↓HeaderClass [ngx.components.UIAttribute-1781348169251]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:admin-detail-header-with-summary
             ↓Body [ngx.components.UIDynamicElement-1781166688029]: 
               beanData: '{"ionBean":"CardContent"}'
               tagName: ion-card-content
@@ -357,183 +443,485 @@ title: Rôles
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                         - MobileSmartSourceType: script:perm?.text || perm
-                  ↓RemovePermIcon [ngx.components.UIDynamicElement-1781166707023]: 
+                  ↓RemovePermButton [ngx.components.UIDynamicElement-1781876825037]: 
                     beanData: |
                       '{
-                       "ionBean": "Icon",
-                       "IconName": "plain:close-circle",
-                       "IconSlot": "plain:end"
+                       "ionBean": "Button",
+                       "IonColor": "plain:danger",
+                       "IonShape": "plain:round",
+                       "IonFill": "plain:solid",
+                       "IonSize": "plain:small"
                       }'
-                    tagName: ion-icon
-                    ↓Class [ngx.components.UIAttribute-1781166707025]: 
+                    tagName: ion-button
+                    ↓Class [ngx.components.UIAttribute-1781876825039]: 
                       attrName: class
                       attrValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: plain:chip-remove
-                    ↓Remove [ngx.components.UIControlEvent-1781166707027]: 
-                      ↓DoRemove [ngx.components.UIDynamicAction-1781166707793]: 
+                          - MobileSmartSourceType: plain:chip-remove-button
+                    ↓Title [ngx.components.UIAttribute-1781876825041]: 
+                      attrName: title
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:Supprimer cette permission
+                    ↓AriaLabel [ngx.components.UIAttribute-1781876825043]: 
+                      attrName: aria-label
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:Supprimer cette permission
+                    ↓Text [ngx.components.UIText-1781876825045]: 
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:×
+                    ↓Remove [ngx.components.UIControlEvent-1781876825047]: 
+                      ↓ConfirmRemovePerm [ngx.components.UIDynamicAction-1781876825813]: 
                         beanData: |
                           '{
-                           "ionBean": "CallSequenceAction",
-                           "requestable": "plain:lib_FullSyncGrp_ui_ngx.RemovePermInRole",
-                           "noLoading": "plain:true"
+                           "ionBean": "IonicActionSheetAction",
+                           "header": "script:\"Retirer la permission \" + (perm?.text || perm) + \" du rôle \" + (this.local?.selectedRole || \"\") + \" ?\"",
+                           "subHeader": "plain:Cette action retire uniquement l''association de la permission au rôle.",
+                           "button1": "plain:Retirer la permission",
+                           "button2": "plain:Annuler",
+                           "value1": "script:\"remove\"",
+                           "value2": "script:\"cancel\"",
+                           "cancel1": "plain:destructive",
+                           "cancel2": "plain:cancel"
                           }'
-                        ↓role [ngx.components.UIControlVariable-1781166708571]: 
-                          varValue: 
-                            - xmlizable: 
-                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: script:this.local?.selectedRole
-                        ↓element [ngx.components.UIControlVariable-1781166708573]: 
-                          varValue: 
-                            - xmlizable: 
-                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: plain:
-                        ↓action [ngx.components.UIControlVariable-1781166708575]: 
-                          varValue: 
-                            - xmlizable: 
-                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: plain:
-                        ↓scope [ngx.components.UIControlVariable-1781166708577]: 
-                          varValue: 
-                            - xmlizable: 
-                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: plain:
-                        ↓ReloadDetail [ngx.components.UIDynamicAction-1781166708579]: 
-                          beanData: |
-                            '{
-                             "ionBean": "CallSequenceAction",
-                             "requestable": "plain:lib_FullSyncGrp_ui_ngx.RoleDetail",
-                             "noLoading": "plain:true"
-                            }'
-                          ↓role [ngx.components.UIControlVariable-1781166708581]: 
-                            varValue: 
-                              - xmlizable: 
-                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                                - MobileSmartSourceType: script:this.local?.selectedRole
-                          ↓Store [ngx.components.UIDynamicAction-1781166708583]: 
+                        ↓IfConfirmed [ngx.components.UIDynamicAction-1781876826591]: 
+                          beanData: '{"ionBean":"IfAction","condition":"script:parent.out?.data == ''remove''"}'
+                          ↓DoRemove [ngx.components.UIDynamicAction-1781876826593]: 
                             beanData: |
                               '{
-                               "ionBean": "SetLocalAction",
-                               "Property": "plain:roleDetail",
-                               "Value": "script:out"
+                               "ionBean": "CallSequenceAction",
+                               "requestable": "plain:lib_FullSyncGrp_ui_ngx.RemovePermInRole",
+                               "noLoading": "plain:true"
                               }'
-                        ↓permission [ngx.components.UIControlVariable-1781192974877]: 
-                          varValue: 
-                            - xmlizable: 
-                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: script:perm?.text || perm
+                            ↓role [ngx.components.UIControlVariable-1781876826595]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: script:this.local?.selectedRole
+                            ↓element [ngx.components.UIControlVariable-1781876826597]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: plain:
+                            ↓action [ngx.components.UIControlVariable-1781876826599]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: plain:
+                            ↓scope [ngx.components.UIControlVariable-1781876826601]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: plain:
+                            ↓permission [ngx.components.UIControlVariable-1781876826603]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: script:perm?.text || perm
+                            ↓ReloadDetail [ngx.components.UIDynamicAction-1781876826605]: 
+                              beanData: |
+                                '{
+                                 "ionBean": "CallSequenceAction",
+                                 "requestable": "plain:lib_FullSyncGrp_ui_ngx.RoleDetail",
+                                 "noLoading": "plain:true"
+                                }'
+                              ↓role [ngx.components.UIControlVariable-1781876826607]: 
+                                varValue: 
+                                  - xmlizable: 
+                                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                    - MobileSmartSourceType: script:this.local?.selectedRole
+                              ↓Store [ngx.components.UIDynamicAction-1781876826609]: 
+                                beanData: |
+                                  '{
+                                   "ionBean": "SetLocalAction",
+                                   "Property": "plain:roleDetail",
+                                   "Value": "script:out"
+                                  }'
                   ↓Class [ngx.components.UIAttribute-1781194074334]: 
                     attrName: class
                     attrValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                         - MobileSmartSourceType: plain:entity-chip
-              ↓AddPermSelect [ngx.components.UIDynamicElement-1781166720452]: 
-                beanData: |
-                  '{
-                   "ionBean": "Select",
-                   "ControlName": "plain:name1781166720452",
-                   "Placeholder": "plain:Ajouter une permission…"
-                  }'
-                tagName: ion-select
-                ↓Class [ngx.components.UIAttribute-1781166720454]: 
+              ↓ExistingPermGrid [ngx.components.UIDynamicElement-1781877566116]: 
+                beanData: '{"ionBean":"Grid"}'
+                tagName: ion-grid
+                ↓Class [ngx.components.UIAttribute-1781877566118]: 
                   attrName: class
                   attrValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: plain:add-select
-                ↓Pick [ngx.components.UIControlEvent-1781166720456]: 
-                  attrName: (ionChange)
-                  eventName: ionChange
-                  ↓StorePick [ngx.components.UIDynamicAction-1781166721222]: 
+                      - MobileSmartSourceType: plain:group-picker-grid role-existing-permission-grid
+                ↓ExistingPermRow [ngx.components.UIDynamicElement-1781877566120]: 
+                  beanData: '{"ionBean":"GridRow"}'
+                  tagName: ion-row
+                  ↓SelectCol [ngx.components.UIDynamicElement-1781877566122]: 
                     beanData: |
                       '{
-                       "ionBean": "SetLocalAction",
-                       "Property": "plain:newRolePerm",
-                       "Value": "script:event.detail.value"
+                       "ionBean": "GridCol",
+                       "SizeMd": "plain:8",
+                       "SizeXs": "plain:12"
                       }'
-                ↓CandPerms [ngx.components.UIControlDirective-1781166721224]: 
-                  directiveIndexName: cpi
-                  directiveItemName: cp
-                  directiveSource: 
-                    - xmlizable: 
-                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:[].concat(this.local?.roleDetail?.candidatePermission || [])
-                  ↓Opt [ngx.components.UIDynamicElement-1781166723516]: 
-                    beanData: '{"ionBean":"SelectOption","Value":"script:cp"}'
-                    tagName: ion-select-option
-                    ↓Text [ngx.components.UIText-1781166723518]: 
-                      textValue: 
+                    tagName: ion-col
+                    ↓AddPermSelect [ngx.components.UIDynamicElement-1781877566124]: 
+                      beanData: |
+                        '{
+                         "ionBean": "Select",
+                         "ControlName": "plain:name1781166720452",
+                         "Placeholder": "plain:Ajouter une permission…"
+                        }'
+                      tagName: ion-select
+                      ↓Class [ngx.components.UIAttribute-1781877566126]: 
+                        attrName: class
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:add-select
+                      ↓Pick [ngx.components.UIControlEvent-1781877566128]: 
+                        attrName: (ionChange)
+                        eventName: ionChange
+                        ↓StorePick [ngx.components.UIDynamicAction-1781877566894]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:newRolePerm",
+                             "Value": "script:event.detail.value"
+                            }'
+                      ↓CandPerms [ngx.components.UIControlDirective-1781877566896]: 
+                        directiveIndexName: cpi
+                        directiveItemName: cp
+                        directiveSource: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:[].concat(this.local?.roleDetail?.candidatePermission || [])
+                        ↓Opt [ngx.components.UIDynamicElement-1781877569242]: 
+                          beanData: '{"ionBean":"SelectOption","Value":"script:cp"}'
+                          tagName: ion-select-option
+                          ↓Text [ngx.components.UIText-1781877569244]: 
+                            textValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:cp
+                  ↓ButtonCol [ngx.components.UIDynamicElement-1781877569246]: 
+                    beanData: |
+                      '{
+                       "ionBean": "GridCol",
+                       "SizeMd": "plain:4",
+                       "SizeXs": "plain:12"
+                      }'
+                    tagName: ion-col
+                    ↓AddPermBtn [ngx.components.UIDynamicElement-1781877569248]: 
+                      beanData: '{"ionBean":"Button","IonColor":"plain:success"}'
+                      tagName: ion-button
+                      ↓Class [ngx.components.UIAttribute-1781877569250]: 
+                        attrName: class
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:entity-action-button
+                      ↓Text [ngx.components.UIText-1781877569252]: 
+                        textValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:Ajouter la permission
+                      ↓Add [ngx.components.UIControlEvent-1781877569254]: 
+                        ↓DoAdd [ngx.components.UIDynamicAction-1781877569256]: 
+                          beanData: |
+                            '{
+                             "ionBean": "CallSequenceAction",
+                             "requestable": "plain:lib_FullSyncGrp_ui_ngx.SetPermInRole",
+                             "noLoading": "plain:true"
+                            }'
+                          ↓role [ngx.components.UIControlVariable-1781877570034]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.selectedRole
+                          ↓element [ngx.components.UIControlVariable-1781877570036]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: plain:
+                          ↓action [ngx.components.UIControlVariable-1781877570038]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: plain:
+                          ↓scope [ngx.components.UIControlVariable-1781877570040]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: plain:
+                          ↓permission [ngx.components.UIControlVariable-1781877570042]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.newRolePerm
+                          ↓ReloadDetail [ngx.components.UIDynamicAction-1781877570044]: 
+                            beanData: |
+                              '{
+                               "ionBean": "CallSequenceAction",
+                               "requestable": "plain:lib_FullSyncGrp_ui_ngx.RoleDetail",
+                               "noLoading": "plain:true"
+                              }'
+                            ↓role [ngx.components.UIControlVariable-1781877570046]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: script:this.local?.selectedRole
+                            ↓Store [ngx.components.UIDynamicAction-1781877570048]: 
+                              beanData: |
+                                '{
+                                 "ionBean": "SetLocalAction",
+                                 "Property": "plain:roleDetail",
+                                 "Value": "script:out"
+                                }'
+                    ↓Class [ngx.components.UIAttribute-1781877727325]: 
+                      attrName: class
+                      attrValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: script:cp
-              ↓AddPermBtn [ngx.components.UIDynamicElement-1781166735228]: 
-                beanData: '{"ionBean":"Button","IonColor":"plain:success"}'
-                tagName: ion-button
-                ↓Text [ngx.components.UIText-1781166735230]: 
+                          - MobileSmartSourceType: plain:role-existing-permission-action-col
+              ↓NewPermLabel [ngx.components.UIDynamicElement-1781876828955]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                tagName: p
+                ↓Class [ngx.components.UIAttribute-1781876828957]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-section-label
+                ↓Text [ngx.components.UIText-1781876828959]: 
                   textValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: plain:Ajouter la permission
-                ↓Add [ngx.components.UIControlEvent-1781166735232]: 
-                  ↓DoAdd [ngx.components.UIDynamicAction-1781166735998]: 
-                    beanData: |
-                      '{
-                       "ionBean": "CallSequenceAction",
-                       "requestable": "plain:lib_FullSyncGrp_ui_ngx.SetPermInRole",
-                       "noLoading": "plain:true"
-                      }'
-                    ↓role [ngx.components.UIControlVariable-1781166736776]: 
-                      varValue: 
-                        - xmlizable: 
-                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: script:this.local?.selectedRole
-                    ↓element [ngx.components.UIControlVariable-1781166736778]: 
-                      varValue: 
-                        - xmlizable: 
-                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: plain:
-                    ↓action [ngx.components.UIControlVariable-1781166736780]: 
-                      varValue: 
-                        - xmlizable: 
-                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: plain:
-                    ↓scope [ngx.components.UIControlVariable-1781166736782]: 
-                      varValue: 
-                        - xmlizable: 
-                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: plain:
-                    ↓ReloadDetail [ngx.components.UIDynamicAction-1781166736784]: 
-                      beanData: |
-                        '{
-                         "ionBean": "CallSequenceAction",
-                         "requestable": "plain:lib_FullSyncGrp_ui_ngx.RoleDetail",
-                         "noLoading": "plain:true"
-                        }'
-                      ↓role [ngx.components.UIControlVariable-1781166736786]: 
-                        varValue: 
-                          - xmlizable: 
-                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                            - MobileSmartSourceType: script:this.local?.selectedRole
-                      ↓Store [ngx.components.UIDynamicAction-1781166736788]: 
-                        beanData: |
-                          '{
-                           "ionBean": "SetLocalAction",
-                           "Property": "plain:roleDetail",
-                           "Value": "script:out"
-                          }'
-                    ↓permission [ngx.components.UIControlVariable-1781192975655]: 
-                      varValue: 
-                        - xmlizable: 
-                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: script:this.local?.newRolePerm
-                ↓Class [ngx.components.UIAttribute-1781194157270]: 
+                      - MobileSmartSourceType: plain:Nouvelle permission
+              ↓NewPermGrid [ngx.components.UIDynamicElement-1781876831305]: 
+                beanData: '{"ionBean":"Grid"}'
+                tagName: ion-grid
+                ↓Class [ngx.components.UIAttribute-1781876831307]: 
                   attrName: class
                   attrValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: plain:entity-action-button
+                      - MobileSmartSourceType: plain:group-picker-grid role-new-permission-grid
+                ↓NewPermRow [ngx.components.UIDynamicElement-1781876831309]: 
+                  beanData: '{"ionBean":"GridRow"}'
+                  tagName: ion-row
+                  ↓ProjectCol [ngx.components.UIDynamicElement-1781876831311]: 
+                    beanData: |
+                      '{
+                       "ionBean": "GridCol",
+                       "SizeMd": "plain:4",
+                       "SizeXs": "plain:12"
+                      }'
+                    tagName: ion-col
+                    ↓ProjectInput [ngx.components.UIDynamicElement-1781876831313]: 
+                      beanData: |
+                        '{
+                         "ionBean": "Input",
+                         "ControlName": "plain:newRolePermProject",
+                         "ClearInput": "plain:true",
+                         "Debounce": "plain:0",
+                         "Placeholder": "plain:Projet",
+                         "Value": "script:this.local?.newRolePermProject || ''''"
+                        }'
+                      tagName: ion-input
+                      ↓Class [ngx.components.UIAttribute-1781876831315]: 
+                        attrName: class
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:entity-search-input group-filter-input
+                      ↓Typing [ngx.components.UIControlEvent-1781876831317]: 
+                        attrName: (ionInput)
+                        eventName: ionInput
+                        ↓StoreProject [ngx.components.UIDynamicAction-1781876832083]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:newRolePermProject",
+                             "Value": "script:event.detail.value || ''''"
+                            }'
+                  ↓ActionCol [ngx.components.UIDynamicElement-1781876832085]: 
+                    beanData: |
+                      '{
+                       "ionBean": "GridCol",
+                       "SizeMd": "plain:4",
+                       "SizeXs": "plain:12"
+                      }'
+                    tagName: ion-col
+                    ↓ActionInput [ngx.components.UIDynamicElement-1781876832087]: 
+                      beanData: |
+                        '{
+                         "ionBean": "Input",
+                         "ControlName": "plain:newRolePermAction",
+                         "ClearInput": "plain:true",
+                         "Debounce": "plain:0",
+                         "Placeholder": "plain:Permission",
+                         "Value": "script:this.local?.newRolePermAction || ''''"
+                        }'
+                      tagName: ion-input
+                      ↓Class [ngx.components.UIAttribute-1781876832089]: 
+                        attrName: class
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:entity-search-input group-filter-input
+                      ↓Typing [ngx.components.UIControlEvent-1781876832091]: 
+                        attrName: (ionInput)
+                        eventName: ionInput
+                        ↓StoreAction [ngx.components.UIDynamicAction-1781876832093]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:newRolePermAction",
+                             "Value": "script:event.detail.value || ''''"
+                            }'
+                  ↓ScopeCol [ngx.components.UIDynamicElement-1781876832095]: 
+                    beanData: |
+                      '{
+                       "ionBean": "GridCol",
+                       "SizeMd": "plain:2",
+                       "SizeXs": "plain:6"
+                      }'
+                    tagName: ion-col
+                    ↓ScopeSelect [ngx.components.UIDynamicElement-1781876832097]: 
+                      beanData: |
+                        '{
+                         "ionBean": "Select",
+                         "ControlName": "plain:newRolePermScope",
+                         "Interface": "plain:popover",
+                         "Placeholder": "plain:Scope",
+                         "Value": "script:this.local?.newRolePermScope || ''own''"
+                        }'
+                      tagName: ion-select
+                      ↓Class [ngx.components.UIAttribute-1781876832099]: 
+                        attrName: class
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:add-select
+                      ↓Pick [ngx.components.UIControlEvent-1781876832101]: 
+                        attrName: (ionChange)
+                        eventName: ionChange
+                        ↓StoreScope [ngx.components.UIDynamicAction-1781876832103]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:newRolePermScope",
+                             "Value": "script:event.detail.value || ''own''"
+                            }'
+                      ↓OwnOption [ngx.components.UIDynamicElement-1781876832105]: 
+                        beanData: '{"ionBean":"SelectOption","Value":"plain:own"}'
+                        tagName: ion-select-option
+                        ↓Text [ngx.components.UIText-1781876832107]: 
+                          textValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: plain:own
+                      ↓AllOption [ngx.components.UIDynamicElement-1781876832109]: 
+                        beanData: '{"ionBean":"SelectOption","Value":"plain:all"}'
+                        tagName: ion-select-option
+                        ↓Text [ngx.components.UIText-1781876832111]: 
+                          textValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: plain:all
+                  ↓AddCol [ngx.components.UIDynamicElement-1781876832113]: 
+                    beanData: |
+                      '{
+                       "ionBean": "GridCol",
+                       "SizeMd": "plain:2",
+                       "SizeXs": "plain:6"
+                      }'
+                    tagName: ion-col
+                    ↓AddNewPermBtn [ngx.components.UIDynamicElement-1781876832115]: 
+                      beanData: '{"ionBean":"Button","IonColor":"plain:success"}'
+                      tagName: ion-button
+                      ↓Class [ngx.components.UIAttribute-1781876832117]: 
+                        attrName: class
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:entity-action-button
+                      ↓Text [ngx.components.UIText-1781876832119]: 
+                        textValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:Créer et ajouter
+                      ↓Add [ngx.components.UIControlEvent-1781876832121]: 
+                        ↓DoAdd [ngx.components.UIDynamicAction-1781876832123]: 
+                          beanData: |
+                            '{
+                             "ionBean": "CallSequenceAction",
+                             "requestable": "plain:lib_FullSyncGrp_ui_ngx.SetPermInRole",
+                             "noLoading": "plain:true"
+                            }'
+                          ↓role [ngx.components.UIControlVariable-1781876832901]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.selectedRole
+                          ↓element [ngx.components.UIControlVariable-1781876832903]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.newRolePermProject
+                          ↓action [ngx.components.UIControlVariable-1781876832905]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.newRolePermAction
+                          ↓scope [ngx.components.UIControlVariable-1781876832907]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.newRolePermScope || 'own'
+                          ↓permission [ngx.components.UIControlVariable-1781876832909]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: plain:
+                          ↓ReloadDetail [ngx.components.UIDynamicAction-1781876832911]: 
+                            beanData: |
+                              '{
+                               "ionBean": "CallSequenceAction",
+                               "requestable": "plain:lib_FullSyncGrp_ui_ngx.RoleDetail",
+                               "noLoading": "plain:true"
+                              }'
+                            ↓role [ngx.components.UIControlVariable-1781876832913]: 
+                              varValue: 
+                                - xmlizable: 
+                                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                  - MobileSmartSourceType: script:this.local?.selectedRole
+                            ↓Store [ngx.components.UIDynamicAction-1781876832915]: 
+                              beanData: |
+                                '{
+                                 "ionBean": "SetLocalAction",
+                                 "Property": "plain:roleDetail",
+                                 "Value": "script:out"
+                                }'
+                            ↓ClearProject [ngx.components.UIDynamicAction-1781876832917]: 
+                              beanData: |
+                                '{
+                                 "ionBean": "SetLocalAction",
+                                 "Property": "plain:newRolePermProject",
+                                 "Value": "plain:"
+                                }'
+                            ↓ClearAction [ngx.components.UIDynamicAction-1781876832919]: 
+                              beanData: |
+                                '{
+                                 "ionBean": "SetLocalAction",
+                                 "Property": "plain:newRolePermAction",
+                                 "Value": "plain:"
+                                }'
               ↓GroupsLabel [ngx.components.UIDynamicElement-1781166688043]: 
                 beanData: '{"ionBean":"Paragraph"}'
                 tagName: p
@@ -591,3 +979,13 @@ title: Rôles
          "Property": "plain:rolesData",
          "Value": "script:out"
         }'
+    ↓maxRoles [ngx.components.UIControlVariable-1781348159985]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:100
+    ↓roleSearch [ngx.components.UIControlVariable-1781348160763]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:this.local?.roleSearch || ''

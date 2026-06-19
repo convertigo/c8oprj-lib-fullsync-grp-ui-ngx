@@ -161,6 +161,16 @@ title: Permissions
          "Property": "plain:permsData",
          "Value": "script:out"
         }'
+    ↓maxPermissions [ngx.components.UIControlVariable-1781348198911]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:100
+    ↓permissionSearch [ngx.components.UIControlVariable-1781348199689]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:this.local?.permissionSearch || ''
 ↓Content [ngx.components.UIDynamicElement-1781166771594]: 
   beanData: '{"ionBean":"Content"}'
   comment: Scrollable content hosting the permissions master-detail inspection layout.
@@ -215,13 +225,78 @@ title: Permissions
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: script:'' + ((this.local?.permsData?.sequence?.[1]?.document?.permission || []).length || 0)
+                    - MobileSmartSourceType: script:this.local?.permsData?.listMetrics?.permissionTotal || '0'
               ↓BadgeClass [ngx.components.UIAttribute-1781194062784]: 
                 attrName: class
                 attrValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:admin-count-badge
+          ↓PermissionSearchInput [ngx.components.UIDynamicElement-1781348201999]: 
+            beanData: |
+              '{
+               "ionBean": "Input",
+               "ControlName": "plain:permissionSearch",
+               "ClearInput": "plain:true",
+               "Debounce": "plain:250",
+               "Placeholder": "plain:Rechercher une permission..."
+              }'
+            comment: Search input that reloads backend-prepared permission rows without filtering in the page.
+            tagName: ion-input
+            ↓Class [ngx.components.UIAttribute-1781348202001]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-search-input
+            ↓Typing [ngx.components.UIControlEvent-1781348202003]: 
+              attrName: (ionInput)
+              eventName: ionInput
+              ↓StorePermissionSearch [ngx.components.UIDynamicAction-1781348202769]: 
+                beanData: |
+                  '{
+                   "ionBean": "SetLocalAction",
+                   "Property": "plain:permissionSearch",
+                   "Value": "script:event.detail.value || ''''"
+                  }'
+              ↓ReloadPermissions [ngx.components.UIDynamicAction-1781348202771]: 
+                beanData: |
+                  '{
+                   "ionBean": "CallSequenceAction",
+                   "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+                   "noLoading": "plain:true"
+                  }'
+                ↓permissionSearch [ngx.components.UIControlVariable-1781348203549]: 
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.permissionSearch || ''
+                ↓maxPermissions [ngx.components.UIControlVariable-1781348203551]: 
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:100
+                ↓StorePermissions [ngx.components.UIDynamicAction-1781348203553]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:permsData",
+                     "Value": "script:out"
+                    }'
+          ↓PermissionResultSummary [ngx.components.UIDynamicElement-1781348205863]: 
+            beanData: '{"ionBean":"Paragraph"}'
+            tagName: p
+            ↓Text [ngx.components.UIText-1781348205865]: 
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:this.local?.permsData?.listMetrics?.permissionLabel || ''
+            ↓Class [ngx.components.UIAttribute-1781348205867]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:entity-result-summary
           ↓PermsList [ngx.components.UIDynamicElement-1781166773896]: 
             beanData: '{"ionBean":"List","Lines":"plain:none"}'
             tagName: ion-list
@@ -231,7 +306,7 @@ title: Permissions
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: script:[].concat(this.local?.permsData?.sequence?.[1]?.document?.permission || [])
+                  - MobileSmartSourceType: script:[].concat(this.local?.permsData?.visiblePermission || [])
               ↓PItem [ngx.components.UIDynamicElement-1781166776190]: 
                 beanData: '{"ionBean":"ListItem","Button":"plain:true"}'
                 tagName: ion-item
@@ -341,6 +416,27 @@ title: Permissions
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                       - MobileSmartSourceType: script:this.local?.selectedPerm
+              ↓DetailSummary [ngx.components.UIDynamicElement-1781348210487]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                comment: Backend-prepared permission detail summary displayed in the detail header.
+                tagName: p
+                ↓Text [ngx.components.UIText-1781348210489]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:this.local?.permDetail?.detailMetrics?.label || ''
+                ↓Class [ngx.components.UIAttribute-1781348210491]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:entity-result-summary admin-detail-header-summary
+              ↓HeaderClass [ngx.components.UIAttribute-1781348208177]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:admin-detail-header-with-summary
             ↓Body [ngx.components.UIDynamicElement-1781166787823]: 
               beanData: '{"ionBean":"CardContent"}'
               tagName: ion-card-content

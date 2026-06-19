@@ -13,16 +13,58 @@ comment: 'Facade: add a permission (element.action:scope) to a role.'
         - java.lang.String: 
           - ↑value: ./permission/text()
   variableName: permissionFull
+↓ReadElement [steps.SimpleSourceStep-1781876746252]: 
+  comment: Reads the free project/resource field used when adding a permission that does not already exist.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781166448805
+        - java.lang.String: 
+          - ↑value: ./element/text()
+  variableName: permissionElement
+↓ReadAction [steps.SimpleSourceStep-1781876746273]: 
+  comment: Reads the free permission/action field used when adding a permission that does not already exist.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781166448805
+        - java.lang.String: 
+          - ↑value: ./action/text()
+  variableName: permissionAction
+↓ReadScope [steps.SimpleSourceStep-1781876746286]: 
+  comment: Reads the selected scope for a new permission; accepted UI values are own and all.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781166448805
+        - java.lang.String: 
+          - ↑value: ./scope/text()
+  variableName: permissionScope
 ↓ParsePermission [steps.SimpleStep-1781192920243]: 
-  comment: Parses permission formatted as element.action:scope into the lib_FullSyncGrp SetPermInRole variables.
+  comment: Parses an existing permission key or composes one from free project/action/scope fields for new permissions.
   expression: |
     'var _permissionFull = '''' + (permissionFull || '''');
+    var _inputElement = '''' + (permissionElement || '''');
+    var _inputAction = '''' + (permissionAction || '''');
+    var _inputScope = '''' + (permissionScope || '''');
     var _permissionParts = _permissionFull.split('':'');
     var _permissionLeft = _permissionParts[0] || '''';
     var _permissionLastDot = _permissionLeft.lastIndexOf(''.'');
     var _parsedElement = _permissionLastDot >= 0 ? _permissionLeft.substring(0, _permissionLastDot) : _permissionLeft;
     var _parsedAction = _permissionLastDot >= 0 ? _permissionLeft.substring(_permissionLastDot + 1) : '''';
-    var _parsedScope = _permissionParts[1] || '''';'
+    var _parsedScope = _permissionParts[1] || '''';
+    if (!_permissionFull) {
+    	_parsedElement = _inputElement;
+    	_parsedAction = _inputAction;
+    	_parsedScope = _inputScope;
+    }
+    _parsedScope = _parsedScope == ''all'' ? ''all'' : ''own'';'
 ↓ParsedElement [steps.ElementStep-1781192920270]: 
   expression: _parsedElement
   nodeName: parsedElement
@@ -78,10 +120,10 @@ comment: 'Facade: add a permission (element.action:scope) to a role.'
 ↓role [variables.RequestableVariable-1781166448797]: 
   comment: Target role receiving the permission.
 ↓element [variables.RequestableVariable-1781166448799]: 
-  comment: Compatibility variable populated from permission parsing when needed.
+  comment: Project/resource name used when creating a new permission from free fields.
 ↓action [variables.RequestableVariable-1781166448801]: 
-  comment: Compatibility variable populated from permission parsing when needed.
+  comment: Permission/action name used when creating a new permission from free fields.
 ↓scope [variables.RequestableVariable-1781166448803]: 
-  comment: Compatibility variable populated from permission parsing when needed.
+  comment: Permission scope for new free-field permissions; expected values are own or all.
 ↓permission [variables.RequestableVariable-1781192884103]: 
   comment: Full permission key selected in the UI, formatted as element.action:scope.
