@@ -237,7 +237,6 @@ title: Administration RBAC
               beanData: |
                 '{
                  "ionBean": "Button",
-                 "Disabled": "plain:true",
                  "IonColor": "plain:tertiary",
                  "IonFill": "plain:outline",
                  "IonSize": "plain:small"
@@ -258,7 +257,6 @@ title: Administration RBAC
               beanData: |
                 '{
                  "ionBean": "Button",
-                 "Disabled": "plain:true",
                  "IonColor": "plain:secondary",
                  "IonFill": "plain:outline",
                  "IonSize": "plain:small"
@@ -279,7 +277,6 @@ title: Administration RBAC
               beanData: |
                 '{
                  "ionBean": "Button",
-                 "Disabled": "plain:true",
                  "IonColor": "plain:primary",
                  "IonFill": "plain:outline",
                  "IonSize": "plain:small"
@@ -300,7 +297,6 @@ title: Administration RBAC
               beanData: |
                 '{
                  "ionBean": "Button",
-                 "Disabled": "plain:true",
                  "IonColor": "plain:success",
                  "IonFill": "plain:outline",
                  "IonSize": "plain:small"
