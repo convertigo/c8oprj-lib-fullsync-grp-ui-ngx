@@ -2,43 +2,65 @@ authenticatedContextRequired: true
 comment: 'Facade: create an internal user account (pass-through to lib_UserManager.AddUser).'
 ↓InputVariables [steps.InputVariablesStep-1781165701593]: 
   nodeName: InputVariables
-↓Add [steps.SequenceStep-1781165701595]: 
-  comment: Delegates account creation to lib_UserManager.AddUser; the page only passes user and password.
-  output: true
-  sourceSequence: lib_UserManager.AddUser
-  ↓user [variables.StepVariable-1781165713894]: 
-    sourceDefinition: 
-      - xmlizable: 
-        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-        - com.twinsoft.convertigo.beans.common.XMLVector: 
-          - java.lang.String: 
-            - ↑value: 1781165701593
-          - java.lang.String: 
-            - ↑value: ./user/text()
-  ↓password [variables.StepVariable-1781165713909]: 
-    sourceDefinition: 
-      - xmlizable: 
-        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-        - com.twinsoft.convertigo.beans.common.XMLVector: 
-          - java.lang.String: 
-            - ↑value: 1781165701593
-          - java.lang.String: 
-            - ↑value: ./password/text()
-↓CreateUserErrorMessage [steps.SimpleSourceStep-1781248823096]: 
-  comment: Extracts the backend error message from lib_UserManager.AddUser for a UI-ready response contract.
+↓ReadUserEmail [steps.SimpleSourceStep-1781879789335]: 
+  comment: Reads the requested user id before backend validation.
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
       - com.twinsoft.convertigo.beans.common.XMLVector: 
         - java.lang.String: 
-          - ↑value: 1781165701595
+          - ↑value: 1781165701593
+        - java.lang.String: 
+          - ↑value: ./user/text()
+  variableName: createUserInputEmail
+↓ValidateEmail [steps.SimpleStep-1781879795298]: 
+  comment: Validates the user id as an email before any account creation call.
+  expression: |
+    'var _createUserEmail = ('''' + (createUserInputEmail || '''')).trim();
+    var _createUserEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var _createUserInvalidEmail = !_createUserEmailPattern.test(_createUserEmail);
+    var _createUserValidationError = _createUserInvalidEmail ? ''adresse email invalide'' : '''';'
+↓IfValidEmail [steps.IfStep-1781879803380]: 
+  comment: Runs the backend account creation only when the submitted user id is a valid email.
+  condition: '!_createUserInvalidEmail'
+  ↓Add [steps.SequenceStep-1781879803382]: 
+    comment: Delegates account creation to lib_UserManager.AddUser after email validation.
+    output: true
+    sourceSequence: lib_UserManager.AddUser
+    ↓user [variables.StepVariable-1781879803384]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1781165701593
+            - java.lang.String: 
+              - ↑value: ./user/text()
+    ↓password [variables.StepVariable-1781879803386]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1781165701593
+            - java.lang.String: 
+              - ↑value: ./password/text()
+↓CreateUserErrorMessage [steps.SimpleSourceStep-1781248823096]: 
+  comment: Extracts the backend error message from lib_UserManager.AddUser when email validation allowed the call.
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1781879803382
         - java.lang.String: 
           - ↑value: ./document/error/message/text()
   variableName: createUserErrorMessage
 ↓PrepareCreateUserResult [steps.SimpleStep-1781248823125]: 
-  comment: 'Prepares the small response contract consumed by NGX pages: hasError and toastMessage.'
+  comment: 'Prepares the small response contract consumed by NGX pages: hasError and toastMessage, including email validation failures.'
   expression: |
-    'var _createUserRawError = '''' + (createUserErrorMessage || '''');
+    'var _createUserBackendError = '''' + (createUserErrorMessage || '''');
+    var _createUserRawError = _createUserValidationError || _createUserBackendError;
     var _createUserHasError = _createUserRawError.length > 0;
     var _createUserDisplayError = _createUserRawError == ''Authentication required'' ? ''authentification requise'' : _createUserRawError;
     var _createUserToastMessage = _createUserHasError ? (''Création impossible : '' + _createUserDisplayError) : '''';'

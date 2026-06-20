@@ -215,7 +215,12 @@ title: Utilisateurs
                 '{
                  "ionBean": "Input",
                  "ControlName": "plain:name1781166199517",
-                 "Placeholder": "plain:Email"
+                 "ErrorText": "plain:Adresse email invalide.",
+                 "HelperText": "plain:Saisir une adresse email valide.",
+                 "Pattern": "plain:^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+                 "Placeholder": "plain:Email",
+                 "Required": "plain:true",
+                 "Type": "plain:email"
                 }'
               tagName: ion-input
               ↓Class [ngx.components.UIAttribute-1781166199519]: 
@@ -279,77 +284,96 @@ title: Utilisateurs
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: plain:Créer le compte
               ↓Create [ngx.components.UIControlEvent-1781166200305]: 
-                ↓ConfirmCreateUser [ngx.components.UIDynamicAction-1781247120993]: 
-                  beanData: |
-                    '{
-                     "ionBean": "AlertAction",
-                     "header": "plain:Confirmer la création",
-                     "message": "script:''Créer le compte utilisateur '' + (this.local?.newUserEmail || '''') + '' ?''",
-                     "backdropDismiss": "plain:false",
-                     "button1": "plain:Annuler",
-                     "button2": "plain:Créer",
-                     "value1": "plain:cancel",
-                     "value2": "plain:confirm",
-                     "cancel1": "plain:cancel",
-                     "css1": "plain:alert-button-cancel",
-                     "css2": "plain:alert-button-confirm"
-                    }'
-                  comment: Confirmation dialog shown before creating an internal user account.
-                  ↓IfConfirmed [ngx.components.UIDynamicAction-1781247121771]: 
-                    beanData: '{"ionBean":"IfAction","condition":"script:parent.out?.data == ''confirm''"}'
-                    comment: Runs the user creation flow only when the administrator confirms the alert.
-                    ↓DoCreate [ngx.components.UIDynamicAction-1781247121773]: 
-                      beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_FullSyncGrp_ui_ngx.CreateUser"}'
-                      ↓user [ngx.components.UIControlVariable-1781248637053]: 
-                        varValue: 
-                          - xmlizable: 
-                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                            - MobileSmartSourceType: script:this.local?.newUserEmail
-                      ↓password [ngx.components.UIControlVariable-1781248638446]: 
-                        varValue: 
-                          - xmlizable: 
-                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                            - MobileSmartSourceType: script:this.local?.newUserPassword
-                      ↓IfCreateError [ngx.components.UIDynamicAction-1781248638521]: 
-                        beanData: '{"ionBean":"IfAction","condition":"script:out?.hasError == ''true''"}'
-                        comment: Shows the account creation notification only when the backend-prepared CreateUser contract reports an error.
-                        ↓ShowCreateError [ngx.components.UIDynamicAction-1781248836785]: 
-                          beanData: |
-                            '{
-                             "ionBean": "ToastAction",
-                             "IonColor": "plain:danger",
-                             "message": "script:stack[''DoCreate'']?.out?.toastMessage",
-                             "duration": "plain:4500",
-                             "position": "plain:top",
-                             "icon": "plain:alert-circle-outline",
-                             "showCloseButton": "plain:true",
-                             "closeButtonText": "plain:Fermer"
-                            }'
-                          comment: Displays the backend-prepared account creation error message.
-                      ↓ReloadList [ngx.components.UIDynamicAction-1781248646667]: 
-                        beanData: |
-                          '{
-                           "ionBean": "CallSequenceAction",
-                           "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
-                           "noLoading": "plain:true"
-                          }'
-                        ↓StoreUsers [ngx.components.UIDynamicAction-1781248646674]: 
-                          beanData: |
-                            '{
-                             "ionBean": "SetLocalAction",
-                             "Property": "plain:usersData",
-                             "Value": "script:out"
-                            }'
-                        ↓userSearch [ngx.components.UIControlVariable-1781248646676]: 
+                ↓IfInvalidEmail [ngx.components.UIDynamicAction-1781880072949]: 
+                  beanData: '{"ionBean":"IfAction","condition":"script:!(\/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$\/.test((this.local?.newUserEmail || '''').trim()))"}'
+                  comment: Stops the create flow and explains that a valid email is required.
+                  ↓ShowInvalidEmail [ngx.components.UIDynamicAction-1781880073727]: 
+                    beanData: |
+                      '{
+                       "ionBean": "ToastAction",
+                       "IonColor": "plain:warning",
+                       "message": "plain:Saisissez une adresse email valide avant de créer le compte.",
+                       "duration": "plain:3500",
+                       "position": "plain:top",
+                       "icon": "plain:mail-outline",
+                       "showCloseButton": "plain:true",
+                       "closeButtonText": "plain:Fermer"
+                      }'
+                    comment: Notifies the administrator that account creation requires a valid email.
+                ↓IfValidEmail [ngx.components.UIDynamicAction-1781880149950]: 
+                  beanData: '{"ionBean":"IfAction","condition":"script:\/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$\/.test((this.local?.newUserEmail || '''').trim())"}'
+                  comment: Allows account creation confirmation only when the entered user id is a valid email.
+                  ↓ConfirmCreateUser [ngx.components.UIDynamicAction-1781247120993]: 
+                    beanData: |
+                      '{
+                       "ionBean": "AlertAction",
+                       "header": "plain:Confirmer la création",
+                       "message": "script:''Créer le compte utilisateur '' + (this.local?.newUserEmail || '''') + '' ?''",
+                       "backdropDismiss": "plain:false",
+                       "button1": "plain:Annuler",
+                       "button2": "plain:Créer",
+                       "value1": "plain:cancel",
+                       "value2": "plain:confirm",
+                       "cancel1": "plain:cancel",
+                       "css1": "plain:alert-button-cancel",
+                       "css2": "plain:alert-button-confirm"
+                      }'
+                    comment: Confirmation dialog shown before creating an internal user account.
+                    ↓IfConfirmed [ngx.components.UIDynamicAction-1781247121771]: 
+                      beanData: '{"ionBean":"IfAction","condition":"script:parent.out?.data == ''confirm''"}'
+                      comment: Runs the user creation flow only when the administrator confirms the alert.
+                      ↓DoCreate [ngx.components.UIDynamicAction-1781247121773]: 
+                        beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_FullSyncGrp_ui_ngx.CreateUser"}'
+                        ↓user [ngx.components.UIControlVariable-1781248637053]: 
                           varValue: 
                             - xmlizable: 
                               - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: script:this.local?.userSearch || ''
-                        ↓maxUsers [ngx.components.UIControlVariable-1781248646678]: 
+                              - MobileSmartSourceType: script:this.local?.newUserEmail
+                        ↓password [ngx.components.UIControlVariable-1781248638446]: 
                           varValue: 
                             - xmlizable: 
                               - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                              - MobileSmartSourceType: plain:100
+                              - MobileSmartSourceType: script:this.local?.newUserPassword
+                        ↓IfCreateError [ngx.components.UIDynamicAction-1781248638521]: 
+                          beanData: '{"ionBean":"IfAction","condition":"script:out?.hasError == ''true''"}'
+                          comment: Shows the account creation notification only when the backend-prepared CreateUser contract reports an error.
+                          ↓ShowCreateError [ngx.components.UIDynamicAction-1781248836785]: 
+                            beanData: |
+                              '{
+                               "ionBean": "ToastAction",
+                               "IonColor": "plain:danger",
+                               "message": "script:stack[''DoCreate'']?.out?.toastMessage",
+                               "duration": "plain:4500",
+                               "position": "plain:top",
+                               "icon": "plain:alert-circle-outline",
+                               "showCloseButton": "plain:true",
+                               "closeButtonText": "plain:Fermer"
+                              }'
+                            comment: Displays the backend-prepared account creation error message.
+                        ↓ReloadList [ngx.components.UIDynamicAction-1781248646667]: 
+                          beanData: |
+                            '{
+                             "ionBean": "CallSequenceAction",
+                             "requestable": "plain:lib_FullSyncGrp_ui_ngx.AdminDashboard",
+                             "noLoading": "plain:true"
+                            }'
+                          ↓StoreUsers [ngx.components.UIDynamicAction-1781248646674]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetLocalAction",
+                               "Property": "plain:usersData",
+                               "Value": "script:out"
+                              }'
+                          ↓userSearch [ngx.components.UIControlVariable-1781248646676]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.local?.userSearch || ''
+                          ↓maxUsers [ngx.components.UIControlVariable-1781248646678]: 
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: plain:100
               ↓Class [ngx.components.UIAttribute-1781194148030]: 
                 attrName: class
                 attrValue: 
